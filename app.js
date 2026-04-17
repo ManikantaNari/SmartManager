@@ -69,8 +69,9 @@ const MASTER_PIN = '181866';
 let masterPin = '';
 let newPin = '';
 // ==================== INITIALIZATION ====================
-document.addEventListener('DOMContentLoaded', () => {
-    loadLocalData();
+document.addEventListener('DOMContentLoaded', async () => {
+    await loadLocalData();
+    await loadPinFromFirebase();
     // Don't init app yet - wait for login
 });
 // ==================== LOGIN ====================
@@ -242,7 +243,8 @@ function updateNewPinDisplay() {
 }
 function saveNewOwnerPin() {
     adminPin = newPin;
-    localStorage.setItem('sm_admin_pin', adminPin);
+    // Sync PIN to Firebase (and localStorage)
+    savePinToFirebase(adminPin);
     // Reset and go back to login
     document.getElementById('newPinSection').classList.remove('show');
     document.getElementById('loginPinSection').classList.add('show');
@@ -271,6 +273,41 @@ function loadLocalData() {
     const savedPin = localStorage.getItem('sm_admin_pin');
     if (savedProducts) products = JSON.parse(savedProducts);
     if (savedPin) adminPin = savedPin;
+}
+// Load PIN from Firebase (synced across devices)
+async function loadPinFromFirebase() {
+    if (!db) return;
+    try {
+        const doc = await db.collection('settings').doc('adminPin').get();
+        if (doc.exists) {
+            const data = doc.data();
+            if (data.pin) {
+                adminPin = data.pin;
+                // Also update local storage to keep in sync
+                localStorage.setItem('sm_admin_pin', adminPin);
+            }
+        } else {
+            // First time setup - save current PIN to Firebase
+            await savePinToFirebase(adminPin);
+        }
+    } catch (e) {
+        console.log('Error loading PIN from Firebase:', e);
+        // Fallback to local PIN (already loaded in loadLocalData)
+    }
+}
+// Save PIN to Firebase (sync across devices)
+async function savePinToFirebase(pin) {
+    // Always save to localStorage first
+    localStorage.setItem('sm_admin_pin', pin);
+    if (!db) return;
+    try {
+        await db.collection('settings').doc('adminPin').set({
+            pin: pin,
+            updatedAt: new Date().toISOString()
+        });
+    } catch (e) {
+        console.log('Error saving PIN to Firebase:', e);
+    }
 }
 function updateSyncStatus() {
     const dot = document.getElementById('syncDot');
@@ -1441,7 +1478,8 @@ function updatePinDisplay() {
 function checkPin() {
     if (currentPinAction === 'setPin') {
         adminPin = enteredPin;
-        localStorage.setItem('sm_admin_pin', adminPin);
+        // Sync PIN to Firebase (and localStorage)
+        savePinToFirebase(adminPin);
         closePinModal();
         showToast('PIN updated successfully');
         return;
@@ -1583,7 +1621,8 @@ function restoreBackup(event) {
             localStorage.setItem('sm_inventory', JSON.stringify(inventory));
             localStorage.setItem('sm_customers', JSON.stringify(customers));
             localStorage.setItem('sm_sales', JSON.stringify(sales));
-            localStorage.setItem('sm_admin_pin', adminPin);
+            // Sync PIN to Firebase (and localStorage)
+            savePinToFirebase(adminPin);
             // Sync to Firebase if available
             if (db) {
                 for (const [key, data] of Object.entries(inventory)) {
