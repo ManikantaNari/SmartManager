@@ -21,6 +21,20 @@ try {
 } catch (e) {
     console.log('Firebase init error:', e);
 }
+// ==================== CONFIG ====================
+const CURRENCY_SYMBOL = '₹';
+const DEFAULT_ICON = '📦';
+const CATEGORY_ICONS = {
+    'Mattress': '🛏️', 'Cot': '🛏️', 'TV Stand': '📺', 'Chair': '🪑',
+    'Table': '🪵', 'Fan': '☢️', 'Pillow': '☁️', 'Bed Sheet': '🧺',
+    'Sofa': '🛋️', 'Dining Table': '🍽️', 'Shoe Rack': '👟'
+};
+function formatCurrency(amount) {
+    return CURRENCY_SYMBOL + (amount || 0).toLocaleString();
+}
+function getCategoryIcon(category) {
+    return CATEGORY_ICONS[category] || DEFAULT_ICON;
+}
 // ==================== DATA ====================
 let products = {
     'Mattress': ['Single (3x6)', 'Double (4x6)', 'Queen (5x6)', 'King (6x6)', '6x6.5', '5x6.5'],
@@ -301,9 +315,9 @@ function updateDashboard() {
         totalProfit += sale.profit || 0;
         totalItems += sale.items.reduce((sum, item) => sum + item.qty, 0);
     });
-    document.getElementById('todaySales').textContent = '₹' + totalSales.toLocaleString();
+    document.getElementById('todaySales').textContent = formatCurrency(totalSales);
     document.getElementById('todayItems').textContent = totalItems;
-    document.getElementById('todayProfit').textContent = '₹' + totalProfit.toLocaleString();
+    document.getElementById('todayProfit').textContent = formatCurrency(totalProfit);
     document.getElementById('todayTxn').textContent = todaySales.length;
     // Low stock alerts
     checkLowStock();
@@ -347,7 +361,7 @@ function renderRecentSales(todaySales) {
  <p>${sale.items.length} items | ${sale.paymentMethod} | ${sale.time}</p>
  </div>
  <div style="text-align: right;">
- <strong>₹${sale.total.toLocaleString()}</strong>
+ <strong>${formatCurrency(sale.total)}</strong>
  <p style="font-size: 11px; color: var(--primary);">Tap to view</p>
  </div>
  </div>
@@ -368,21 +382,16 @@ function showSaleStep(step) {
 }
 function renderCategoryGrid() {
     const grid = document.getElementById('categoryGrid');
-    const icons = {
-        'Mattress': '🛏️', 'Cot': '🛏️', 'TV Stand': '📺', 'Chair': '🪑',
-        'Table': '🪵', 'Fan': '☢️', 'Pillow': '☁️', 'Bed Sheet': '🧺',
-        'Sofa': '🛋️', 'Dining Table': '🍽️', 'Shoe Rack': '👟'
-    };
     let html = Object.keys(products).map(cat => `
  <div class="category-btn ${selectedCategory === cat ? 'active' : ''}" onclick="selectCategory('${cat}')">
- <div class="icon">${icons[cat] || ''}</div>
+ <div class="icon">${getCategoryIcon(cat)}</div>
  ${cat}
  </div>
  `).join('');
     // Add "+" button for new category
     html += `
  <div class="category-btn add-new" onclick="showAddCategoryModal()">
- <div class="icon"></div>
+ <div class="icon">+</div>
  Add New
  </div>
  `;
@@ -411,7 +420,7 @@ function renderVariantGrid() {
         return `
  <div class="variant-btn" onclick="selectVariantForCart('${selectedCategory}', '${v}')">
  <div class="name">${v}</div>
- <div class="price">₹${inv.price?.toLocaleString() || '0'}</div>
+ <div class="price">${formatCurrency(inv.price)}</div>
  <div class="stock ${isLow ? 'low' : ''}">Stock: ${inv.qty}</div>
  </div>
  `;
@@ -419,7 +428,7 @@ function renderVariantGrid() {
     // Add "+" button for new variant
     html += `
  <div class="variant-btn add-new" onclick="showAddVariantModal()">
- <div class="name"> Add New</div>
+ <div class="name">+ Add New</div>
  </div>
  `;
     grid.innerHTML = html;
@@ -497,14 +506,14 @@ function renderCart() {
  </div>
  </div>
  <div class="cart-item-price">
- <div class="price">₹${itemTotal.toLocaleString()}</div>
+ <div class="price">${formatCurrency(itemTotal)}</div>
  <button class="remove-btn" onclick="removeFromCart(${i})">Remove</button>
  </div>
  </div>
  `;
     }).join('');
-    document.getElementById('cartSubtotal').textContent = '₹' + subtotal.toLocaleString();
-    document.getElementById('cartTotal').textContent = '₹' + subtotal.toLocaleString();
+    document.getElementById('cartSubtotal').textContent = formatCurrency(subtotal);
+    document.getElementById('cartTotal').textContent = formatCurrency(subtotal);
 }
 function updateCartQty(index, delta) {
     const inv = inventory[cart[index].key] || { qty: 0 };
@@ -567,11 +576,11 @@ function renderPaymentSummary() {
         return `
  <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border);">
  <span>${item.category} - ${item.variant} x${item.qty}</span>
- <strong>₹${itemTotal.toLocaleString()}</strong>
+ <strong>${formatCurrency(itemTotal)}</strong>
  </div>
  `;
     }).join('');
-    document.getElementById('paymentTotal').textContent = '₹' + total.toLocaleString();
+    document.getElementById('paymentTotal').textContent = formatCurrency(total);
 }
 function selectPayment(method) {
     selectedPayment = method;
@@ -624,7 +633,7 @@ function completeSale() {
         }
     }
     currentSaleData = { ...sale, customerPhone };
-    document.getElementById('saleCompleteAmount').textContent = 'Total: ₹' + total.toLocaleString();
+    document.getElementById('saleCompleteAmount').textContent = 'Total: ' + formatCurrency(total);
     document.getElementById('smsBillSection').style.display = customerPhone ? 'block' : 'none';
     if (customerPhone) {
         document.getElementById('smsPreviewComplete').textContent = generateBillText(sale);
@@ -645,10 +654,10 @@ function generateBillText(saleData) {
     billText += `Items:\n`;
     saleData.items.forEach(item => {
         billText += `- ${item.category} (${item.variant})\n`;
-        billText += ` ${item.qty} x ₹${item.price.toLocaleString()} = ₹${(item.price * item.qty).toLocaleString()}\n`;
+        billText += ` ${item.qty} x ${formatCurrency(item.price)} = ${formatCurrency(item.price * item.qty)}\n`;
     });
     billText += `------------------------\n`;
-    billText += `Total: ₹${saleData.total.toLocaleString()}\n`;
+    billText += `Total: ${formatCurrency(saleData.total)}\n`;
     billText += `Payment: ${saleData.paymentMethod}\n`;
     billText += `========================\n\n`;
     billText += `Thank you for your purchase!`;
@@ -707,12 +716,12 @@ function showTransactionDetails(saleId) {
  <strong>${item.category}</strong>
  <p style="font-size: 13px; color: var(--gray);">${item.variant} x ${item.qty}</p>
  </div>
- <strong>₹${(item.price * item.qty).toLocaleString()}</strong>
+ <strong>${formatCurrency(item.price * item.qty)}</strong>
  </div>
  `).join('')}
  <div style="display: flex; justify-content: space-between; padding: 16px 0; font-size: 18px;">
  <strong>Total</strong>
- <strong style="color: var(--success);">₹${sale.total.toLocaleString()}</strong>
+ <strong style="color: var(--success);">${formatCurrency(sale.total)}</strong>
  </div>
  `;
     document.getElementById('transactionDetails').innerHTML = detailsHtml;
@@ -818,8 +827,8 @@ function renderStockList() {
  <span class="badge ${isLow ? 'badge-danger' : 'badge-success'}">${data.qty} in stock</span>
  </div>
  <div style="display: flex; gap: 20px; margin-top: 12px; font-size: 14px; color: var(--gray);">
- <span class="${userRole === 'admin' ? '' : 'worker-hidden'}">Cost: ₹${data.costPrice || 0}</span>
- <span>Price: ₹${data.price || 0}</span>
+ <span class="${userRole === 'admin' ? '' : 'worker-hidden'}">Cost: ${formatCurrency(data.costPrice)}</span>
+ <span>Price: ${formatCurrency(data.price)}</span>
  <span>Alert: ${data.alertQty || 0}</span>
  </div>
  ${userRole === 'admin' ? `
@@ -840,21 +849,16 @@ function filterStock() {
 }
 function renderStockCategoryGrid() {
     const grid = document.getElementById('stockCategoryGrid');
-    const icons = {
-        'Mattress': '🛏️', 'Cot': '🛏️', 'TV Stand': '📺', 'Chair': '🪑',
-        'Table': '🪵', 'Fan': '☢️', 'Pillow': '☁️', 'Bed Sheet': '🧺',
-        'Sofa': '🛋️', 'Dining Table': '🍽️', 'Shoe Rack': '👟'
-    };
     let html = Object.keys(products).map(cat => `
  <div class="category-btn ${selectedStockCategory === cat ? 'active' : ''}" onclick="selectStockCategory('${cat}')">
- <div class="icon">${icons[cat] || '📦'}</div>
+ <div class="icon">${getCategoryIcon(cat)}</div>
  ${cat}
  </div>
  `).join('');
     // Add "+" button for new category
     html += `
  <div class="category-btn add-new" onclick="showAddCategoryModalForStock()">
- <div class="icon"></div>
+ <div class="icon">+</div>
  Add New
  </div>
  `;
@@ -886,7 +890,7 @@ function renderStockVariantGrid() {
     // Add "+" button for new variant
     html += `
  <div class="variant-btn add-new" onclick="showAddVariantModalForStock()">
- <div class="name"> Add New</div>
+ <div class="name">+ Add New</div>
  </div>
  `;
     grid.innerHTML = html;
@@ -995,7 +999,7 @@ function renderAllCustomers() {
  ${c.email ? `<p style="color: var(--gray); font-size: 13px;">${c.email}</p>` : ''}
  </div>
  <div style="text-align: right;">
- <p style="font-weight: 600;">₹${totalSpent.toLocaleString()}</p>
+ <p style="font-weight: 600;">${formatCurrency(totalSpent)}</p>
  <p style="font-size: 12px; color: var(--gray);">${customerSales.length} orders</p>
  ${isAdminUnlocked ? `
  <div style="margin-top: 10px; display: flex; gap: 6px; justify-content: flex-end;">
@@ -1290,7 +1294,7 @@ function loadDailyReport() {
  <div class="stats-grid" style="grid-template-columns: repeat(2, 1fr);">
  <div class="stat-card">
  <div class="stat-label">Total Sales</div>
- <div class="stat-value">₹${total.toLocaleString()}</div>
+ <div class="stat-value">${formatCurrency(total)}</div>
  </div>
  <div class="stat-card">
  <div class="stat-label">Items Sold</div>
@@ -1299,7 +1303,7 @@ function loadDailyReport() {
  ${userRole === 'admin' ? `
  <div class="stat-card">
  <div class="stat-label">Profit</div>
- <div class="stat-value">₹${profit.toLocaleString()}</div>
+ <div class="stat-value">${formatCurrency(profit)}</div>
  </div>
  ` : ''}
  <div class="stat-card">
@@ -1317,7 +1321,7 @@ function loadDailyReport() {
  <p>${s.time} | ${s.items.length} items | ${s.paymentMethod}</p>
  </div>
  <div style="text-align: right;">
- <strong>₹${s.total.toLocaleString()}</strong>
+ <strong>${formatCurrency(s.total)}</strong>
  <p style="font-size: 11px; color: var(--primary);">View</p>
  </div>
  </div>
@@ -1340,7 +1344,7 @@ function loadMonthlyReport() {
  <div class="stats-grid" style="grid-template-columns: repeat(2, 1fr);">
  <div class="stat-card primary">
  <div class="stat-label">Total Sales</div>
- <div class="stat-value">₹${total.toLocaleString()}</div>
+ <div class="stat-value">${formatCurrency(total)}</div>
  </div>
  <div class="stat-card success">
  <div class="stat-label">Items Sold</div>
@@ -1349,7 +1353,7 @@ function loadMonthlyReport() {
  ${userRole === 'admin' ? `
  <div class="stat-card">
  <div class="stat-label">Total Profit</div>
- <div class="stat-value">₹${profit.toLocaleString()}</div>
+ <div class="stat-value">${formatCurrency(profit)}</div>
  </div>
  ` : ''}
  <div class="stat-card">
@@ -1383,7 +1387,7 @@ function loadProductsReport() {
  <div class="list-item">
  <div class="list-item-info">
  <h4>${i + 1}. ${name}</h4>
- <p>${data.qty} sold | ₹${data.revenue.toLocaleString()} revenue</p>
+ <p>${data.qty} sold | ${formatCurrency(data.revenue)} revenue</p>
  </div>
  </div>
  `).join('');
