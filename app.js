@@ -64,6 +64,7 @@ let currentSaleData = null;
 // Role management
 let userRole = null; // 'admin' or 'worker'
 let loginPin = '';
+let pinLoaded = false; // Track if PIN has been loaded from Firebase
 // Master PIN for recovery (hardcoded, not changeable)
 const MASTER_PIN = '181866';
 let masterPin = '';
@@ -72,11 +73,22 @@ let newPin = '';
 document.addEventListener('DOMContentLoaded', async () => {
     await loadLocalData();
     await loadPinFromFirebase();
+    listenForPinChanges(); // Real-time sync for PIN changes
     // Don't init app yet - wait for login
 });
 // ==================== LOGIN ====================
-function selectRole(role) {
+async function selectRole(role) {
     if (role === 'admin') {
+        // Wait for PIN to load from Firebase if not loaded yet
+        if (!pinLoaded) {
+            showToast('Loading... Please wait');
+            // Wait up to 5 seconds for PIN to load
+            let waitTime = 0;
+            while (!pinLoaded && waitTime < 5000) {
+                await new Promise(resolve => setTimeout(resolve, 100));
+                waitTime += 100;
+            }
+        }
         // Show PIN entry
         document.getElementById('loginOptions').style.display = 'none';
         document.getElementById('loginPinSection').classList.add('show');
@@ -276,7 +288,10 @@ function loadLocalData() {
 }
 // Load PIN from Firebase (synced across devices)
 async function loadPinFromFirebase() {
-    if (!db) return;
+    if (!db) {
+        pinLoaded = true;
+        return;
+    }
     try {
         const doc = await db.collection('settings').doc('adminPin').get();
         if (doc.exists) {
@@ -285,6 +300,7 @@ async function loadPinFromFirebase() {
                 adminPin = data.pin;
                 // Also update local storage to keep in sync
                 localStorage.setItem('sm_admin_pin', adminPin);
+                console.log('PIN loaded from Firebase');
             }
         } else {
             // First time setup - save current PIN to Firebase
@@ -294,6 +310,7 @@ async function loadPinFromFirebase() {
         console.log('Error loading PIN from Firebase:', e);
         // Fallback to local PIN (already loaded in loadLocalData)
     }
+    pinLoaded = true;
 }
 // Save PIN to Firebase (sync across devices)
 async function savePinToFirebase(pin) {
@@ -305,9 +322,26 @@ async function savePinToFirebase(pin) {
             pin: pin,
             updatedAt: new Date().toISOString()
         });
+        console.log('PIN saved to Firebase');
     } catch (e) {
         console.log('Error saving PIN to Firebase:', e);
     }
+}
+// Listen for real-time PIN changes (sync across devices)
+function listenForPinChanges() {
+    if (!db) return;
+    db.collection('settings').doc('adminPin').onSnapshot((doc) => {
+        if (doc.exists) {
+            const data = doc.data();
+            if (data.pin && data.pin !== adminPin) {
+                adminPin = data.pin;
+                localStorage.setItem('sm_admin_pin', adminPin);
+                console.log('PIN updated from another device');
+            }
+        }
+    }, (error) => {
+        console.log('PIN listener error:', error);
+    });
 }
 function updateSyncStatus() {
     const dot = document.getElementById('syncDot');
