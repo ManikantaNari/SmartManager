@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Setup - Tell Me Your Items</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitle {
+            color: rgba(255,255,255,0.9);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title span {
+            background: #667eea;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        input[type="text"] {
+            flex: 1;
+            padding: 14px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .btn {
+            padding: 14px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .btn-success {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+        .btn-danger {
+            background: #ff6b6b;
+            color: white;
+            padding: 8px 14px;
+            font-size: 14px;
+        }
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 16px;
+        }
+        .product-tag {
+            background: #f0f0ff;
+            border: 2px solid #667eea;
+            color: #667eea;
+            padding: 10px 16px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .product-tag:hover {
+            background: #667eea;
+            color: white;
+        }
+        .product-tag.selected {
+            background: #667eea;
+            color: white;
+        }
+        .product-tag .remove {
+            width: 20px;
+            height: 20px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        .variant-section {
+            background: #f8f9ff;
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 16px;
+            display: none;
+        }
+        .variant-section.active {
+            display: block;
+        }
+        .variant-section h3 {
+            color: #667eea;
+            font-size: 16px;
+            margin-bottom: 12px;
+        }
+        .variant-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .variant-tag {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .variant-tag .remove {
+            color: #ff6b6b;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .summary-card {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+        .summary-card h2 {
+            margin-bottom: 16px;
+        }
+        .summary-item {
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 10px;
+        }
+        .summary-item h4 {
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+        .summary-item p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .copy-btn {
+            width: 100%;
+            margin-top: 16px;
+            padding: 16px;
+            font-size: 18px;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+        .quick-add {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #eee;
+        }
+        .quick-add-title {
+            width: 100%;
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 4px;
+        }
+        .quick-btn {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .quick-btn:hover {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        .instruction {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Setup Your Products</h1>
+    <p class="subtitle">Add all the items you sell in your shop</p>
+    <div class="instruction">
+        <strong>How to use:</strong> Add your products below, then click on each product to add its sizes/variants. When done, click "Copy My Product List" to share with me.
+    </div>
+    <!-- Step 1: Add Products -->
+    <div class="card">
+        <div class="section-title">
+            <span>1</span>
+            Add Your Products
+        </div>
+        <div class="quick-add">
+            <div class="quick-add-title">Quick Add (click to add):</div>
+            <button class="quick-btn" onclick="quickAddProduct('Mattress')">Mattress</button>
+            <button class="quick-btn" onclick="quickAddProduct('Cot')">Cot</button>
+            <button class="quick-btn" onclick="quickAddProduct('TV Stand')">TV Stand</button>
+            <button class="quick-btn" onclick="quickAddProduct('Chair')">Chair</button>
+            <button class="quick-btn" onclick="quickAddProduct('Table')">Table</button>
+            <button class="quick-btn" onclick="quickAddProduct('Fan')">Fan</button>
+            <button class="quick-btn" onclick="quickAddProduct('Pillow')">Pillow</button>
+            <button class="quick-btn" onclick="quickAddProduct('Bed Sheet')">Bed Sheet</button>
+            <button class="quick-btn" onclick="quickAddProduct('Sofa')">Sofa</button>
+            <button class="quick-btn" onclick="quickAddProduct('Wardrobe')">Wardrobe</button>
+            <button class="quick-btn" onclick="quickAddProduct('Dining Table')">Dining Table</button>
+            <button class="quick-btn" onclick="quickAddProduct('Shoe Rack')">Shoe Rack</button>
+        </div>
+        <div class="input-group">
+            <input type="text" id="productInput" placeholder="Or type product name and press Add..." onkeypress="handleProductKeyPress(event)">
+            <button class="btn btn-primary" onclick="addProduct()">Add</button>
+        </div>
+        <div class="product-list" id="productList">
+            <!-- Products will appear here -->
+        </div>
+    </div>
+    <!-- Step 2: Add Variants -->
+    <div class="card">
+        <div class="section-title">
+            <span>2</span>
+            Add Sizes/Variants for Each Product
+        </div>
+        <p style="color: #666; margin-bottom: 16px;">Click on a product above to add its sizes/variants</p>
+        <div class="variant-section active" id="variantSection">
+            <div id="variantContent">
+                <div class="empty-state">
+                    Select a product above to add variants
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Summary -->
+    <div class="card summary-card" id="summaryCard" style="display: none;">
+        <h2>Your Product List</h2>
+        <div id="summaryContent"></div>
+        <button class="btn copy-btn" onclick="copyToClipboard()">
+            Copy My Product List
+        </button>
+    </div>
+</div>
+<script>
+    let products = {};
+    let selectedProduct = null;
+    const commonVariants = {
+        'Mattress': ['Single (3x6)', 'Double (4x6)', 'Queen (5x6)', 'King (6x6)', '6x6.5', '5x6.5'],
+        'Cot': ['Single', 'Double', 'Queen', 'King', 'Wooden', 'Metal', 'Hydraulic'],
+        'TV Stand': ['Small', 'Medium', 'Large', 'Wall Mount', 'Corner'],
+        'Chair': ['Plastic', 'Wooden', 'Office Chair', 'Recliner', 'Dining Chair'],
+        'Table': ['Study Table', 'Computer Table', 'Center Table', 'Side Table'],
+        'Fan': ['Ceiling Fan', 'Table Fan', 'Pedestal Fan', 'Wall Fan', 'Exhaust Fan'],
+        'Pillow': ['Standard', 'Memory Foam', 'Ortho', 'Kids'],
+        'Bed Sheet': ['Single', 'Double', 'King', 'Cotton', 'Satin'],
+        'Sofa': ['2 Seater', '3 Seater', 'L Shape', 'Recliner Sofa'],
+        'Wardrobe': ['2 Door', '3 Door', '4 Door', 'Sliding', 'With Mirror'],
+        'Dining Table': ['4 Seater', '6 Seater', '8 Seater', 'Foldable'],
+        'Shoe Rack': ['3 Layer', '4 Layer', '5 Layer', 'Closed', 'Open']
+    };
+    function quickAddProduct(name) {
+        if (!products[name]) {
+            products[name] = [];
+            renderProducts();
+            selectProduct(name);
+            updateSummary();
+        }
+    }
+    function addProduct() {
+        const input = document.getElementById('productInput');
+        const name = input.value.trim();
+        if (name && !products[name]) {
+            products[name] = [];
+            input.value = '';
+            renderProducts();
+            selectProduct(name);
+            updateSummary();
+        }
+    }
+    function handleProductKeyPress(e) {
+        if (e.key === 'Enter') addProduct();
+    }
+    function removeProduct(name, e) {
+        e.stopPropagation();
+        delete products[name];
+        if (selectedProduct === name) {
+            selectedProduct = null;
+            renderVariantSection();
+        }
+        renderProducts();
+        updateSummary();
+    }
+    function selectProduct(name) {
+        selectedProduct = name;
+        renderProducts();
+        renderVariantSection();
+    }
+    function renderProducts() {
+        const container = document.getElementById('productList');
+        if (Object.keys(products).length === 0) {
+            container.innerHTML = '<div class="empty-state">No products added yet</div>';
+            return;
+        }
+        container.innerHTML = Object.keys(products).map(name => `
+ <div class="product-tag ${selectedProduct === name ? 'selected' : ''}" onclick="selectProduct('${name}')">
+ ${name}
+ ${products[name].length > 0 ? `(${products[name].length})` : ''}
+ <span class="remove" onclick="removeProduct('${name}', event)">&times;</span>
+ </div>
+ `).join('');
+    }
+    function renderVariantSection() {
+        const container = document.getElementById('variantContent');
+        if (!selectedProduct) {
+            container.innerHTML = '<div class="empty-state">Select a product above to add variants</div>';
+            return;
+        }
+        const quickVariants = commonVariants[selectedProduct] || [];
+        container.innerHTML = `
+ <h3>Variants for "${selectedProduct}"</h3>
+ ${quickVariants.length > 0 ? `
+ <div class="quick-add" style="border-bottom: none; padding-bottom: 8px;">
+ <div class="quick-add-title">Suggested variants:</div>
+ ${quickVariants.map(v => `
+ <button class="quick-btn" onclick="quickAddVariant('${v}')">${v}</button>
+ `).join('')}
+ </div>
+ ` : ''}
+ <div class="input-group">
+ <input type="text" id="variantInput" placeholder="Type variant name (e.g., King Size, 6x6)..." onkeypress="handleVariantKeyPress(event)">
+ <button class="btn btn-primary" onclick="addVariant()">Add</button>
+ </div>
+ <div class="variant-tags" id="variantTags">
+ ${products[selectedProduct].map((v, i) => `
+ <span class="variant-tag">
+ ${v}
+ <span class="remove" onclick="removeVariant(${i})">&times;</span>
+ </span>
+ `).join('')}
+ </div>
+ `;
+    }
+    function quickAddVariant(variant) {
+        if (selectedProduct && !products[selectedProduct].includes(variant)) {
+            products[selectedProduct].push(variant);
+            renderVariantSection();
+            renderProducts();
+            updateSummary();
+        }
+    }
+    function addVariant() {
+        const input = document.getElementById('variantInput');
+        const variant = input.value.trim();
+        if (selectedProduct && variant && !products[selectedProduct].includes(variant)) {
+            products[selectedProduct].push(variant);
+            input.value = '';
+            renderVariantSection();
+            renderProducts();
+            updateSummary();
+        }
+    }
+    function handleVariantKeyPress(e) {
+        if (e.key === 'Enter') addVariant();
+    }
+    function removeVariant(index) {
+        if (selectedProduct) {
+            products[selectedProduct].splice(index, 1);
+            renderVariantSection();
+            renderProducts();
+            updateSummary();
+        }
+    }
+    function updateSummary() {
+        const card = document.getElementById('summaryCard');
+        const container = document.getElementById('summaryContent');
+        if (Object.keys(products).length === 0) {
+            card.style.display = 'none';
+            return;
+        }
+        card.style.display = 'block';
+        container.innerHTML = Object.entries(products).map(([name, variants]) => `
+ <div class="summary-item">
+ <h4>${name}</h4>
+ <p>${variants.length > 0 ? variants.join(', ') : 'No variants added'}</p>
+ </div>
+ `).join('');
+    }
+    function copyToClipboard() {
+        let text = "MY PRODUCT LIST:\n\n";
+        Object.entries(products).forEach(([name, variants]) => {
+            text += `${name}:\n`;
+            if (variants.length > 0) {
+                variants.forEach(v => {
+                    text += ` - ${v}\n`;
+                });
+            } else {
+                text += ` - (no variants)\n`;
+            }
+            text += '\n';
+        });
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Copied! Now paste it back to me in the chat.');
+        }).catch(() => {
+            // Fallback
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert('Copied! Now paste it back to me in the chat.');
+        });
+    }
+    // Initialize
+    renderProducts();
+</script>
+</body>
+</html>
