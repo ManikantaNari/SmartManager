@@ -1,8 +1,8 @@
 // Transactions Module
 
-import { DOM, Format, Toast } from '../utils';
-import { Modal } from '../components';
-import { State, Storage } from '../state';
+import { DOM, Format, Toast } from '../utils/index.js';
+import { Modal } from '../components/index.js';
+import { State, Storage } from '../state/index.js';
 import { Sales } from './sales.js';
 
 // External dependencies

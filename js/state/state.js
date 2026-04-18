@@ -1,6 +1,6 @@
 // Centralized State Management
 
-import { DEFAULT_PRODUCTS, DEFAULT_ADMIN_PIN } from '../config';
+import { DEFAULT_PRODUCTS, DEFAULT_ADMIN_PIN } from '../config/index.js';
 
 export const State = {
     // Data

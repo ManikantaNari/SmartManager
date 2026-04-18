@@ -1,14 +1,14 @@
 // Main Application Entry Point
 
-import { initializeFirebase, getDb, isOnline, setOnlineStatus, STORAGE_KEYS } from './config';
-import { DOM } from './utils';
-import { PinPad } from './components';
-import { State, Storage } from './state';
+import { initializeFirebase, getDb, isOnline, setOnlineStatus, STORAGE_KEYS } from './config/index.js';
+import { DOM } from './utils/index.js';
+import { PinPad } from './components/index.js';
+import { State, Storage } from './state/index.js';
 import {
     Auth, Navigation, Dashboard, Sales, Transactions,
     Inventory, Customers, Products, Reports, Backup
-} from './modules';
-import { loadTemplates } from './templates';
+} from './modules/index.js';
+import { loadTemplates } from './templates/index.js';
 
 // Initialize the application
 const App = {

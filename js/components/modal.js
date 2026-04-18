@@ -1,6 +1,6 @@
 // Modal Component
 
-import { DOM } from '../utils';
+import { DOM } from '../utils/index.js';
 
 export const Modal = {
     show(id) {

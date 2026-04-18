@@ -1,6 +1,6 @@
 // Formatting Utility Functions
 
-import { CURRENCY_SYMBOL, getCategoryIcon } from '../config';
+import { CURRENCY_SYMBOL, getCategoryIcon } from '../config/index.js';
 
 export const Format = {
     // Format currency with symbol

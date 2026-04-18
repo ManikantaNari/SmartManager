@@ -1,8 +1,8 @@
 // Sales Module
 
-import { DOM, Format, Template, Toast, Loader } from '../utils';
-import { Modal } from '../components';
-import { State, Storage } from '../state';
+import { DOM, Format, Template, Toast, Loader } from '../utils/index.js';
+import { Modal } from '../components/index.js';
+import { State, Storage } from '../state/index.js';
 
 // External dependencies - will be injected
 let showAddCategoryModal = null;

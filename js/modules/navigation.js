@@ -1,6 +1,6 @@
 // Navigation Module
 
-import { DOM } from '../utils';
+import { DOM } from '../utils/index.js';
 
 // Page render callbacks - will be set by app.js
 let pageCallbacks = {};

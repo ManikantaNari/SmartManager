@@ -1,6 +1,6 @@
 // Storage Service (LocalStorage + Firebase)
 
-import { STORAGE_KEYS, getDb } from '../config';
+import { STORAGE_KEYS, getDb } from '../config/index.js';
 import { State } from './state.js';
 
 export const Storage = {

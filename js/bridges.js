@@ -15,7 +15,7 @@ import {
     PinPad
 } from './app.js';
 
-import { Modal } from './components';
+import { Modal } from './components/index.js';
 
 // ==================== AUTH ====================
 window.selectRole = (role) => Auth.selectRole(role);

@@ -1,9 +1,9 @@
 // Authentication Module
 
-import { MASTER_PIN } from '../config';
-import { DOM, Toast } from '../utils';
-import { Modal, PinPad } from '../components';
-import { State, Storage } from '../state';
+import { MASTER_PIN } from '../config/index.js';
+import { DOM, Toast } from '../utils/index.js';
+import { Modal, PinPad } from '../components/index.js';
+import { State, Storage } from '../state/index.js';
 
 export const Auth = {
     pinLoaded: false,

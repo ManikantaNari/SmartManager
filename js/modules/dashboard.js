@@ -1,7 +1,7 @@
 // Dashboard Module
 
-import { DOM, Format, Template, Loader } from '../utils';
-import { State } from '../state';
+import { DOM, Format, Template, Loader } from '../utils/index.js';
+import { State } from '../state/index.js';
 
 // External dependency - will be injected
 let showTransactionDetails = null;
