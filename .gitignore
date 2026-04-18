@@ -1,0 +1,11 @@
+# IDEA
+.idea/
+
+# OS
+.DS_Store
+
+# Dependencies
+node_modules/
+
+# Logs
+*.log
