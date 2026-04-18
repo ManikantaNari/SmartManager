@@ -1,5 +1,5 @@
 # Developer Agent Guide
-This document serves as a comprehensive technical guide for developers and AI agents working on the Smart Manager application. Read this file first to understand the complete architecture, codebase...
+This document serves as a comprehensive technical guide for developers and AI agents working on the Manikanta Enterprises application. Read this file first to understand the complete architecture, codebase...
 > **For basic product overview, features, and setup instructions, refer to [README.md](./README.md)**
 ---
 ## Table of Contents
@@ -21,7 +21,7 @@ This document serves as a comprehensive technical guide for developers and AI ag
 ---
 ## Project Understanding
 ### What This Application Does
-Smart Manager is a Progressive Web App (PWA) that functions as a point-of-sale and inventory management system for retail businesses. It runs entirely in the browser, syncs data to Firebase, and wo...
+Manikanta Enterprises is a Progressive Web App (PWA) that functions as a point-of-sale and inventory management system for retail businesses. It runs entirely in the browser, syncs data to Firebase, and wo...
 ### Core Concept
 The application replaces paper-based or spreadsheet-based tracking with a mobile-friendly interface that:
 - Processes sales transactions with multiple items
@@ -197,32 +197,39 @@ The JavaScript file is organized into logical sections marked with comments:
 // ==================== UTILITIES ====================
 // Helper functions (toast, date formatting)
 ```
-### styles.css Structure
-```css
-/* Reset and Variables */
-/* Header */
-/* Bottom Navigation */
-/* Pages */
-/* Cards */
-/* Stats Grid */
-/* Buttons */
-/* Form Elements */
-/* Product Selection Grid */
-/* Variant Grid */
-/* Cart */
-/* Modal */
-/* PIN Pad */
-/* Lists */
-/* Tabs */
-/* Search */
-/* Empty State */
-/* Badges */
-/* Toast */
-/* Loading */
-/* Responsive (Media Queries) */
-/* Sync Status */
-/* Login Screen */
-/* Role-based Visibility */
+### CSS Structure (Modular)
+The CSS is organized into modular files imported via `styles.css`:
+```
+css/
+├── styles.css              # Main entry - imports all modules
+├── base/
+│   ├── variables.css       # CSS custom properties (colors, spacing)
+│   ├── reset.css           # Base element resets
+│   └── animations.css      # Keyframe animations (spin, fadeIn, etc.)
+├── layout/
+│   ├── header.css          # App header with sync status
+│   ├── navigation.css      # Bottom nav (mobile) / top nav (desktop)
+│   ├── pages.css           # Page container styles
+│   └── responsive.css      # Media queries for breakpoints
+├── components/
+│   ├── buttons.css         # Button variants (.btn, .btn-primary, etc.)
+│   ├── cards.css           # Card containers (.card, .stat-card)
+│   ├── forms.css           # Form inputs, labels, groups
+│   ├── modals.css          # Modal overlay and content
+│   ├── lists.css           # List items (.list-item)
+│   ├── badges.css          # Badge styles (.badge, .badge-success)
+│   ├── tabs.css            # Tab navigation
+│   ├── loaders.css         # Loading spinners and skeletons
+│   ├── toast.css           # Toast notifications
+│   ├── toggle.css          # Toggle switches
+│   ├── pinpad.css          # PIN pad grid layout
+│   └── alerts.css          # Alert boxes
+└── features/
+    ├── login.css           # Login screen styles
+    ├── products.css        # Product/variant grids
+    ├── cart.css            # Cart and checkout styles
+    ├── dashboard.css       # Dashboard stat cards
+    └── roles.css           # .admin-only, .worker-hidden, .worker-blur
 ```
 ---
 ## UI/UX Patterns
@@ -299,7 +306,32 @@ let selectedPayment = null;
 | Inventory | sm_inventory | inventory |
 | Customers | sm_customers | customers |
 | Sales | sm_sales | sales |
+| Stock Logs | sm_stock_logs | stockLogs |
 | Admin PIN | sm_admin_pin | - |
+
+### Stock Log Entry Structure
+```javascript
+{
+  id: string,           // Unique ID
+  date: string,         // YYYY-MM-DD
+  time: string,         // HH:MM:SS
+  vendor: string,       // Vendor name or "Added during sale"
+  invoice: string,      // Invoice number (optional)
+  photo: string,        // Base64 encoded image (optional)
+  items: [{
+    category: string,
+    variant: string,
+    key: string,        // "category|variant"
+    qty: number,
+    costPrice: number,
+    price: number,
+    alertQty: number,
+    addedAt: string     // ISO timestamp
+  }],
+  addedBy: string,      // "admin" or "worker"
+  type: string          // "bulk" or "during_sale"
+}
+```
 ---
 ## Data Flow
 ### Sale Transaction Flow
@@ -320,6 +352,44 @@ completeSale()
  ??? Save to Firebase
  ??? Update UI (dashboard, inventory)
 ```
+### Stock Addition Flow (Bulk Entry)
+```
+Inventory > Add Stock Tab
+ ?
+Enter vendor details + optional invoice photo
+ ?
+startStockSession() ? Create session object
+ ?
+Select category/variant, enter qty/prices
+ ?
+saveStock()
+ ??? Update inventory immediately
+ ??? Add item to session.items array
+ ??? Show in session items list
+ ?
+Repeat for more items OR click Complete
+ ?
+completeStockSession()
+ ??? Create stock log entry
+ ??? Save to localStorage and Firebase
+ ??? Reset session
+```
+
+### Stock Addition Flow (During Sale)
+```
+Sale Page > Can't find variant
+ ?
+Click "+ Add New" variant
+ ?
+Enter variant name + initial stock
+ ?
+saveNewVariant()
+ ??? Add variant to products
+ ??? Update inventory with stock
+ ??? Create stock log with type: "during_sale"
+ ??? Vendor set to "Added during sale"
+```
+
 ### Data Sync Flow
 ```
 App Initialization
@@ -330,6 +400,7 @@ initApp()
  ??? loadInventory() ? Fetch from Firebase, fallback to localStorage
  ??? loadCustomers() ? Fetch from Firebase, fallback to localStorage
  ??? loadSales() ? Fetch from Firebase, fallback to localStorage
+ ??? loadStockLogs() ? Fetch from Firebase, fallback to localStorage
  ?
 On any data change
  ??? Update localStorage (immediate)
@@ -351,27 +422,38 @@ const firebaseConfig = {
 ### Collections Structure
 ```
 Firestore Database
-??? inventory/
-? ??? {category - variant}/
-? ??? qty: number
-? ??? costPrice: number
-? ??? sellPrice: number
-? ??? alertQty: number
-??? customers/
-? ??? {phone}/
-? ??? name: string
-? ??? phone: string
-? ??? email: string
-??? sales/
- ??? {saleId}/
- ??? id: string
- ??? date: string
- ??? time: string
- ??? items: array
- ??? total: number
- ??? profit: number
- ??? customer: object
- ??? payment: string
+├── inventory/
+│   └── {category|variant}/
+│       ├── qty: number
+│       ├── costPrice: number
+│       ├── price: number
+│       └── alertQty: number
+├── customers/
+│   └── {phone}/
+│       ├── name: string
+│       ├── phone: string
+│       └── email: string
+├── sales/
+│   └── {saleId}/
+│       ├── id: string
+│       ├── date: string
+│       ├── time: string
+│       ├── items: array
+│       ├── total: number
+│       ├── profit: number
+│       ├── customer: object
+│       └── payment: string
+└── stockLogs/
+    └── {logId}/
+        ├── id: string
+        ├── date: string
+        ├── time: string
+        ├── vendor: string
+        ├── invoice: string
+        ├── photo: string (base64)
+        ├── items: array
+        ├── addedBy: string
+        └── type: string
 ```
 ### Offline Handling
 ```javascript
@@ -607,12 +689,23 @@ if (confirm('Are you sure you want to delete this?')) {
 - [ ] Send SMS bill
 3. **Inventory**
 - [ ] View stock levels
-- [ ] Add stock (Owner only)
+- [ ] Add stock with session (Owner only)
 - [ ] Edit stock details (Owner only)
 - [ ] Low stock alert appears
-4. **Reports**
+- [ ] Invoice photo capture works
+- [ ] Session items list updates correctly
+4. **Stock Logging**
+- [ ] Bulk entry creates log with vendor details
+- [ ] Adding variant during sale creates "Added during sale" log
+- [ ] Stock Log tab shows all entries (Owner only)
+- [ ] Invoice photo popup works
+- [ ] Log detail modal shows all items
+5. **Reports**
 - [ ] Daily report shows correct totals
 - [ ] Monthly report aggregates correctly
+- [ ] Profit shows green when positive, red when negative
+- [ ] Best sellers profit colors correctly
+- [ ] Stock Log tab loads entries
 - [ ] Transaction details modal works
 5. **Offline Mode**
 - [ ] Disable network
@@ -671,8 +764,11 @@ console.log('Online:', isOnline);
 | `showAddCartModal()` | Open add to cart modal |
 | `completeSale()` | Process and save a sale |
 | `renderStockList()` | Display inventory |
+| `startStockSession()` | Start bulk stock entry session |
+| `completeStockSession()` | Complete and log stock session |
 | `renderAllCustomers()` | Display customer list |
 | `loadDailyReport()` | Generate daily report |
+| `loadStockLog()` | Load stock log entries |
 | `showToast(message)` | Show notification |
 ### Key Elements
 | Element ID | Purpose |
@@ -685,6 +781,11 @@ console.log('Online:', isOnline);
 | `page-reports` | Reports page |
 | `addCartModal` | Add item modal |
 | `saleCompleteModal` | Sale success modal |
+| `stockLogModal` | Stock log detail modal |
+| `photoViewModal` | Invoice photo viewer |
+| `startSessionForm` | Bulk entry vendor form |
+| `activeSessionView` | Session items view |
+| `stockLogContent` | Stock log list container |
 ### Key CSS Classes
 | Class | Purpose |
 |-------|---------|

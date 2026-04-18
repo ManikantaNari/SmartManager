@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Setup Guide - Manikanta Enterprises</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitle {
+            color: rgba(255,255,255,0.8);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        .step-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .step-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+        }
+        .step-content {
+            padding-left: 48px;
+        }
+        .step-content p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+        .step-content ol, .step-content ul {
+            color: #666;
+            line-height: 2;
+            margin-left: 20px;
+            margin-bottom: 16px;
+        }
+        .step-content li {
+            margin-bottom: 8px;
+        }
+        a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 8px;
+        }
+        .btn:hover {
+            text-decoration: none;
+            opacity: 0.9;
+        }
+        .code-box {
+            background: #1a1a2e;
+            color: #00ff88;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 16px 0;
+            color: #856404;
+        }
+        .success {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            margin: 16px 0;
+            color: #155724;
+        }
+        .config-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+        .config-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .generate-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 16px;
+        }
+        .generate-btn:hover {
+            opacity: 0.9;
+        }
+        .output-box {
+            background: #f8f9fa;
+            border: 2px dashed #ddd;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 16px;
+            display: none;
+        }
+        .output-box.show {
+            display: block;
+        }
+        .copy-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 12px;
+        }
+        .time-estimate {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .time-estimate span {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 16px 0;
+            border: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Firebase Setup Guide</h1>
+    <p class="subtitle">One-time setup for Manikanta Enterprises (Free Forever)</p>
+    <div class="time-estimate">
+        Estimated Time: <span>10-15 minutes</span>
+    </div>
+    <!-- Step 1 -->
+    <div class="card">
+        <div class="step-header">
+            <div class="step-number">1</div>
+            <div class="step-title">Create Google Account (Skip if you have one)</div>
+        </div>
+        <div class="step-content">
+            <p>If you already have a Gmail account, skip to Step 2.</p>
+            <a href="https://accounts.google.com/signup" target="_blank" class="btn">Create Google Account</a>
+        </div>
+    </div>
+    <!-- Step 2 -->
+    <div class="card">
+        <div class="step-header">
+            <div class="step-number">2</div>
+            <div class="step-title">Go to Firebase Console</div>
+        </div>
+        <div class="step-content">
+            <p>Click the button below and sign in with your Google account:</p>
+            <a href="https://console.firebase.google.com/" target="_blank" class="btn">Open Firebase Console</a>
+        </div>
+    </div>
+    <!-- Step 3 -->
+    <div class="card">
+        <div class="step-header">
+            <div class="step-number">3</div>
+            <div class="step-title">Create New Project</div>
+        </div>
+        <div class="step-content">
+            <ol>
+                <li>Click <strong>"Create a project"</strong> or <strong>"Add project"</strong></li>
+                <li>Enter project name: <strong>smart-manager</strong> (or any name you like)</li>
+                <li>Click <strong>Continue</strong></li>
+                <li>Disable Google Analytics (not needed) ? Click <strong>Continue</strong></li>
+                <li>Wait for project to be created ? Click <strong>Continue</strong></li>
+            </ol>
+        </div>
+    </div>
+    <!-- Step 4 -->
+    <div class="card">
+        <div class="step-header">
+            <div class="step-number">4</div>
+            <div class="step-title">Add Web App</div>
+        </div>
+        <div class="step-content">
+            <ol>
+                <li>On the project page, click the <strong>Web icon (&lt;/&gt;)</strong></li>
+                <li>Enter app nickname: <strong>Manikanta Enterprises</strong></li>
+                <li>Don't check "Firebase Hosting"</li>
+                <li>Click <strong>Register app</strong></li>
+                <li>You'll see a code block with <strong>firebaseConfig</strong> - KEEP THIS PAGE OPEN!</li>
+            </ol>
+            <div class="warning">
+                <strong>Important:</strong> Don't close this page! You'll need to copy the config values in Step 7.
+            </div>
+        </div>
+    </div>
+    <!-- Step 5 -->
+    <div class="card">
+        <div class="step-header">
+            <div class="step-number">5</div>
+            <div class="step-title">Enable Firestore Database</div>
+        </div>
+        <div class="step-content">
+            <ol>
+                <li>In the left sidebar, click <strong>Build</strong> ? <strong>Firestore Database</strong></li>
+                <li>Click <strong>Create database</strong></li>
+                <li>Select <strong>"Start in test mode"</strong> (we'll secure it later)</li>
+                <li>Choose location: <strong>asia-south1 (Mumbai)</strong> for best speed in India</li>
+                <li>Click <strong>Enable</strong></li>
+            </ol>
+        </div>
+    </div>
+    <!-- Step 6 -->
+    <div class="card">
+        <div class="step-header">
+            <div class="step-number">6</div>
+            <div class="step-title">Enable Authentication</div>
+        </div>
+        <div class="step-content">
+            <ol>
+                <li>In the left sidebar, click <strong>Build</strong> ? <strong>Authentication</strong></li>
+                <li>Click <strong>Get started</strong></li>
+                <li>Click <strong>Anonymous</strong> (under "Native providers")</li>
+                <li>Toggle <strong>Enable</strong> to ON</li>
+                <li>Click <strong>Save</strong></li>
+            </ol>
+            <div class="success">
+                <strong>Why Anonymous?</strong> This allows the app to work without login. Your data is still private and synced!
+            </div>
+        </div>
+    </div>
+    <!-- Step 7 -->
+    <div class="card">
+        <div class="step-header">
+            <div class="step-number">7</div>
+            <div class="step-title">Copy Your Firebase Config</div>
+        </div>
+        <div class="step-content">
+            <p>Go back to your Firebase project settings:</p>
+            <ol>
+                <li>Click the <strong>gear icon</strong> (Settings) next to "Project Overview"</li>
+                <li>Click <strong>Project settings</strong></li>
+                <li>Scroll down to "Your apps" section</li>
+                <li>Find the <strong>firebaseConfig</strong> code block</li>
+                <li>Copy each value and paste below:</li>
+            </ol>
+            <div style="margin-top: 20px;">
+                <div class="form-group">
+                    <label>apiKey</label>
+                    <input type="text" class="config-input" id="apiKey" placeholder="AIzaSy...">
+                </div>
+                <div class="form-group">
+                    <label>authDomain</label>
+                    <input type="text" class="config-input" id="authDomain" placeholder="your-project.firebaseapp.com">
+                </div>
+                <div class="form-group">
+                    <label>projectId</label>
+                    <input type="text" class="config-input" id="projectId" placeholder="your-project-id">
+                </div>
+                <div class="form-group">
+                    <label>storageBucket</label>
+                    <input type="text" class="config-input" id="storageBucket" placeholder="your-project.appspot.com">
+                </div>
+                <div class="form-group">
+                    <label>messagingSenderId</label>
+                    <input type="text" class="config-input" id="messagingSenderId" placeholder="123456789">
+                </div>
+                <div class="form-group">
+                    <label>appId</label>
+                    <input type="text" class="config-input" id="appId" placeholder="1:123456789:web:abc123">
+                </div>
+                <button class="generate-btn" onclick="generateConfig()">Generate My Config File</button>
+                <div class="output-box" id="outputBox">
+                    <p><strong>Your config is ready!</strong></p>
+                    <div class="code-box" id="configOutput"></div>
+                    <button class="copy-btn" onclick="copyConfig()">Copy Config</button>
+                    <p style="margin-top: 16px; color: #666;">
+                        <strong>Next:</strong> Open <strong>index.html</strong> in a text editor, find the <code>firebaseConfig</code> section at the top, and replace it with this config.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Step 8 -->
+    <div class="card">
+        <div class="step-header">
+            <div class="step-number">8</div>
+            <div class="step-title">You're Done!</div>
+        </div>
+        <div class="step-content">
+            <div class="success">
+                <strong>Setup Complete!</strong> Open <strong>index.html</strong> in your browser and start using the app. Share the same file with your workers - everyone's data will s...
+            </div>
+            <p><strong>Tips:</strong></p>
+            <ul>
+                <li>Add the app to your phone's home screen for easy access</li>
+                <li>Everyone using the app should use the same HTML file with the same config</li>
+                <li>Your data syncs in real-time across all devices</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    function generateConfig() {
+        const config = {
+            apiKey: document.getElementById('apiKey').value.trim(),
+            authDomain: document.getElementById('authDomain').value.trim(),
+            projectId: document.getElementById('projectId').value.trim(),
+            storageBucket: document.getElementById('storageBucket').value.trim(),
+            messagingSenderId: document.getElementById('messagingSenderId').value.trim(),
+            appId: document.getElementById('appId').value.trim()
+        };
+        // Validate
+        if (!config.apiKey || !config.projectId) {
+            alert('Please fill in at least apiKey and projectId');
+            return;
+        }
+        const configStr = `const firebaseConfig = {
+ apiKey: "${config.apiKey}",
+ authDomain: "${config.authDomain}",
+ projectId: "${config.projectId}",
+ storageBucket: "${config.storageBucket}",
+ messagingSenderId: "${config.messagingSenderId}",
+ appId: "${config.appId}"
+};`;
+        document.getElementById('configOutput').textContent = configStr;
+        document.getElementById('outputBox').classList.add('show');
+    }
+    function copyConfig() {
+        const config = document.getElementById('configOutput').textContent;
+        navigator.clipboard.writeText(config).then(() => {
+            alert('Copied! Now paste it in index.html');
+        });
+    }
+</script>
+</body>
+</html>

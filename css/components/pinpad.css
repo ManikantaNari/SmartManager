@@ -1,0 +1,43 @@
+/* PIN Pad */
+
+.pin-display {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.pin-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--border);
+}
+
+.pin-dot.filled {
+    background: var(--primary);
+}
+
+.pin-pad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    max-width: 280px;
+    margin: 0 auto;
+}
+
+.pin-key {
+    height: 64px;
+    border: none;
+    border-radius: 16px;
+    background: var(--light);
+    font-size: 24px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.1s;
+}
+
+.pin-key:active {
+    background: var(--primary);
+    color: white;
+}

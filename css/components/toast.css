@@ -1,0 +1,15 @@
+/* Toast Notifications */
+
+.toast {
+    position: fixed;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--dark);
+    color: white;
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-size: 14px;
+    z-index: 300;
+    animation: toastIn 0.3s ease;
+}

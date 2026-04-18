@@ -1,0 +1,152 @@
+/* Login Screen */
+
+.login-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    padding-top: max(20px, env(safe-area-inset-top));
+}
+
+.login-screen.hidden {
+    display: none;
+}
+
+.login-logo {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 16px;
+}
+
+.login-title {
+    color: white;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.login-subtitle {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 40px;
+}
+
+.login-options {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.login-btn {
+    padding: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.login-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.login-btn h3 {
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+
+.login-btn p {
+    font-size: 13px;
+    opacity: 0.7;
+}
+
+.login-btn.admin {
+    border-color: var(--primary);
+    background: rgba(102, 126, 234, 0.2);
+}
+
+.login-pin-section {
+    display: none;
+    width: 100%;
+    max-width: 300px;
+}
+
+.login-pin-section.show {
+    display: block;
+}
+
+.login-back {
+    color: rgba(255, 255, 255, 0.7);
+    background: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.login-pin-display {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.login-pin-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.login-pin-dot.filled {
+    background: var(--primary);
+}
+
+.login-pin-pad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.login-pin-key {
+    height: 60px;
+    border: none;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.1s;
+}
+
+.login-pin-key:active {
+    background: var(--primary);
+}
+
+.login-error {
+    color: #ff6b6b;
+    text-align: center;
+    margin-top: 16px;
+    font-size: 14px;
+}

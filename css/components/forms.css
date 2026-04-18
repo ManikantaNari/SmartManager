@@ -1,0 +1,86 @@
+/* Form Elements */
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--dark);
+    margin-bottom: 8px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    font-size: 16px;
+    transition: border-color 0.2s;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.form-input::placeholder {
+    color: #94a3b8;
+}
+
+/* Search Box */
+.search-box {
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 14px 16px 14px 44px;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    font-size: 16px;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.search-box svg {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gray);
+}
+
+/* Price Input */
+.price-input-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.price-input-group .currency {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.price-input-group input {
+    flex: 1;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: right;
+    border: none;
+    border-bottom: 3px solid var(--primary);
+    padding: 8px 0;
+    background: transparent;
+}
+
+.price-input-group input:focus {
+    outline: none;
+}

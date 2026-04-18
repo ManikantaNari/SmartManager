@@ -1,0 +1,46 @@
+/* Role-based Visibility */
+
+/* Admin only elements */
+.admin-only {
+    display: none;
+}
+
+body.is-admin .admin-only {
+    display: block;
+}
+
+body.is-admin .admin-only-inline {
+    display: inline;
+}
+
+.admin-only-flex {
+    display: none;
+}
+
+body.is-admin .admin-only-flex {
+    display: flex;
+}
+
+/* Worker restrictions */
+body.is-worker .worker-hidden {
+    display: none !important;
+}
+
+body.is-worker .worker-blur {
+    filter: blur(8px);
+    user-select: none;
+    pointer-events: none;
+}
+
+/* Center stats grid for managers (3 cards instead of 4) */
+body.is-worker .stats-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+body.is-worker .stats-grid .stat-card {
+    flex: 0 0 calc(50% - 6px);
+    max-width: calc(50% - 6px);
+}

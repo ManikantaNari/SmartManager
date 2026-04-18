@@ -1,0 +1,11 @@
+/* Pages */
+
+.page {
+    display: none;
+    padding: 16px;
+    animation: fadeIn 0.3s ease;
+}
+
+.page.active {
+    display: block;
+}

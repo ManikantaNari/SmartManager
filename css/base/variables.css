@@ -1,0 +1,15 @@
+/* CSS Variables / Design Tokens */
+
+:root {
+    --primary: #667eea;
+    --primary-dark: #5a67d8;
+    --secondary: #764ba2;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --dark: #1a1a2e;
+    --darker: #16213e;
+    --light: #f8fafc;
+    --gray: #64748b;
+    --border: #e2e8f0;
+}
