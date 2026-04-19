@@ -1,14 +1,31 @@
 {
   "version": 1,
-  "date": "2026-04-19T00:07:22.509Z",
+  "date": "2026-04-19T13:30:50.031Z",
   "products": {
     "Mattress": [
-      "Single (3x6)",
-      "Double (4x6)",
-      "Queen (5x6)",
-      "King (6x6)",
-      "6x6.5",
-      "5x6.5"
+      "Ep / 72*36 / 4",
+      "Ep / 72*36 / 5",
+      "Foam / 72*36 / 5",
+      "Foam / 72*36 / 6",
+      "Ep / 75*36 / 4",
+      "Ep / 75*36 / 5",
+      "Foam / 75*36 / 5",
+      "Foam / 75*36 / 6",
+      "EP / 72*48 / 4",
+      "EP / 72*48 / 5",
+      "Foam / 72*48 / 5",
+      "Foam / 72*48 / 6",
+      "EP / 75*48 / 4",
+      "EP / 75*48 / 5",
+      "Foam / 75*48 / 5",
+      "Foam / 75*48 / 6",
+      "EP / 75*60 / 5",
+      "Foam / 75*60 / 5",
+      "Foam / 75*60 / 6",
+      "EP / 75*72 / 4",
+      "EP / 75*72 / 5",
+      "Foam / 75*72 / 5",
+      "Foam / 75*72 / 6"
     ],
     "Cot": [
       "Single",
@@ -16,7 +33,17 @@
       "Queen",
       "King",
       "Wooden",
-      "Metal"
+      "Metal",
+      "Box (6 × 5)",
+      "Diwan Normal",
+      "Diwan Teak",
+      "Folding",
+      "Polish (6 × 4)",
+      "Polish (6 × 5)",
+      "Polish (6 × 6)",
+      "Polish (6 × 3)",
+      "Teak (6 × 4)",
+      "Teak (6×3)"
     ],
     "TV Stand": [
       "Small",
@@ -29,16 +56,20 @@
       "Plastic",
       "Office Chair",
       "Dining Chair",
-      "Recliner"
+      "Recliner",
+      "Resto",
+      "Resto Fiber",
+      "AVRo Fiber",
+      "Aram Resto"
     ],
     "Table": [
       "Study Table",
       "Computer Table"
     ],
     "Fan": [
-      "Ceiling Fan",
+      "Ceiling Fan Swift",
       "Table Fan",
-      "Pedestal Fan",
+      "Ceiling Fan Racer",
       "Wall Fan",
       "Exhaust Fan"
     ],
@@ -67,164 +98,199 @@
       "3 Layer",
       "4 Layer",
       "5 Layer"
+    ],
+    "Dressing Table": [
+      "Normal",
+      "Polished",
+      "Long"
+    ],
+    "Cooler": [
+      "Breeze",
+      "Flapee King",
+      "Ikia Bustar",
+      "Resto Turbo",
+      "Vaishnavi Jumbo",
+      "Vaishnavi Matrix",
+      "Wintro"
+    ],
+    "Almara": [
+      "(6 ½ * 4)"
     ]
   },
   "inventory": {
-    "Alamara|(6 ½ * 4)": {
-      "qty": 9,
+    "Almara|(6 ½ * 4)": {
       "costPrice": 6900,
-      "alertQty": 0,
-      "price": 11000
+      "qty": 9,
+      "price": 11000,
+      "alertQty": 0
     },
     "Chair|AVRo Fiber": {
-      "price": 750,
-      "alertQty": 0,
+      "costPrice": 470,
       "qty": 28,
-      "costPrice": 470
+      "price": 750,
+      "alertQty": 0
     },
     "Chair|Aram Resto": {
+      "qty": 10,
       "price": 650,
       "alertQty": 0,
-      "qty": 10,
       "costPrice": 350
     },
     "Chair|Resto": {
-      "price": 350,
       "qty": 66,
-      "costPrice": 230,
-      "alertQty": 0
+      "price": 350,
+      "alertQty": 0,
+      "costPrice": 230
     },
     "Chair|Resto Fiber": {
       "costPrice": 380,
       "qty": 19,
-      "alertQty": 0,
-      "price": 650
+      "price": 650,
+      "alertQty": 0
     },
     "Cooler|Breeze": {
-      "price": 6000,
+      "qty": 4,
       "alertQty": 0,
-      "costPrice": 3100,
-      "qty": 4
+      "price": 6000,
+      "costPrice": 3100
     },
     "Cooler|Flapee King": {
-      "alertQty": 0,
       "qty": 4,
-      "costPrice": 3800,
-      "price": 6500
+      "price": 6500,
+      "alertQty": 0,
+      "costPrice": 3800
     },
     "Cooler|Ikia Bustar": {
-      "price": 6500,
-      "qty": 5,
       "costPrice": 3700,
+      "qty": 5,
+      "price": 6500,
       "alertQty": 0
     },
     "Cooler|Resto Turbo": {
-      "price": 6000,
-      "alertQty": 2,
+      "costPrice": 3400,
       "qty": 3,
-      "costPrice": 3400
+      "alertQty": 2,
+      "price": 6000
     },
     "Cooler|Vaishnavi Jumbo": {
-      "price": 6000,
-      "alertQty": 5,
       "costPrice": 3200,
-      "qty": 10
+      "qty": 10,
+      "price": 6000,
+      "alertQty": 5
     },
     "Cooler|Vaishnavi Matrix": {
-      "qty": 5,
       "costPrice": 3750,
-      "alertQty": 0,
-      "price": 6000
+      "qty": 5,
+      "price": 6000,
+      "alertQty": 0
     },
     "Cooler|Wintro": {
-      "qty": 5,
       "costPrice": 3700,
-      "alertQty": 0,
-      "price": 6000
+      "qty": 5,
+      "price": 6000,
+      "alertQty": 0
     },
     "Cot|Box (6 × 5)": {
-      "price": 22000,
-      "qty": 6,
       "costPrice": 14000,
+      "qty": 6,
+      "price": 22000,
       "alertQty": 3
     },
     "Cot|Diwan Normal": {
-      "alertQty": 5,
       "costPrice": 3000,
       "qty": 19,
+      "alertQty": 5,
       "price": 5500
     },
     "Cot|Diwan Teak": {
+      "qty": 1,
       "price": 6500,
       "alertQty": 0,
-      "costPrice": 4000,
-      "qty": 1
+      "costPrice": 4000
     },
     "Cot|Folding": {
-      "alertQty": 5,
-      "qty": 10,
       "costPrice": 2300,
-      "price": 3800
+      "qty": 10,
+      "price": 3800,
+      "alertQty": 5
     },
-    "Cot|Polish (6 × 4)": {
-      "price": 11000,
-      "qty": 14,
-      "costPrice": 6000,
+    "Cot|Polish (6 × 3)": {
+      "costPrice": 5000,
+      "qty": 10,
+      "price": 9000,
       "alertQty": 3
     },
+    "Cot|Polish (6 × 4)": {
+      "qty": 14,
+      "alertQty": 3,
+      "price": 11000,
+      "costPrice": 6000
+    },
     "Cot|Polish (6 × 5)": {
-      "price": 16000,
-      "qty": 12,
       "costPrice": 9000,
+      "qty": 12,
+      "price": 16000,
       "alertQty": 3
     },
     "Cot|Polish (6 × 6)": {
-      "price": 18000,
-      "alertQty": 2,
       "qty": 10,
+      "alertQty": 2,
+      "price": 18000,
       "costPrice": 10000
     },
-    "Cot|polish (6 × 3)": {
-      "alertQty": 3,
+    "Cot|Teak (6 × 4)": {
       "qty": 10,
-      "costPrice": 5000,
-      "price": 9000
-    },
-    "Cot|teak (6 × 4)": {
       "alertQty": 3,
-      "qty": 10,
-      "costPrice": 5200,
-      "price": 8000
+      "price": 8000,
+      "costPrice": 5200
     },
-    "Cot|teak (6×3)": {
+    "Cot|Teak (6×3)": {
+      "qty": 10,
       "price": 6500,
       "alertQty": 3,
-      "qty": 10,
       "costPrice": 4000
     },
     "Dressing Table|Long": {
       "costPrice": 3800,
-      "qty": 13,
+      "qty": 20,
       "alertQty": 5,
       "price": 4800
     },
     "Dressing Table|Normal": {
-      "price": 3200,
-      "alertQty": 5,
+      "costPrice": 1800,
       "qty": 19,
-      "costPrice": 1800
+      "alertQty": 5,
+      "price": 3200
     },
     "Dressing Table|Polished": {
+      "qty": 10,
+      "alertQty": 3,
       "price": 3800,
-      "qty": 5,
-      "costPrice": 2300,
-      "alertQty": 5
+      "costPrice": 2300
     },
-    "Mattress|foam (75×60)": {
+    "Fan|Ceiling Fan Swift": {
       "qty": 4,
-      "costPrice": 4700,
+      "alertQty": 0,
+      "price": 0,
+      "costPrice": 0
+    },
+    "Pillow|Memory Foam": {
+      "qty": 25,
+      "price": 350,
       "alertQty": 5,
-      "price": 8000
+      "costPrice": 0
+    },
+    "Pillow|Standard": {
+      "costPrice": 0,
+      "qty": 50,
+      "alertQty": 0,
+      "price": 0
+    },
+    "Shoe Rack|3 Layer": {
+      "qty": 0,
+      "price": 0,
+      "alertQty": 0,
+      "costPrice": 0
     }
   },
   "customers": [
@@ -238,82 +304,82 @@
   "sales": [
     {
       "id": "1776502857961",
-      "date": "2026-04-18",
-      "paymentMethod": "Cash",
-      "total": 24000,
-      "customer": {
-        "phone": "9963931182",
-        "name": "Srinivasulu"
-      },
+      "time": "2:30:57 PM",
       "items": [
         {
+          "key": "Almara|(6 ½ * 4)",
           "costPrice": 6900,
           "qty": 1,
-          "key": "Alamara|(6 ½ * 4)",
+          "category": "Almara",
           "variant": "(6 ½ * 4)",
-          "category": "Alamara",
           "price": 8000
         },
         {
+          "price": 5500,
+          "variant": "Foam / 75*36 / 5",
           "category": "Mattress",
-          "costPrice": 4700,
           "qty": 1,
-          "key": "Mattress|foam (75×60)",
-          "variant": "foam (75×60)",
-          "price": 5500
+          "costPrice": 4700,
+          "key": "Mattress|Foam / 75*36 / 5"
         },
         {
-          "category": "Cot",
           "qty": 1,
           "key": "Cot|Polish (6 × 5)",
           "costPrice": 9000,
+          "category": "Cot",
           "variant": "Polish (6 × 5)",
           "price": 10500
         }
       ],
+      "customer": {
+        "name": "Srinivasulu",
+        "phone": "9963931182"
+      },
+      "paymentMethod": "Cash",
       "profit": 3400,
-      "time": "2:30:57 PM"
+      "date": "2026-04-18",
+      "total": 24000
     },
     {
       "id": "1776498660155",
-      "paymentMethod": "Cash",
-      "date": "2026-04-18",
       "time": "1:21:00 PM",
+      "profit": 1400,
+      "paymentMethod": "Cash",
+      "total": 4500,
+      "date": "2026-04-18",
       "items": [
         {
           "variant": "Breeze",
-          "costPrice": 3100,
-          "qty": 1,
-          "key": "Cooler|Breeze",
           "category": "Cooler",
-          "price": 4500
+          "price": 4500,
+          "costPrice": 3100,
+          "key": "Cooler|Breeze",
+          "qty": 1
         }
       ],
-      "profit": 1400,
-      "total": 4500,
       "customer": null
     },
     {
       "id": "1776490149848",
       "items": [
         {
-          "variant": "Flapee King",
-          "key": "Cooler|Flapee King",
           "costPrice": 3800,
+          "key": "Cooler|Flapee King",
           "qty": 1,
+          "variant": "Flapee King",
           "category": "Cooler",
           "price": 5000
         }
       ],
-      "profit": 1200,
-      "time": "10:59:09 AM",
-      "total": 5000,
       "customer": {
         "phone": "",
         "name": "Ramulu Kadaparthi"
       },
+      "profit": 1200,
       "paymentMethod": "Cash",
-      "date": "2026-04-18"
+      "total": 5000,
+      "date": "2026-04-18",
+      "time": "10:59:09 AM"
     }
   ],
   "adminPin": "11111"
