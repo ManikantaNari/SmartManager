@@ -2,15 +2,19 @@
 
 /* Admin only elements */
 .admin-only {
-    display: none;
+    display: none !important;
 }
 
 body.is-admin .admin-only {
-    display: block;
+    display: block !important;
+}
+
+body.is-admin .admin-only.bd-row {
+    display: flex !important;
 }
 
 body.is-admin .admin-only-inline {
-    display: inline;
+    display: inline !important;
 }
 
 .admin-only-flex {

@@ -12,6 +12,7 @@ export const STORAGE_KEYS = {
     customers: 'sm_customers',
     sales: 'sm_sales',
     stockLogs: 'sm_stock_logs',
+    bookings: 'sm_bookings',
     adminPin: 'sm_admin_pin',
     lastBackup: 'sm_last_backup'
 };

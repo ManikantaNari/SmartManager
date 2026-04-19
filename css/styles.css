@@ -31,6 +31,7 @@
 @import url('./features/cart.css');
 @import url('./features/dashboard.css');
 @import url('./features/roles.css');
+@import url('./features/bookings.css');
 
 /* Responsive - Must be last */
 @import url('./layout/responsive.css');

@@ -7,12 +7,16 @@ import { State, Storage } from '../state/index.js';
 // External dependencies
 let showAddCategoryModal = null;
 let showAddVariantModal = null;
+let showEditCategoryModal = null;
+let showEditVariantModal = null;
 let onStockUpdated = null;
 
 export const Inventory = {
     init(callbacks) {
         showAddCategoryModal = callbacks.showAddCategoryModal;
         showAddVariantModal = callbacks.showAddVariantModal;
+        showEditCategoryModal = callbacks.showEditCategoryModal;
+        showEditVariantModal = callbacks.showEditVariantModal;
         onStockUpdated = callbacks.onStockUpdated;
 
         // Stock list clicks
@@ -23,6 +27,13 @@ export const Inventory = {
 
         // Stock category grid
         DOM.on(DOM.get('stockCategoryGrid'), 'click', '.category-btn', (e, el) => {
+            // Check if edit button was clicked
+            if (e.target.closest('.edit-btn')) {
+                e.stopPropagation();
+                const category = el.dataset.value;
+                if (showEditCategoryModal && category) showEditCategoryModal(category);
+                return;
+            }
             if (el.dataset.action === 'add') {
                 if (showAddCategoryModal) showAddCategoryModal();
             } else if (el.dataset.value) {
@@ -32,6 +43,13 @@ export const Inventory = {
 
         // Stock variant grid
         DOM.on(DOM.get('stockVariantGrid'), 'click', '.variant-btn', (e, el) => {
+            // Check if edit button was clicked
+            if (e.target.closest('.edit-btn')) {
+                e.stopPropagation();
+                const variant = el.dataset.value;
+                if (showEditVariantModal && variant) showEditVariantModal(State.selectedStockCategory, variant);
+                return;
+            }
             if (el.dataset.action === 'add') {
                 if (showAddVariantModal) showAddVariantModal('stock');
             } else if (el.dataset.value) {
@@ -60,21 +78,58 @@ export const Inventory = {
     renderAddStockView() {
         if (State.stockSession) {
             // Active session - show session view
+            DOM.hide(DOM.get('stockTypeSelection'));
             DOM.hide(DOM.get('startSessionForm'));
             DOM.show(DOM.get('activeSessionView'));
+
+            // Display based on stock type
+            const isOldStock = State.stockSession.stockType === 'old';
+            const labelEl = DOM.get('sessionVendorLabel');
+            if (labelEl) {
+                DOM.setText(labelEl, isOldStock ? 'Adding' : 'Adding stock from');
+            }
             DOM.setText(DOM.get('sessionVendorDisplay'), State.stockSession.vendor);
             DOM.setText(DOM.get('sessionInvoiceDisplay'), State.stockSession.invoice ? `Invoice: ${State.stockSession.invoice}` : '');
+
             this.renderSessionItems();
             this.renderStockCategories();
         } else {
-            // No session - show start form
-            DOM.show(DOM.get('startSessionForm'));
+            // No session - show stock type selection
+            DOM.show(DOM.get('stockTypeSelection'));
+            DOM.hide(DOM.get('startSessionForm'));
             DOM.hide(DOM.get('activeSessionView'));
             DOM.setValue(DOM.get('sessionVendor'), '');
             DOM.setValue(DOM.get('sessionInvoice'), '');
             DOM.hide(DOM.get('photoPreview'));
             this.invoicePhotoData = null;
         }
+    },
+
+    selectStockType(type) {
+        if (type === 'old') {
+            // Old stock - skip vendor form, start session directly
+            State.stockSession = {
+                id: Date.now().toString(36) + Math.random().toString(36).substr(2),
+                vendor: 'Old Stock',
+                invoice: '',
+                photo: null,
+                items: [],
+                startTime: new Date().toISOString(),
+                addedBy: State.userRole,
+                stockType: 'old'
+            };
+            this.renderAddStockView();
+            Toast.show('Add your existing inventory items');
+        } else {
+            // New stock - show vendor form
+            DOM.hide(DOM.get('stockTypeSelection'));
+            DOM.show(DOM.get('startSessionForm'));
+        }
+    },
+
+    backToStockType() {
+        DOM.show(DOM.get('stockTypeSelection'));
+        DOM.hide(DOM.get('startSessionForm'));
     },
 
     invoicePhotoData: null,
@@ -115,7 +170,8 @@ export const Inventory = {
             photo: this.invoicePhotoData,
             items: [],
             startTime: new Date().toISOString(),
-            addedBy: State.userRole
+            addedBy: State.userRole,
+            stockType: 'new'
         };
 
         this.renderAddStockView();
@@ -178,7 +234,8 @@ export const Inventory = {
             photo: State.stockSession.photo,
             items: State.stockSession.items,
             addedBy: State.stockSession.addedBy,
-            type: 'bulk'
+            type: 'bulk',
+            stockType: State.stockSession.stockType || 'new'
         };
 
         State.stockLogs.unshift(log);
@@ -254,6 +311,18 @@ export const Inventory = {
 
             const btn = fragment.querySelector('.category-btn');
             if (State.selectedStockCategory === cat) btn.classList.add('active');
+
+            // Add edit button for admin
+            if (State.isAdmin()) {
+                const editBtn = document.createElement('button');
+                editBtn.className = 'edit-btn';
+                editBtn.innerHTML = `<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+                    <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                </svg>`;
+                btn.appendChild(editBtn);
+            }
+
             container.appendChild(fragment);
         });
 
@@ -288,11 +357,24 @@ export const Inventory = {
                 stock: ''
             }, { dataAttrs: { value: v } });
 
+            const btn = fragment.querySelector('.variant-btn');
+
             // Hide price and stock for simple display
             const priceEl = fragment.querySelector('[data-field="price"]');
             const stockEl = fragment.querySelector('[data-field="stock"]');
             if (priceEl) priceEl.style.display = 'none';
             if (stockEl) stockEl.style.display = 'none';
+
+            // Add edit button for admin
+            if (State.isAdmin()) {
+                const editBtn = document.createElement('button');
+                editBtn.className = 'edit-btn';
+                editBtn.innerHTML = `<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+                    <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                </svg>`;
+                btn.appendChild(editBtn);
+            }
 
             container.appendChild(fragment);
         });

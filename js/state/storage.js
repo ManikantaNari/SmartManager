@@ -18,16 +18,45 @@ export const Storage = {
     async loadAll() {
         await this.loadProducts();
         await this.loadInventory();
+        this.syncProductsWithInventory();
         await this.loadCustomers();
         await this.loadSales();
         await this.loadStockLogs();
+        await this.loadBookings();
         await this.loadPin();
     },
 
-    // Load products from localStorage
+    // Load products from localStorage only (Firebase sync happens via inventory)
     async loadProducts() {
         const saved = this.getLocal(STORAGE_KEYS.products);
         if (saved) State.products = saved;
+        // Note: Missing categories are recovered from inventory via syncProductsWithInventory()
+    },
+
+    // Sync products with inventory - extract missing categories/variants from inventory
+    syncProductsWithInventory() {
+        let updated = false;
+        for (const key of Object.keys(State.inventory)) {
+            const [category, variant] = key.split('|');
+            if (!category || !variant) continue;
+
+            // Add category if missing
+            if (!State.products[category]) {
+                State.products[category] = [];
+                updated = true;
+            }
+
+            // Add variant if missing
+            if (!State.products[category].includes(variant)) {
+                State.products[category].push(variant);
+                updated = true;
+            }
+        }
+
+        if (updated) {
+            this.setLocal(STORAGE_KEYS.products, State.products);
+            this.saveProductsToFirebase();
+        }
     },
 
     // Load inventory from Firebase with localStorage fallback
@@ -54,6 +83,8 @@ export const Storage = {
         const db = getDb();
         if (!db) {
             State.customers = this.getLocal(STORAGE_KEYS.customers, []);
+            // Backfill id for old customers without it
+            this.backfillCustomerIds();
             return;
         }
         try {
@@ -65,6 +96,21 @@ export const Storage = {
             this.setLocal(STORAGE_KEYS.customers, State.customers);
         } catch (e) {
             State.customers = this.getLocal(STORAGE_KEYS.customers, []);
+            this.backfillCustomerIds();
+        }
+    },
+
+    // Backfill id field for old customers (backward compatibility)
+    backfillCustomerIds() {
+        let updated = false;
+        State.customers.forEach(c => {
+            if (!c.id) {
+                c.id = c.phone || ('cust_' + Date.now().toString(36) + Math.random().toString(36).substr(2, 4));
+                updated = true;
+            }
+        });
+        if (updated) {
+            this.setLocal(STORAGE_KEYS.customers, State.customers);
         }
     },
 
@@ -106,6 +152,25 @@ export const Storage = {
         }
     },
 
+    // Load bookings from Firebase with localStorage fallback
+    async loadBookings() {
+        const db = getDb();
+        if (!db) {
+            State.bookings = this.getLocal(STORAGE_KEYS.bookings, []);
+            return;
+        }
+        try {
+            const snapshot = await db.collection('bookings').orderBy('createdDate', 'desc').limit(500).get();
+            State.bookings = [];
+            snapshot.forEach(doc => {
+                State.bookings.push({ id: doc.id, ...doc.data() });
+            });
+            this.setLocal(STORAGE_KEYS.bookings, State.bookings);
+        } catch (e) {
+            State.bookings = this.getLocal(STORAGE_KEYS.bookings, []);
+        }
+    },
+
     // Load admin PIN
     async loadPin() {
         const localPin = this.getLocal(STORAGE_KEYS.adminPin);
@@ -137,26 +202,40 @@ export const Storage = {
         }
     },
 
-    // Save customer
-    async saveCustomer(customer) {
-        this.setLocal(STORAGE_KEYS.customers, State.customers);
+    // Delete inventory item
+    async deleteInventoryItem(key) {
+        this.setLocal(STORAGE_KEYS.inventory, State.inventory);
         const db = getDb();
-        if (db && customer.phone) {
+        if (db) {
             try {
-                await db.collection('customers').doc(customer.phone).set(customer);
+                await db.collection('inventory').doc(key).delete();
             } catch (e) {
                 console.log('Sync error:', e);
             }
         }
     },
 
-    // Delete customer
-    async deleteCustomer(phone) {
+    // Save customer
+    async saveCustomer(customer) {
         this.setLocal(STORAGE_KEYS.customers, State.customers);
         const db = getDb();
-        if (db) {
+        const docId = customer.phone || customer.id;
+        if (db && docId) {
             try {
-                await db.collection('customers').doc(phone).delete();
+                await db.collection('customers').doc(docId).set(customer);
+            } catch (e) {
+                console.log('Sync error:', e);
+            }
+        }
+    },
+
+    // Delete customer (accepts phone or id)
+    async deleteCustomer(phoneOrId) {
+        this.setLocal(STORAGE_KEYS.customers, State.customers);
+        const db = getDb();
+        if (db && phoneOrId) {
+            try {
+                await db.collection('customers').doc(phoneOrId).delete();
             } catch (e) {
                 console.log('Sync error:', e);
             }
@@ -206,9 +285,21 @@ export const Storage = {
         }
     },
 
-    // Save products catalog
+    // Save products catalog (localStorage + Firebase)
     saveProducts() {
         this.setLocal(STORAGE_KEYS.products, State.products);
+        this.saveProductsToFirebase();
+    },
+
+    // Save products to Firebase for cross-device sync (non-blocking)
+    saveProductsToFirebase() {
+        const db = getDb();
+        if (!db) return;
+
+        db.collection('settings').doc('products').set({
+            catalog: State.products,
+            updatedAt: new Date().toISOString()
+        }).catch(e => console.log('Products sync error:', e.message));
     },
 
     // Save stock log entry
@@ -218,6 +309,32 @@ export const Storage = {
         if (db) {
             try {
                 await db.collection('stockLogs').doc(log.id).set(log);
+            } catch (e) {
+                console.log('Sync error:', e);
+            }
+        }
+    },
+
+    // Save booking
+    async saveBooking(booking) {
+        this.setLocal(STORAGE_KEYS.bookings, State.bookings);
+        const db = getDb();
+        if (db) {
+            try {
+                await db.collection('bookings').doc(booking.id).set(booking);
+            } catch (e) {
+                console.log('Sync error:', e);
+            }
+        }
+    },
+
+    // Delete booking
+    async deleteBooking(bookingId) {
+        this.setLocal(STORAGE_KEYS.bookings, State.bookings);
+        const db = getDb();
+        if (db) {
+            try {
+                await db.collection('bookings').doc(bookingId).delete();
             } catch (e) {
                 console.log('Sync error:', e);
             }

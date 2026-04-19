@@ -6,7 +6,7 @@ import { PinPad } from './components/index.js';
 import { State, Storage } from './state/index.js';
 import {
     Auth, Navigation, Dashboard, Sales, Transactions,
-    Inventory, Customers, Products, Reports, Backup
+    Inventory, Customers, Products, Reports, Backup, Bookings
 } from './modules/index.js';
 import { loadTemplates } from './templates/index.js';
 
@@ -44,6 +44,7 @@ const App = {
             dashboard: () => Dashboard.render(),
             sale: () => { Sales.reset(); Sales.renderCategories(); },
             inventory: () => Inventory.renderStockList(),
+            bookings: () => Bookings.renderList(),
             customers: () => Customers.renderAll(),
             reports: () => Reports.showTab('daily')
         });
@@ -56,6 +57,8 @@ const App = {
         Sales.init({
             showAddCategoryModal: () => Products.showAddCategoryModal(),
             showAddVariantModal: (ctx) => Products.showAddVariantModal(ctx),
+            showEditCategoryModal: (cat) => Products.showEditCategoryModal(cat),
+            showEditVariantModal: (cat, variant) => Products.showEditVariantModal(cat, variant),
             onSaleComplete: () => Dashboard.render()
         });
 
@@ -72,6 +75,8 @@ const App = {
         Inventory.init({
             showAddCategoryModal: () => Products.showAddCategoryModal(),
             showAddVariantModal: (ctx) => Products.showAddVariantModal(ctx),
+            showEditCategoryModal: (cat) => Products.showEditCategoryModal(cat),
+            showEditVariantModal: (cat, variant) => Products.showEditVariantModal(cat, variant),
             onStockUpdated: () => Dashboard.render()
         });
 
@@ -88,6 +93,11 @@ const App = {
 
         Reports.init({
             showTransactionDetails: (saleId) => Transactions.showDetails(saleId)
+        });
+
+        Bookings.init({
+            onBookingCreated: () => Dashboard.render(),
+            onBookingCompleted: () => Dashboard.render()
         });
 
         // Initial render
@@ -152,6 +162,7 @@ export {
     Products,
     Reports,
     Backup,
+    Bookings,
     PinPad
 };
 

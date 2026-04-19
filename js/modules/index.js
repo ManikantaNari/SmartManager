@@ -10,3 +10,4 @@ export { Customers } from './customers.js';
 export { Products } from './products.js';
 export { Reports } from './reports.js';
 export { Backup } from './backup.js';
+export { Bookings } from './bookings.js';

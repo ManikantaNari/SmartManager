@@ -87,3 +87,131 @@
     border-color: var(--primary);
     background: rgba(102, 126, 234, 0.1);
 }
+
+/* Stock Type Selection */
+.stock-type-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.stock-type-btn {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background: var(--light);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.stock-type-btn:hover {
+    border-color: var(--primary);
+    background: rgba(102, 126, 234, 0.05);
+}
+
+.stock-type-btn:active {
+    transform: scale(0.98);
+}
+
+.stock-type-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--gray) 0%, #94a3b8 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.stock-type-icon svg {
+    stroke: white;
+}
+
+.stock-type-icon.new {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+}
+
+.stock-type-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.stock-type-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.stock-type-desc {
+    font-size: 13px;
+    color: var(--gray);
+}
+
+/* Edit button on category/variant */
+.category-btn,
+.variant-btn {
+    position: relative;
+}
+
+.edit-btn {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 24px;
+    height: 24px;
+    border: none;
+    border-radius: 6px;
+    background: rgba(102, 126, 234, 0.15);
+    color: var(--primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.6;
+    transition: all 0.2s;
+    z-index: 5;
+}
+
+.edit-btn:hover {
+    opacity: 1;
+    background: var(--primary);
+    color: white;
+}
+
+.edit-btn svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* Edit modal styles */
+.edit-info-box {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    background: rgba(102, 126, 234, 0.1);
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    color: var(--gray);
+}
+
+.edit-info-box svg {
+    color: var(--primary);
+    flex-shrink: 0;
+}
+
+.current-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--dark);
+    padding: 10px 14px;
+    background: var(--light);
+    border-radius: 8px;
+}

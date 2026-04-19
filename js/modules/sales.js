@@ -7,16 +7,27 @@ import { State, Storage } from '../state/index.js';
 // External dependencies - will be injected
 let showAddCategoryModal = null;
 let showAddVariantModal = null;
+let showEditCategoryModal = null;
+let showEditVariantModal = null;
 let onSaleComplete = null;
 
 export const Sales = {
     init(callbacks) {
         showAddCategoryModal = callbacks.showAddCategoryModal;
         showAddVariantModal = callbacks.showAddVariantModal;
+        showEditCategoryModal = callbacks.showEditCategoryModal;
+        showEditVariantModal = callbacks.showEditVariantModal;
         onSaleComplete = callbacks.onSaleComplete;
 
         // Category grid clicks
         DOM.on(DOM.get('categoryGrid'), 'click', '.category-btn', (e, el) => {
+            // Check if edit button was clicked
+            if (e.target.closest('.edit-btn')) {
+                e.stopPropagation();
+                const category = el.dataset.value;
+                if (showEditCategoryModal && category) showEditCategoryModal(category);
+                return;
+            }
             if (el.dataset.action === 'add') {
                 if (showAddCategoryModal) showAddCategoryModal();
             } else if (el.dataset.value) {
@@ -26,6 +37,13 @@ export const Sales = {
 
         // Variant grid clicks
         DOM.on(DOM.get('variantGrid'), 'click', '.variant-btn', (e, el) => {
+            // Check if edit button was clicked
+            if (e.target.closest('.edit-btn')) {
+                e.stopPropagation();
+                const variant = el.dataset.value;
+                if (showEditVariantModal && variant) showEditVariantModal(State.selectedCategory, variant);
+                return;
+            }
             if (el.dataset.action === 'add') {
                 if (showAddVariantModal) showAddVariantModal('sale');
             } else if (el.dataset.value) {
@@ -97,6 +115,18 @@ export const Sales = {
 
             const btn = fragment.querySelector('.category-btn');
             if (State.selectedCategory === cat) btn.classList.add('active');
+
+            // Add edit button for admin
+            if (State.isAdmin()) {
+                const editBtn = document.createElement('button');
+                editBtn.className = 'edit-btn';
+                editBtn.innerHTML = `<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+                    <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                </svg>`;
+                btn.appendChild(editBtn);
+            }
+
             container.appendChild(fragment);
         });
 
@@ -138,8 +168,20 @@ export const Sales = {
                 classes: isLow ? ['low-stock'] : []
             });
 
+            const btn = fragment.querySelector('.variant-btn');
             const stockEl = fragment.querySelector('[data-field="stock"]');
             if (stockEl && isLow) stockEl.classList.add('low');
+
+            // Add edit button for admin
+            if (State.isAdmin()) {
+                const editBtn = document.createElement('button');
+                editBtn.className = 'edit-btn';
+                editBtn.innerHTML = `<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+                    <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                </svg>`;
+                btn.appendChild(editBtn);
+            }
 
             container.appendChild(fragment);
         });
@@ -328,11 +370,18 @@ export const Sales = {
         State.sales.push(sale);
         Storage.saveSale(sale);
 
-        // Save customer if new
-        if (customerName && customerPhone) {
-            const existing = State.customers.find(c => c.phone === customerPhone);
+        // Save customer if new (name required, phone optional)
+        if (customerName) {
+            let existing = null;
+            if (customerPhone) {
+                existing = State.customers.find(c => c.phone === customerPhone);
+            } else {
+                // Check by name if no phone
+                existing = State.customers.find(c => c.name === customerName && !c.phone);
+            }
             if (!existing) {
-                const newCustomer = { name: customerName, phone: customerPhone, email: '' };
+                const customerId = customerPhone || ('cust_' + Date.now().toString(36));
+                const newCustomer = { id: customerId, name: customerName, phone: customerPhone, email: '' };
                 State.customers.push(newCustomer);
                 Storage.saveCustomer(newCustomer);
             }

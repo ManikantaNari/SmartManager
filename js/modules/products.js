@@ -13,6 +13,8 @@ export const Products = {
         Modal.initCloseOnOverlay('addProductModal');
         Modal.initCloseOnOverlay('addCategoryModal');
         Modal.initCloseOnOverlay('addVariantModal');
+        Modal.initCloseOnOverlay('editCategoryModal');
+        Modal.initCloseOnOverlay('editVariantModal');
     },
 
     renderList() {
@@ -191,5 +193,225 @@ export const Products = {
         if (onProductsUpdated) onProductsUpdated();
 
         Toast.show('Variant added');
+    },
+
+    // ==================== EDIT CATEGORY ====================
+
+    showEditCategoryModal(category) {
+        if (!State.isAdmin()) {
+            Toast.show('Only owner can edit');
+            return;
+        }
+
+        State.editingCategory = category;
+        DOM.setText(DOM.get('editCategoryOldName'), category);
+        DOM.setValue(DOM.get('editCategoryNewName'), category);
+        Modal.show('editCategoryModal');
+    },
+
+    closeEditCategoryModal() {
+        Modal.hide('editCategoryModal');
+        State.editingCategory = null;
+    },
+
+    saveEditCategory() {
+        const oldName = State.editingCategory;
+        const newName = DOM.getValue(DOM.get('editCategoryNewName')).trim();
+
+        if (!newName) {
+            Toast.show('Category name required');
+            return;
+        }
+        if (newName === oldName) {
+            this.closeEditCategoryModal();
+            return;
+        }
+        if (State.products[newName]) {
+            Toast.show('Category already exists');
+            return;
+        }
+
+        // 1. Update products
+        const variants = State.products[oldName] || [];
+        delete State.products[oldName];
+        State.products[newName] = variants;
+        Storage.saveProducts();
+
+        // 2. Update inventory keys
+        const inventoryUpdates = [];
+        Object.keys(State.inventory).forEach(key => {
+            if (key.startsWith(oldName + '|')) {
+                const variant = key.split('|')[1];
+                const newKey = `${newName}|${variant}`;
+                const data = State.inventory[key];
+                delete State.inventory[key];
+                State.inventory[newKey] = data;
+                inventoryUpdates.push({ oldKey: key, newKey, data });
+            }
+        });
+        // Save all inventory updates
+        inventoryUpdates.forEach(({ oldKey, newKey, data }) => {
+            Storage.deleteInventoryItem(oldKey);
+            Storage.saveInventoryItem(newKey, data);
+        });
+
+        // 3. Update sales
+        State.sales.forEach(sale => {
+            let updated = false;
+            sale.items?.forEach(item => {
+                if (item.category === oldName) {
+                    item.category = newName;
+                    if (item.key) item.key = `${newName}|${item.variant}`;
+                    updated = true;
+                }
+            });
+            if (updated) Storage.saveSale(sale);
+        });
+
+        // 4. Update bookings
+        State.bookings.forEach(booking => {
+            let updated = false;
+            booking.items?.forEach(item => {
+                if (item.category === oldName) {
+                    item.category = newName;
+                    if (item.key) item.key = `${newName}|${item.variant}`;
+                    updated = true;
+                }
+            });
+            if (updated) Storage.saveBooking(booking);
+        });
+
+        // 5. Update stock logs
+        State.stockLogs.forEach(log => {
+            let updated = false;
+            log.items?.forEach(item => {
+                if (item.category === oldName) {
+                    item.category = newName;
+                    if (item.key) item.key = `${newName}|${item.variant}`;
+                    updated = true;
+                }
+            });
+            if (updated) Storage.saveStockLog(log);
+        });
+
+        // Update selected category if it was the edited one
+        if (State.selectedCategory === oldName) State.selectedCategory = newName;
+        if (State.selectedStockCategory === oldName) State.selectedStockCategory = newName;
+
+        this.closeEditCategoryModal();
+        this.renderList();
+
+        if (onProductsUpdated) onProductsUpdated();
+
+        Toast.show('Category renamed');
+    },
+
+    // ==================== EDIT VARIANT ====================
+
+    showEditVariantModal(category, variant) {
+        if (!State.isAdmin()) {
+            Toast.show('Only owner can edit');
+            return;
+        }
+
+        State.editingVariantCategory = category;
+        State.editingVariant = variant;
+        DOM.setText(DOM.get('editVariantCategory'), category);
+        DOM.setText(DOM.get('editVariantOldName'), variant);
+        DOM.setValue(DOM.get('editVariantNewName'), variant);
+        Modal.show('editVariantModal');
+    },
+
+    closeEditVariantModal() {
+        Modal.hide('editVariantModal');
+        State.editingVariantCategory = null;
+        State.editingVariant = null;
+    },
+
+    saveEditVariant() {
+        const category = State.editingVariantCategory;
+        const oldName = State.editingVariant;
+        const newName = DOM.getValue(DOM.get('editVariantNewName')).trim();
+
+        if (!newName) {
+            Toast.show('Variant name required');
+            return;
+        }
+        if (newName === oldName) {
+            this.closeEditVariantModal();
+            return;
+        }
+        if (State.products[category]?.includes(newName)) {
+            Toast.show('Variant already exists');
+            return;
+        }
+
+        // 1. Update products
+        const variantIndex = State.products[category]?.indexOf(oldName);
+        if (variantIndex > -1) {
+            State.products[category][variantIndex] = newName;
+            Storage.saveProducts();
+        }
+
+        // 2. Update inventory key
+        const oldKey = `${category}|${oldName}`;
+        const newKey = `${category}|${newName}`;
+        if (State.inventory[oldKey]) {
+            const data = State.inventory[oldKey];
+            delete State.inventory[oldKey];
+            State.inventory[newKey] = data;
+            Storage.deleteInventoryItem(oldKey);
+            Storage.saveInventoryItem(newKey, data);
+        }
+
+        // 3. Update sales
+        State.sales.forEach(sale => {
+            let updated = false;
+            sale.items?.forEach(item => {
+                if (item.category === category && item.variant === oldName) {
+                    item.variant = newName;
+                    item.key = newKey;
+                    updated = true;
+                }
+            });
+            if (updated) Storage.saveSale(sale);
+        });
+
+        // 4. Update bookings
+        State.bookings.forEach(booking => {
+            let updated = false;
+            booking.items?.forEach(item => {
+                if (item.category === category && item.variant === oldName) {
+                    item.variant = newName;
+                    item.key = newKey;
+                    updated = true;
+                }
+            });
+            if (updated) Storage.saveBooking(booking);
+        });
+
+        // 5. Update stock logs
+        State.stockLogs.forEach(log => {
+            let updated = false;
+            log.items?.forEach(item => {
+                if (item.category === category && item.variant === oldName) {
+                    item.variant = newName;
+                    item.key = newKey;
+                    updated = true;
+                }
+            });
+            if (updated) Storage.saveStockLog(log);
+        });
+
+        // Update selected variant if it was the edited one
+        if (State.selectedVariant === oldName) State.selectedVariant = newName;
+        if (State.selectedStockVariant === oldName) State.selectedStockVariant = newName;
+
+        this.closeEditVariantModal();
+        this.renderList();
+
+        if (onProductsUpdated) onProductsUpdated();
+
+        Toast.show('Variant renamed');
     }
 };

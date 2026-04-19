@@ -1,0 +1,464 @@
+/* Bookings Page Styles */
+
+/* Booking tabs */
+.booking-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+}
+
+.booking-tab {
+    flex: 1;
+    min-width: 70px;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--light);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.booking-tab.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+/* Booking list items */
+.booking-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 12px 16px;
+    cursor: pointer;
+}
+
+.booking-info {
+    flex: 1;
+}
+
+.booking-customer {
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 4px;
+}
+
+.booking-meta {
+    font-size: 13px;
+    color: var(--gray);
+    margin-bottom: 4px;
+}
+
+.booking-meta .separator {
+    margin: 0 6px;
+    opacity: 0.5;
+}
+
+.booking-date {
+    font-size: 12px;
+    color: var(--gray);
+}
+
+.booking-status {
+    margin-left: 12px;
+}
+
+/* Booking details modal */
+.modal-large {
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.bd-section {
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.bd-section:last-of-type {
+    border-bottom: none;
+}
+
+.bd-section h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.bd-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+}
+
+.bd-label {
+    color: var(--gray);
+    font-size: 14px;
+}
+
+.bd-value {
+    font-weight: 600;
+}
+
+.bd-items-list {
+    background: var(--light);
+    border-radius: 8px;
+    padding: 8px 12px;
+}
+
+.bd-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 14px;
+}
+
+.bd-item:not(:last-child) {
+    border-bottom: 1px solid var(--border);
+}
+
+.bd-totals {
+    background: var(--light);
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.bd-totals .bd-row {
+    padding: 6px 0;
+}
+
+.bd-payments-list {
+    background: var(--light);
+    border-radius: 8px;
+    padding: 8px 12px;
+}
+
+.bd-payment {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 14px;
+}
+
+.bd-payment:not(:last-child) {
+    border-bottom: 1px solid var(--border);
+}
+
+.bd-payment.final {
+    color: var(--success);
+    font-weight: 600;
+}
+
+.bd-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+}
+
+.bd-actions .btn {
+    flex: 1;
+    min-width: 100px;
+}
+
+/* Create booking modal */
+.cb-header-card {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    margin: 0 24px 20px;
+    padding: 20px;
+    border-radius: 16px;
+    color: white;
+}
+
+.cb-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+}
+
+.cb-header-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.cb-header-label {
+    font-size: 12px;
+    opacity: 0.85;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.cb-header-value {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.cb-header-divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.cb-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+}
+
+.cb-actions .btn {
+    flex: 1;
+}
+
+.cb-actions .btn-primary {
+    flex: 1.5;
+}
+
+.required {
+    color: var(--danger);
+}
+
+/* Legacy support */
+.cb-section {
+    margin-bottom: 16px;
+}
+
+.cb-summary {
+    display: flex;
+    justify-content: space-between;
+    background: var(--light);
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+/* Payment options */
+.payment-options {
+    display: flex;
+    gap: 12px;
+}
+
+.payment-option {
+    flex: 1;
+}
+
+.payment-option input[type="radio"] {
+    display: none;
+}
+
+.payment-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 16px;
+    text-align: center;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+    background: var(--light);
+}
+
+.payment-btn:hover {
+    border-color: var(--primary);
+}
+
+.payment-option input[type="radio"]:checked + .payment-btn {
+    border-color: var(--primary);
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
+    color: var(--primary);
+}
+
+.payment-option input[type="radio"]:checked + .payment-btn svg {
+    stroke: var(--primary);
+}
+
+/* Balance display card */
+.balance-card {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.balance-card.success {
+    background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+}
+
+.balance-label {
+    display: block;
+    font-size: 12px;
+    opacity: 0.85;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.balance-value {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+/* Legacy balance display */
+.balance-display {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary);
+    padding: 8px 0;
+}
+
+/* Cancel booking modal */
+.cancel-warning-box {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.cancel-warning-box svg {
+    color: var(--danger);
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.warning-title {
+    font-weight: 600;
+    color: var(--danger);
+    margin: 0 0 4px 0;
+}
+
+.warning-desc {
+    font-size: 14px;
+    color: var(--gray);
+    margin: 0;
+}
+
+.refund-card {
+    background: var(--light);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.refund-label {
+    color: var(--gray);
+    font-size: 14px;
+}
+
+.refund-amount {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--danger);
+}
+
+/* Legacy warning text */
+.warning-text {
+    color: var(--danger);
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.refund-info {
+    display: flex;
+    justify-content: space-between;
+    background: var(--light);
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 16px;
+}
+
+.refund-info strong {
+    color: var(--danger);
+}
+
+/* Text colors */
+.text-success {
+    color: var(--success);
+}
+
+.text-danger {
+    color: var(--danger);
+}
+
+.profit-text {
+    color: var(--success);
+}
+
+/* Button variants */
+.btn-primary-outline {
+    background: transparent;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+}
+
+.btn-primary-outline:hover {
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.btn-danger-outline {
+    background: transparent;
+    border: 2px solid var(--danger);
+    color: var(--danger);
+}
+
+.btn-danger-outline:hover {
+    background: rgba(239, 68, 68, 0.1);
+}
+
+/* Receipt header */
+.receipt-header {
+    background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+    margin: 0 24px 20px;
+    padding: 24px;
+    border-radius: 16px;
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.receipt-header svg {
+    stroke: white;
+}
+
+.receipt-header span {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* Empty state */
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--gray);
+}
+
+/* Modal small variant */
+.modal-small {
+    max-width: 350px;
+}

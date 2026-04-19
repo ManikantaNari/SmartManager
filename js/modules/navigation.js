@@ -6,7 +6,7 @@ import { DOM } from '../utils/index.js';
 let pageCallbacks = {};
 
 export const Navigation = {
-    pageMap: { 'dashboard': 0, 'sale': 1, 'inventory': 2, 'customers': 3, 'reports': 4 },
+    pageMap: { 'dashboard': 0, 'sale': 1, 'inventory': 2, 'bookings': 3, 'customers': 4, 'reports': 5 },
 
     init() {
         // Bottom nav clicks handled via HTML onclick

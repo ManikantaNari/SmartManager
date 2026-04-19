@@ -9,6 +9,7 @@ export const State = {
     customers: [],
     sales: [],
     stockLogs: [],
+    bookings: [],
     cart: [],
 
     // Stock Entry Session
@@ -28,8 +29,18 @@ export const State = {
     currentSaleData: null,
     selectedTransactionId: null,
     editingStockKey: null,
-    editingCustomerPhone: null,
+    editingCustomerPhone: null,  // Deprecated, kept for backward compatibility
+    editingCustomerId: null,
+    viewingCustomerId: null,
+    editingCategory: null,
+    editingVariant: null,
+    editingVariantCategory: null,
+    cameFromHistory: false,
     variantModalContext: 'sale',
+    selectedBookingId: null,
+    selectedPaymentType: null,
+    selectedPaymentIndex: null,
+    bookingTab: 'today',
 
     // Check if current user is admin
     isAdmin() {
@@ -53,5 +64,9 @@ export const State = {
         this.selectedTransactionId = null;
         this.editingStockKey = null;
         this.editingCustomerPhone = null;
+        this.editingCustomerId = null;
+        this.editingCategory = null;
+        this.editingVariant = null;
+        this.editingVariantCategory = null;
     }
 };

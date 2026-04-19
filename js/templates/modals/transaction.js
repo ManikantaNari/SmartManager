@@ -4,6 +4,11 @@ export const TransactionModalTemplate = `
 <div class="modal-overlay" id="transactionModal" onclick="closeTransactionModal()">
     <div class="modal" onclick="event.stopPropagation()">
         <div class="modal-header">
+            <button id="transactionBackBtn" class="back-btn" onclick="backToHistoryFromTransaction()" style="display: none;">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+            </button>
             <h3 class="modal-title">Transaction Details</h3>
             <button class="modal-close" onclick="closeTransactionModal()">&times;</button>
         </div>

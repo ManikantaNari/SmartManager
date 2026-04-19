@@ -42,6 +42,19 @@ export const DashboardTemplate = `
         </div>
     </div>
 
+    <div class="card" id="pickupsTodayCard" style="display: none;">
+        <div class="card-title" style="color: var(--primary);">
+            <svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="20">
+                <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+            Pickups Today (<span id="pickupsTodayCount">0</span>)
+        </div>
+        <div id="pickupsTodayList"></div>
+        <button class="btn btn-outline btn-block" onclick="showPage('bookings')" style="margin-top: 8px;">
+            View All Bookings
+        </button>
+    </div>
+
     <div class="card" id="lowStockAlert" style="display: none;">
         <div class="card-title" style="color: var(--danger);">
             <svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="20">

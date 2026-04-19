@@ -96,7 +96,12 @@ export const SaleTemplate = `
                 <button class="btn btn-outline" id="btnUPI" onclick="selectPayment('UPI')" style="flex: 1;">UPI</button>
             </div>
         </div>
-        <div style="display: flex; gap: 12px; margin-top: 16px;">
+        <div style="margin-top: 16px;">
+            <button class="btn btn-primary-outline btn-block" onclick="showCreateBookingModal()">
+                Book with Advance
+            </button>
+        </div>
+        <div style="display: flex; gap: 12px; margin-top: 12px;">
             <button class="btn btn-outline" onclick="showSaleStep('customer')" style="flex: 1;">Back</button>
             <button class="btn btn-success" id="completeSaleBtn" onclick="completeSale()" style="flex: 2;">Complete Sale</button>
         </div>

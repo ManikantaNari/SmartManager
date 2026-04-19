@@ -30,6 +30,21 @@
     color: #94a3b8;
 }
 
+/* Alias for backward compatibility */
+.form-control {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    font-size: 16px;
+    transition: border-color 0.2s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
 /* Search Box */
 .search-box {
     position: relative;

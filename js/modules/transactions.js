@@ -67,12 +67,27 @@ export const Transactions = {
         DOM.setText(DOM.get('smsPreview'), Sales.generateBillText(sale));
         DOM.toggle(DOM.get('transactionSmsSection'), !!sale.customer?.phone);
 
+        // Show/hide back button based on navigation source
+        const backBtn = DOM.get('transactionBackBtn');
+        if (backBtn) {
+            DOM.toggle(backBtn, State.cameFromHistory);
+        }
+
         Modal.show('transactionModal');
     },
 
     close() {
         Modal.hide('transactionModal');
         State.selectedTransactionId = null;
+        State.cameFromHistory = false;
+    },
+
+    backToHistory() {
+        Modal.hide('transactionModal');
+        State.selectedTransactionId = null;
+        if (window.backToCustomerHistory) {
+            window.backToCustomerHistory();
+        }
     },
 
     sendSMS() {

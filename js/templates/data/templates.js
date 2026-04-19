@@ -107,7 +107,7 @@ export const DataTemplates = `
             <div style="text-align: right;">
                 <p style="font-weight: 600;" data-field="totalSpent"></p>
                 <p style="font-size: 12px; color: var(--gray);" data-field="orderCount"></p>
-                <div class="customer-actions admin-only" style="margin-top: 10px; display: flex; gap: 6px; justify-content: flex-end;" data-field="actions"></div>
+                <div class="customer-actions" style="margin-top: 10px; display: flex; gap: 6px; justify-content: flex-end;" data-field="actions"></div>
             </div>
         </div>
     </div>
@@ -143,8 +143,8 @@ export const DataTemplates = `
         </div>
         <div style="text-align: right; font-size: 13px;">
             <div style="color: var(--gray);">Revenue: <span style="font-weight: 600; color: var(--dark);" data-field="revenue"></span></div>
-            <div class="profit-display profit-amount admin-only" style="color: var(--gray);">Profit: <span style="font-weight: 600; color: var(--success);" data-field="profit"></span></div>
-            <div class="profit-display profit-percent admin-only" style="color: var(--gray); display: none;">Margin: <span style="font-weight: 600; color: var(--success);" data-field="profitPercent"></span></div>
+            <div class="profit-display profit-amount" style="color: var(--gray);">Profit: <span style="font-weight: 600; color: var(--success);" data-field="profit"></span></div>
+            <div class="profit-display profit-percent" style="color: var(--gray);">Margin: <span style="font-weight: 600; color: var(--success);" data-field="profitPercent"></span></div>
         </div>
     </div>
 </template>

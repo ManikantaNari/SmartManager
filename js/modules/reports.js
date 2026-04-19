@@ -2,6 +2,7 @@
 
 import { DOM, Format, Template, Loader } from '../utils/index.js';
 import { State } from '../state/index.js';
+import { Bookings } from './bookings.js';
 
 // External dependencies
 let showTransactionDetails = null;
@@ -10,10 +11,19 @@ export const Reports = {
     init(callbacks) {
         showTransactionDetails = callbacks?.showTransactionDetails;
 
+        // Click handler for direct sales
         DOM.on(DOM.get('dailyReportContent'), 'click', '.transaction-row', (e, el) => {
             if (showTransactionDetails) {
                 showTransactionDetails(el.dataset.saleId);
             }
+        });
+
+        // Click handler for booking transactions
+        DOM.on(DOM.get('dailyReportContent'), 'click', '.booking-transaction-row', (e, el) => {
+            const bookingId = el.dataset.bookingId;
+            const paymentType = el.dataset.paymentType;
+            const paymentIndex = parseInt(el.dataset.paymentIndex) || 0;
+            Bookings.showPaymentReceipt(bookingId, paymentType, paymentIndex);
         });
     },
 
@@ -66,34 +76,133 @@ export const Reports = {
                 items += saleItems.reduce((sum, i) => sum + (i?.qty || 0), 0);
             });
 
+            // Get booking revenue for this date
+            const bookingRevenue = Bookings.getDateRevenue(date);
+            const totalProfit = profit + bookingRevenue.profit;
+            const totalRevenue = total + bookingRevenue.totalRevenue;
+            const hasBookingActivity = bookingRevenue.advancesIn > 0 || bookingRevenue.pickupPayments > 0 || bookingRevenue.refunds > 0;
+
             // Stats grid
-            const profitColor = profit >= 0 ? 'var(--success)' : 'var(--danger)';
+            const profitColor = totalProfit >= 0 ? 'var(--success)' : 'var(--danger)';
             let statsHtml = '<div class="stats-grid" style="grid-template-columns: repeat(2, 1fr);">';
-            statsHtml += `<div class="stat-card"><div class="stat-label">Total Sales</div><div class="stat-value">${Format.currency(total)}</div></div>`;
+            statsHtml += `<div class="stat-card"><div class="stat-label">Total Revenue</div><div class="stat-value">${Format.currency(totalRevenue)}</div></div>`;
             statsHtml += `<div class="stat-card"><div class="stat-label">Items Sold</div><div class="stat-value">${items}</div></div>`;
             if (State.isAdmin()) {
-                statsHtml += `<div class="stat-card"><div class="stat-label">Profit</div><div class="stat-value" style="color: ${profitColor}">${Format.currency(profit)}</div></div>`;
+                statsHtml += `<div class="stat-card"><div class="stat-label">Total Profit</div><div class="stat-value" style="color: ${profitColor}">${Format.currency(totalProfit)}</div></div>`;
             }
             statsHtml += `<div class="stat-card"><div class="stat-label">Transactions</div><div class="stat-value">${daySales.length}</div></div>`;
             statsHtml += '</div>';
 
+            // Revenue breakdown card
+            statsHtml += '<div class="card"><div class="card-title">Revenue Breakdown</div>';
+            statsHtml += `<div class="list-item" style="border-bottom: 1px solid var(--border);">
+                <span>Direct Sales</span>
+                <strong>${Format.currency(total)}</strong>
+            </div>`;
+
+            if (hasBookingActivity) {
+                if (bookingRevenue.advancesIn > 0) {
+                    statsHtml += `<div class="list-item" style="border-bottom: 1px solid var(--border);">
+                        <span>Booking Advances</span>
+                        <strong style="color: var(--primary);">${Format.currency(bookingRevenue.advancesIn)}</strong>
+                    </div>`;
+                }
+                if (bookingRevenue.pickupPayments > 0) {
+                    statsHtml += `<div class="list-item" style="border-bottom: 1px solid var(--border);">
+                        <span>Pickup Payments</span>
+                        <strong style="color: var(--success);">${Format.currency(bookingRevenue.pickupPayments)}</strong>
+                    </div>`;
+                }
+                if (bookingRevenue.refunds > 0) {
+                    statsHtml += `<div class="list-item" style="border-bottom: 1px solid var(--border);">
+                        <span>Refunds</span>
+                        <strong style="color: var(--danger);">-${Format.currency(bookingRevenue.refunds)}</strong>
+                    </div>`;
+                }
+            }
+            statsHtml += '</div>';
+
+            // Get booking transactions for this date
+            const bookingTransactions = Bookings.getDateTransactions(date);
+
+            // Combine all transactions and sort by time
+            const allTransactions = [];
+
+            // Add sales
+            daySales.forEach(s => {
+                allTransactions.push({
+                    type: 'sale',
+                    time: s.time || '',
+                    data: s
+                });
+            });
+
+            // Add booking transactions
+            bookingTransactions.forEach(t => {
+                allTransactions.push({
+                    type: 'booking',
+                    time: t.time || '',
+                    data: t
+                });
+            });
+
+            // Sort by time (descending - most recent first)
+            allTransactions.sort((a, b) => (b.time || '').localeCompare(a.time || ''));
+
             // Transactions list
             statsHtml += '<div class="card"><div class="card-title">Transactions (tap to view details)</div>';
-            if (daySales.length === 0) {
-                statsHtml += '<p style="color: var(--gray);">No sales on this date</p>';
+
+            if (allTransactions.length === 0) {
+                statsHtml += '<p style="color: var(--gray);">No transactions on this date</p>';
             } else {
-                daySales.forEach(s => {
-                    const saleItems = s.items || [];
-                    statsHtml += `<div class="list-item transaction-row" data-sale-id="${s.id}" style="cursor: pointer;">
-                        <div class="list-item-info">
-                            <h4>${s.customer?.name || 'Walk-in'}</h4>
-                            <p>${s.time || ''} | ${saleItems.length} items | ${s.paymentMethod || 'Cash'}</p>
-                        </div>
-                        <div style="text-align: right;">
-                            <strong>${Format.currency(s.total || 0)}</strong>
-                            <p style="font-size: 11px; color: var(--primary);">View</p>
-                        </div>
-                    </div>`;
+                allTransactions.forEach(txn => {
+                    if (txn.type === 'sale') {
+                        const s = txn.data;
+                        const saleItems = s.items || [];
+                        statsHtml += `<div class="list-item transaction-row" data-sale-id="${s.id}" style="cursor: pointer;">
+                            <div class="list-item-info">
+                                <h4>${s.customer?.name || 'Walk-in'}</h4>
+                                <p>${s.time || ''} | ${saleItems.length} items | ${s.paymentMethod || 'Cash'}</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <strong>${Format.currency(s.total || 0)}</strong>
+                                <p style="font-size: 11px; color: var(--primary);">View</p>
+                            </div>
+                        </div>`;
+                    } else {
+                        const t = txn.data;
+                        let label, badgeColor, amountColor;
+                        if (t.type === 'booking_advance') {
+                            label = t.isFirstAdvance ? 'Booking Advance' : 'Additional Advance';
+                            badgeColor = 'var(--primary)';
+                            amountColor = 'var(--primary)';
+                        } else if (t.type === 'booking_pickup') {
+                            label = 'Pickup Payment';
+                            badgeColor = 'var(--success)';
+                            amountColor = 'var(--success)';
+                        } else if (t.type === 'booking_refund') {
+                            label = 'Refund';
+                            badgeColor = 'var(--danger)';
+                            amountColor = 'var(--danger)';
+                        }
+
+                        const paymentIndex = t.paymentIndex || 0;
+                        statsHtml += `<div class="list-item booking-transaction-row"
+                            data-booking-id="${t.bookingId}"
+                            data-payment-type="${t.type.replace('booking_', '')}"
+                            data-payment-index="${paymentIndex}"
+                            style="cursor: pointer;">
+                            <div class="list-item-info">
+                                <h4>${t.customer?.name || 'Customer'}</h4>
+                                <p>${t.time || ''} | ${t.itemCount} items | ${t.method || ''}</p>
+                                <span class="badge" style="background: ${badgeColor}; color: white; font-size: 10px; padding: 2px 6px;">${label}</span>
+                            </div>
+                            <div style="text-align: right;">
+                                <strong style="color: ${amountColor};">${t.type === 'booking_refund' ? '-' : ''}${Format.currency(t.amount || 0)}</strong>
+                                <p style="font-size: 11px; color: var(--primary);">View</p>
+                            </div>
+                        </div>`;
+                    }
                 });
             }
             statsHtml += '</div>';
@@ -128,14 +237,49 @@ export const Reports = {
                 items += saleItems.reduce((sum, i) => sum + (i?.qty || 0), 0);
             });
 
-            const profitColor = profit >= 0 ? 'var(--success)' : 'var(--danger)';
+            // Get booking revenue for this month
+            const bookingRevenue = this.getMonthlyBookingRevenue(month);
+            const totalProfit = profit + bookingRevenue.profit;
+            const totalRevenue = total + bookingRevenue.totalRevenue;
+
+            const profitColor = totalProfit >= 0 ? 'var(--success)' : 'var(--danger)';
             let html = '<div class="stats-grid" style="grid-template-columns: repeat(2, 1fr);">';
-            html += `<div class="stat-card primary"><div class="stat-label">Total Sales</div><div class="stat-value">${Format.currency(total)}</div></div>`;
+            html += `<div class="stat-card primary"><div class="stat-label">Total Revenue</div><div class="stat-value">${Format.currency(totalRevenue)}</div></div>`;
             html += `<div class="stat-card success"><div class="stat-label">Items Sold</div><div class="stat-value">${items}</div></div>`;
             if (State.isAdmin()) {
-                html += `<div class="stat-card"><div class="stat-label">Total Profit</div><div class="stat-value" style="color: ${profitColor}">${Format.currency(profit)}</div></div>`;
+                html += `<div class="stat-card"><div class="stat-label">Total Profit</div><div class="stat-value" style="color: ${profitColor}">${Format.currency(totalProfit)}</div></div>`;
             }
             html += `<div class="stat-card"><div class="stat-label">Transactions</div><div class="stat-value">${monthSales.length}</div></div>`;
+            html += '</div>';
+
+            // Revenue breakdown card
+            const hasBookingActivity = bookingRevenue.advancesIn > 0 || bookingRevenue.pickupPayments > 0 || bookingRevenue.refunds > 0;
+            html += '<div class="card"><div class="card-title">Revenue Breakdown</div>';
+            html += `<div class="list-item" style="border-bottom: 1px solid var(--border);">
+                <span>Direct Sales</span>
+                <strong>${Format.currency(total)}</strong>
+            </div>`;
+
+            if (hasBookingActivity) {
+                if (bookingRevenue.advancesIn > 0) {
+                    html += `<div class="list-item" style="border-bottom: 1px solid var(--border);">
+                        <span>Booking Advances</span>
+                        <strong style="color: var(--primary);">${Format.currency(bookingRevenue.advancesIn)}</strong>
+                    </div>`;
+                }
+                if (bookingRevenue.pickupPayments > 0) {
+                    html += `<div class="list-item" style="border-bottom: 1px solid var(--border);">
+                        <span>Pickup Payments</span>
+                        <strong style="color: var(--success);">${Format.currency(bookingRevenue.pickupPayments)}</strong>
+                    </div>`;
+                }
+                if (bookingRevenue.refunds > 0) {
+                    html += `<div class="list-item" style="border-bottom: 1px solid var(--border);">
+                        <span>Refunds</span>
+                        <strong style="color: var(--danger);">-${Format.currency(bookingRevenue.refunds)}</strong>
+                    </div>`;
+                }
+            }
             html += '</div>';
 
             DOM.setHtml(container, html);
@@ -143,6 +287,51 @@ export const Reports = {
             console.error('Error loading monthly report:', err);
             DOM.setHtml(container, '<div class="card"><p style="color: var(--danger);">Error loading report</p></div>');
         }
+    },
+
+    // Helper to get booking revenue for a month
+    getMonthlyBookingRevenue(month) {
+        let advancesIn = 0;
+        let pickupPayments = 0;
+        let refunds = 0;
+        let profit = 0;
+
+        State.bookings.forEach(b => {
+            // Advances received in this month
+            b.advancePayments.forEach(p => {
+                if (p.date && p.date.startsWith(month)) {
+                    advancesIn += p.amount;
+                }
+            });
+
+            // Booking created in this month = profit recorded
+            if (b.createdDate && b.createdDate.startsWith(month) && b.status !== 'cancelled') {
+                profit += b.profit;
+            }
+
+            // Final payment in this month
+            if (b.finalPayment && b.finalPayment.date && b.finalPayment.date.startsWith(month)) {
+                pickupPayments += b.finalPayment.amount;
+            }
+
+            // Refund in this month
+            if (b.refunded && b.refundDate && b.refundDate.startsWith(month)) {
+                refunds += b.refundAmount || 0;
+            }
+
+            // Cancelled booking = negative profit in cancel month
+            if (b.status === 'cancelled' && b.cancelledDate && b.cancelledDate.startsWith(month)) {
+                profit -= b.profit;
+            }
+        });
+
+        return {
+            advancesIn,
+            pickupPayments,
+            refunds,
+            profit,
+            totalRevenue: advancesIn + pickupPayments - refunds
+        };
     },
 
     loadProducts() {
@@ -209,8 +398,21 @@ export const Reports = {
                 }
             );
 
-            // Apply profit color based on value (red for negative, green for positive)
+            // Handle profit display visibility
             if (State.isAdmin()) {
+                // Get current toggle state
+                const toggle = DOM.get('profitToggle');
+                const showPercent = toggle && toggle.checked;
+
+                // Apply correct visibility based on toggle state
+                DOM.findAll('#bestSellers .profit-amount').forEach(el => {
+                    el.style.display = showPercent ? 'none' : 'block';
+                });
+                DOM.findAll('#bestSellers .profit-percent').forEach(el => {
+                    el.style.display = showPercent ? 'block' : 'none';
+                });
+
+                // Apply profit color based on value (red for negative, green for positive)
                 const rows = DOM.findAll('#bestSellers .list-item');
                 sorted.forEach(([name, data], i) => {
                     if (rows[i]) {
@@ -220,6 +422,7 @@ export const Reports = {
                     }
                 });
             } else {
+                // Hide all profit displays for non-admin
                 DOM.findAll('#bestSellers .profit-display').forEach(el => el.style.display = 'none');
             }
         } catch (err) {
