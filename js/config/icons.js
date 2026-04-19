@@ -1,21 +1,16 @@
-// Category Icons Mapping
+// Category Icons - Dynamic from State
 
 import { DEFAULT_ICON } from './constants.js';
+import { State } from '../state/state.js';
 
-export const CATEGORY_ICONS = {
-    'Mattress': '🛏️',
-    'Cot': '🛏️',
-    'TV Stand': '📺',
-    'Chair': '🪑',
-    'Table': '🪵',
-    'Fan': '☢️',
-    'Pillow': '☁️',
-    'Bed Sheet': '🧺',
-    'Sofa': '🛋️',
-    'Dining Table': '🍽️',
-    'Shoe Rack': '👟'
-};
-
+// Get category icon from State.categoryEmojis or default to 📦
 export function getCategoryIcon(category) {
-    return CATEGORY_ICONS[category] || DEFAULT_ICON;
+    return State.categoryEmojis[category] || DEFAULT_ICON;
 }
+
+// Common emoji options for category picker
+export const EMOJI_OPTIONS = [
+    '📦', '🛏️', '🛋️', '🪑', '🪵', '📺', '🧺', '☁️',
+    '🏠', '🚪', '🪞', '🖼️', '💡', '🔌', '🧹', '🧴',
+    '👕', '👟', '🎒', '📚', '🎮', '⌚', '💎', '🛒'
+];

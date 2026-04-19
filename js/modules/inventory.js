@@ -407,16 +407,9 @@ export const Inventory = {
         }
 
         const key = `${State.selectedStockCategory}|${State.selectedStockVariant}`;
-        const existing = State.inventory[key] || { qty: 0 };
 
-        // Update inventory immediately
-        State.inventory[key] = {
-            qty: existing.qty + qty,
-            costPrice,
-            price,
-            alertQty
-        };
-        Storage.saveInventoryItem(key, State.inventory[key]);
+        // Use transaction-based update for concurrent safety
+        Storage.updateInventoryQty(key, qty, { costPrice, price, alertQty });
 
         // Add to session items for tracking
         if (State.stockSession) {

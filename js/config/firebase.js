@@ -1,6 +1,12 @@
 // Firebase Configuration
 
 const firebaseConfig = {
+    // apiKey: "#",
+    // authDomain: "#",
+    // projectId: "#",
+    // storageBucket: "#",
+    // messagingSenderId: "#",
+    // appId: "#",
     apiKey: "AIzaSyAGASAgCn9WFzXz7aBYqXTKe6Fuys7kjVI",
     authDomain: "mani-smart-manager.firebaseapp.com",
     projectId: "mani-smart-manager",

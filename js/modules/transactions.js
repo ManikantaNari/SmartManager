@@ -73,7 +73,64 @@ export const Transactions = {
             DOM.toggle(backBtn, State.cameFromHistory);
         }
 
+        // Show "Add to Customers" button if customer exists in sale but not in customers list
+        const addCustomerSection = DOM.get('addCustomerFromSaleSection');
+        if (addCustomerSection) {
+            const customerInSale = sale.customer?.name;
+            const customerExists = customerInSale && this.isCustomerInList(sale.customer);
+            DOM.toggle(addCustomerSection, customerInSale && !customerExists);
+        }
+
         Modal.show('transactionModal');
+    },
+
+    // Check if customer from sale exists in customers list
+    isCustomerInList(saleCustomer) {
+        if (!saleCustomer?.name) return false;
+
+        return State.customers.some(c => {
+            // Match by phone if available
+            if (saleCustomer.phone && c.phone === saleCustomer.phone) return true;
+            // Match by exact name if no phone
+            if (!saleCustomer.phone && c.name === saleCustomer.name) return true;
+            return false;
+        });
+    },
+
+    // Add customer from current sale to customers list
+    addCustomerFromSale() {
+        const sale = State.sales.find(s => s.id === State.selectedTransactionId);
+        if (!sale?.customer?.name) {
+            Toast.show('No customer info in this sale');
+            return;
+        }
+
+        // Check if already exists
+        if (this.isCustomerInList(sale.customer)) {
+            Toast.show('Customer already in list');
+            return;
+        }
+
+        // Generate unique ID
+        const id = sale.customer.phone || ('cust_' + Date.now().toString(36) + Math.random().toString(36).substr(2, 4));
+
+        const customer = {
+            id: id,
+            name: sale.customer.name,
+            phone: sale.customer.phone || '',
+            email: ''
+        };
+
+        State.customers.push(customer);
+        Storage.saveCustomer(customer);
+
+        // Hide the add button
+        const addCustomerSection = DOM.get('addCustomerFromSaleSection');
+        if (addCustomerSection) {
+            DOM.hide(addCustomerSection);
+        }
+
+        Toast.show('Customer added to list');
     },
 
     close() {
@@ -126,11 +183,10 @@ export const Transactions = {
 
         const sale = State.sales[saleIndex];
 
-        // Restore inventory
+        // Restore inventory using transaction-based update
         sale.items.forEach(item => {
             if (State.inventory[item.key]) {
-                State.inventory[item.key].qty += item.qty;
-                Storage.saveInventoryItem(item.key, State.inventory[item.key]);
+                Storage.updateInventoryQty(item.key, item.qty);
             }
         });
 

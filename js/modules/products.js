@@ -3,6 +3,7 @@
 import { DOM, Format, Template, Toast, Loader } from '../utils/index.js';
 import { Modal } from '../components/index.js';
 import { State, Storage } from '../state/index.js';
+import { STORAGE_KEYS, EMOJI_OPTIONS, DEFAULT_ICON } from '../config/index.js';
 
 // External dependencies
 let onProductsUpdated = null;
@@ -15,6 +16,46 @@ export const Products = {
         Modal.initCloseOnOverlay('addVariantModal');
         Modal.initCloseOnOverlay('editCategoryModal');
         Modal.initCloseOnOverlay('editVariantModal');
+        Modal.initCloseOnOverlay('deleteCategoryModal');
+        Modal.initCloseOnOverlay('deleteVariantModal');
+    },
+
+    // Render emoji picker options
+    renderEmojiPicker(containerId, hiddenInputId, selectedEmoji = DEFAULT_ICON) {
+        const container = DOM.get(containerId);
+        const hiddenInput = DOM.get(hiddenInputId);
+        if (!container) return;
+
+        container.innerHTML = EMOJI_OPTIONS.map(emoji => `
+            <div class="emoji-option${emoji === selectedEmoji ? ' selected' : ''}"
+                 onclick="selectEmoji('${containerId}', '${hiddenInputId}', '${emoji}')">
+                ${emoji}
+            </div>
+        `).join('');
+
+        if (hiddenInput) {
+            hiddenInput.value = selectedEmoji;
+        }
+    },
+
+    // Select emoji in picker
+    selectEmoji(containerId, hiddenInputId, emoji) {
+        const container = DOM.get(containerId);
+        const hiddenInput = DOM.get(hiddenInputId);
+
+        if (container) {
+            // Remove selected class from all options
+            container.querySelectorAll('.emoji-option').forEach(el => {
+                el.classList.remove('selected');
+                if (el.textContent.trim() === emoji) {
+                    el.classList.add('selected');
+                }
+            });
+        }
+
+        if (hiddenInput) {
+            hiddenInput.value = emoji;
+        }
     },
 
     renderList() {
@@ -74,6 +115,8 @@ export const Products = {
 
     showAddCategoryModal() {
         DOM.setValue(DOM.get('newCategoryName'), '');
+        // Render emoji picker with default emoji selected
+        this.renderEmojiPicker('newCategoryEmojiPicker', 'newCategoryEmoji', DEFAULT_ICON);
         Modal.show('addCategoryModal');
     },
 
@@ -83,6 +126,7 @@ export const Products = {
 
     saveNewCategory() {
         const name = DOM.getValue(DOM.get('newCategoryName')).trim();
+        const emoji = DOM.getValue(DOM.get('newCategoryEmoji')) || DEFAULT_ICON;
 
         if (!name) {
             Toast.show('Category name required');
@@ -94,7 +138,8 @@ export const Products = {
         }
 
         State.products[name] = [];
-        Storage.saveProducts();
+        Storage.setLocal(STORAGE_KEYS.products, State.products);
+        Storage.saveProductCategory(name, [], emoji);
 
         this.closeAddCategoryModal();
         this.renderList();
@@ -153,7 +198,8 @@ export const Products = {
         }
 
         State.products[targetCategory].push(name);
-        Storage.saveProducts();
+        Storage.setLocal(STORAGE_KEYS.products, State.products);
+        Storage.saveProductCategory(targetCategory, State.products[targetCategory]);
 
         if (costPrice || price || stock) {
             const key = `${targetCategory}|${name}`;
@@ -206,7 +252,58 @@ export const Products = {
         State.editingCategory = category;
         DOM.setText(DOM.get('editCategoryOldName'), category);
         DOM.setValue(DOM.get('editCategoryNewName'), category);
+        // Render emoji picker with current emoji selected
+        const currentEmoji = State.categoryEmojis[category] || DEFAULT_ICON;
+        this.renderEmojiPicker('editCategoryEmojiPicker', 'editCategoryEmoji', currentEmoji);
+
+        // Calculate total inventory for this category
+        const categoryStock = this.getCategoryStock(category);
+        const deleteBtn = DOM.get('deleteCategoryBtn');
+        const warningEl = DOM.get('deleteCategoryWarning');
+        const stockInfoEl = DOM.get('deleteCategoryStockInfo');
+
+        if (categoryStock.totalQty > 0) {
+            // Has inventory - disable delete
+            if (deleteBtn) {
+                deleteBtn.disabled = true;
+                deleteBtn.style.opacity = '0.5';
+                deleteBtn.style.cursor = 'not-allowed';
+            }
+            if (warningEl) DOM.hide(warningEl);
+            if (stockInfoEl) {
+                DOM.show(stockInfoEl);
+                DOM.setText(stockInfoEl, `${categoryStock.totalQty} items in stock across ${categoryStock.variantCount} variant(s). Clear inventory first to delete.`);
+            }
+        } else {
+            // No inventory - enable delete
+            if (deleteBtn) {
+                deleteBtn.disabled = false;
+                deleteBtn.style.opacity = '1';
+                deleteBtn.style.cursor = 'pointer';
+            }
+            if (warningEl) DOM.show(warningEl);
+            if (stockInfoEl) DOM.hide(stockInfoEl);
+        }
+
         Modal.show('editCategoryModal');
+    },
+
+    // Get total stock for a category
+    getCategoryStock(category) {
+        let totalQty = 0;
+        let variantCount = 0;
+
+        Object.keys(State.inventory).forEach(key => {
+            if (key.startsWith(category + '|')) {
+                const qty = State.inventory[key]?.qty || 0;
+                if (qty > 0) {
+                    totalQty += qty;
+                    variantCount++;
+                }
+            }
+        });
+
+        return { totalQty, variantCount };
     },
 
     closeEditCategoryModal() {
@@ -217,16 +314,38 @@ export const Products = {
     saveEditCategory() {
         const oldName = State.editingCategory;
         const newName = DOM.getValue(DOM.get('editCategoryNewName')).trim();
+        const emoji = DOM.getValue(DOM.get('editCategoryEmoji')) || DEFAULT_ICON;
 
         if (!newName) {
             Toast.show('Category name required');
             return;
         }
-        if (newName === oldName) {
+
+        // Check if only emoji changed (name is the same)
+        const nameChanged = newName !== oldName;
+        const oldEmoji = State.categoryEmojis[oldName] || DEFAULT_ICON;
+        const emojiChanged = emoji !== oldEmoji;
+
+        if (!nameChanged && !emojiChanged) {
             this.closeEditCategoryModal();
             return;
         }
-        if (State.products[newName]) {
+
+        // If only emoji changed, just update the emoji
+        if (!nameChanged && emojiChanged) {
+            Storage.saveProductCategory(oldName, State.products[oldName] || [], emoji);
+            this.closeEditCategoryModal();
+            if (onProductsUpdated) onProductsUpdated();
+            Toast.show('Category updated');
+            return;
+        }
+
+        // Allow case changes (e.g., "teak" -> "Teak")
+        // Only block if a DIFFERENT category has the same name (case-insensitive)
+        const existingCategory = Object.keys(State.products).find(
+            cat => cat.toLowerCase() === newName.toLowerCase() && cat !== oldName
+        );
+        if (existingCategory) {
             Toast.show('Category already exists');
             return;
         }
@@ -235,7 +354,9 @@ export const Products = {
         const variants = State.products[oldName] || [];
         delete State.products[oldName];
         State.products[newName] = variants;
-        Storage.saveProducts();
+        Storage.setLocal(STORAGE_KEYS.products, State.products);
+        Storage.deleteProductCategory(oldName);
+        Storage.saveProductCategory(newName, variants, emoji);
 
         // 2. Update inventory keys
         const inventoryUpdates = [];
@@ -319,6 +440,37 @@ export const Products = {
         DOM.setText(DOM.get('editVariantCategory'), category);
         DOM.setText(DOM.get('editVariantOldName'), variant);
         DOM.setValue(DOM.get('editVariantNewName'), variant);
+
+        // Check inventory for this variant
+        const key = `${category}|${variant}`;
+        const stockQty = State.inventory[key]?.qty || 0;
+        const deleteBtn = DOM.get('deleteVariantBtn');
+        const warningEl = DOM.get('deleteVariantWarning');
+        const stockInfoEl = DOM.get('deleteVariantStockInfo');
+
+        if (stockQty > 0) {
+            // Has inventory - disable delete
+            if (deleteBtn) {
+                deleteBtn.disabled = true;
+                deleteBtn.style.opacity = '0.5';
+                deleteBtn.style.cursor = 'not-allowed';
+            }
+            if (warningEl) DOM.hide(warningEl);
+            if (stockInfoEl) {
+                DOM.show(stockInfoEl);
+                DOM.setText(stockInfoEl, `${stockQty} items in stock. Clear inventory first to delete.`);
+            }
+        } else {
+            // No inventory - enable delete
+            if (deleteBtn) {
+                deleteBtn.disabled = false;
+                deleteBtn.style.opacity = '1';
+                deleteBtn.style.cursor = 'pointer';
+            }
+            if (warningEl) DOM.show(warningEl);
+            if (stockInfoEl) DOM.hide(stockInfoEl);
+        }
+
         Modal.show('editVariantModal');
     },
 
@@ -341,7 +493,12 @@ export const Products = {
             this.closeEditVariantModal();
             return;
         }
-        if (State.products[category]?.includes(newName)) {
+        // Allow case changes (e.g., "teak" -> "Teak")
+        // Only block if a DIFFERENT variant has the same name (case-insensitive)
+        const existingVariant = State.products[category]?.find(
+            v => v.toLowerCase() === newName.toLowerCase() && v !== oldName
+        );
+        if (existingVariant) {
             Toast.show('Variant already exists');
             return;
         }
@@ -350,7 +507,8 @@ export const Products = {
         const variantIndex = State.products[category]?.indexOf(oldName);
         if (variantIndex > -1) {
             State.products[category][variantIndex] = newName;
-            Storage.saveProducts();
+            Storage.setLocal(STORAGE_KEYS.products, State.products);
+            Storage.saveProductCategory(category, State.products[category]);
         }
 
         // 2. Update inventory key
@@ -413,5 +571,106 @@ export const Products = {
         if (onProductsUpdated) onProductsUpdated();
 
         Toast.show('Variant renamed');
+    },
+
+    // ==================== DELETE CATEGORY ====================
+
+    showDeleteCategoryConfirm() {
+        if (!State.editingCategory) return;
+
+        DOM.setText(DOM.get('deleteCategoryName'), State.editingCategory);
+        Modal.hide('editCategoryModal');
+        Modal.show('deleteCategoryModal');
+    },
+
+    closeDeleteCategoryModal() {
+        Modal.hide('deleteCategoryModal');
+    },
+
+    deleteCategory() {
+        const category = State.editingCategory;
+        if (!category || !State.products[category]) {
+            Toast.show('Category not found');
+            return;
+        }
+
+        // 1. Delete all inventory items for this category
+        const keysToDelete = Object.keys(State.inventory).filter(key => key.startsWith(category + '|'));
+        keysToDelete.forEach(key => {
+            delete State.inventory[key];
+            Storage.deleteInventoryItem(key);
+        });
+        Storage.setLocal(STORAGE_KEYS.inventory, State.inventory);
+
+        // 2. Delete the category from products
+        delete State.products[category];
+        Storage.setLocal(STORAGE_KEYS.products, State.products);
+        Storage.deleteProductCategory(category);
+
+        // 3. Clear selections if this was selected
+        if (State.selectedCategory === category) State.selectedCategory = null;
+        if (State.selectedStockCategory === category) State.selectedStockCategory = null;
+        State.editingCategory = null;
+
+        this.closeDeleteCategoryModal();
+        this.renderList();
+
+        if (onProductsUpdated) onProductsUpdated();
+
+        Toast.show('Category deleted');
+    },
+
+    // ==================== DELETE VARIANT ====================
+
+    showDeleteVariantConfirm() {
+        if (!State.editingVariantCategory || !State.editingVariant) return;
+
+        DOM.setText(DOM.get('deleteVariantCategory'), State.editingVariantCategory);
+        DOM.setText(DOM.get('deleteVariantName'), State.editingVariant);
+        Modal.hide('editVariantModal');
+        Modal.show('deleteVariantModal');
+    },
+
+    closeDeleteVariantModal() {
+        Modal.hide('deleteVariantModal');
+    },
+
+    deleteVariant() {
+        const category = State.editingVariantCategory;
+        const variant = State.editingVariant;
+
+        if (!category || !variant) {
+            Toast.show('Variant not found');
+            return;
+        }
+
+        // 1. Delete inventory item
+        const key = `${category}|${variant}`;
+        if (State.inventory[key]) {
+            delete State.inventory[key];
+            Storage.deleteInventoryItem(key);
+            Storage.setLocal(STORAGE_KEYS.inventory, State.inventory);
+        }
+
+        // 2. Remove variant from products
+        const variantIndex = State.products[category]?.indexOf(variant);
+        if (variantIndex > -1) {
+            State.products[category].splice(variantIndex, 1);
+            Storage.setLocal(STORAGE_KEYS.products, State.products);
+            Storage.saveProductCategory(category, State.products[category]);
+        }
+
+        // 3. Clear selections if this was selected
+        if (State.selectedVariant === variant) State.selectedVariant = null;
+        if (State.selectedStockVariant === variant) State.selectedStockVariant = null;
+        State.editingVariantCategory = null;
+        State.editingVariant = null;
+
+        this.closeDeleteVariantModal();
+        this.renderList();
+
+        if (onProductsUpdated) onProductsUpdated();
+
+        Toast.show('Variant deleted');
     }
 };

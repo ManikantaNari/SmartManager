@@ -124,7 +124,15 @@ export const Customers = {
             return;
         }
 
-        const customer = { name, phone, email };
+        // Check if customer with this phone already exists
+        const existing = State.customers.find(c => c.phone === phone);
+        if (existing) {
+            Toast.show('Customer with this phone already exists');
+            return;
+        }
+
+        // Generate id using phone (used as Firebase doc id)
+        const customer = { id: phone, name, phone, email };
         State.customers.push(customer);
         Storage.saveCustomer(customer);
 
@@ -165,19 +173,21 @@ export const Customers = {
         if (index !== -1) {
             const oldCustomer = State.customers[index];
             const oldDocId = oldCustomer.phone || oldCustomer.id;
-            const newDocId = phone || oldCustomer.id;
 
-            // Preserve original id, update other fields
+            // New ID should match Firebase doc ID (phone if available, else keep old id)
+            const newId = phone || oldCustomer.id;
+
+            // Update customer with new id that matches Firebase doc ID
             State.customers[index] = {
-                id: oldCustomer.id,
+                id: newId,
                 name,
                 phone,
                 email
             };
 
             const db = getDb();
-            // If phone changed and was used as doc id, delete old doc
-            if (db && oldCustomer.phone && oldCustomer.phone !== phone) {
+            // Delete old Firebase doc if doc ID is changing
+            if (db && oldDocId !== newId) {
                 Storage.deleteCustomer(oldDocId);
             }
             Storage.saveCustomer(State.customers[index]);

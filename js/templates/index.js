@@ -21,8 +21,8 @@ import { CartModalTemplate } from './modals/cart.js';
 import { SaleCompleteModalTemplate } from './modals/saleComplete.js';
 import { AddProductModalTemplate } from './modals/addProduct.js';
 import { AddCustomerModalTemplate } from './modals/addCustomer.js';
-import { AddCategoryModalTemplate, EditCategoryModalTemplate } from './modals/addCategory.js';
-import { AddVariantModalTemplate, EditVariantModalTemplate } from './modals/addVariant.js';
+import { AddCategoryModalTemplate, EditCategoryModalTemplate, DeleteCategoryModalTemplate } from './modals/addCategory.js';
+import { AddVariantModalTemplate, EditVariantModalTemplate, DeleteVariantModalTemplate } from './modals/addVariant.js';
 import { EditStockModalTemplate } from './modals/editStock.js';
 import { TransactionModalTemplate } from './modals/transaction.js';
 import { StockLogModalTemplate } from './modals/stockLog.js';
@@ -64,8 +64,10 @@ export function loadTemplates() {
         AddCustomerModalTemplate,
         AddCategoryModalTemplate,
         EditCategoryModalTemplate,
+        DeleteCategoryModalTemplate,
         AddVariantModalTemplate,
         EditVariantModalTemplate,
+        DeleteVariantModalTemplate,
         EditStockModalTemplate,
         TransactionModalTemplate,
         StockLogModalTemplate,
@@ -102,8 +104,10 @@ export {
     AddCustomerModalTemplate,
     AddCategoryModalTemplate,
     EditCategoryModalTemplate,
+    DeleteCategoryModalTemplate,
     AddVariantModalTemplate,
     EditVariantModalTemplate,
+    DeleteVariantModalTemplate,
     EditStockModalTemplate,
     TransactionModalTemplate,
     StockLogModalTemplate,

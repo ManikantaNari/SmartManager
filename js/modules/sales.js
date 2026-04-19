@@ -350,9 +350,9 @@ export const Sales = {
             total += item.price * item.qty;
             profit += (item.price - item.costPrice) * item.qty;
 
+            // Use transaction-based update for concurrent safety
             if (State.inventory[item.key]) {
-                State.inventory[item.key].qty -= item.qty;
-                Storage.saveInventoryItem(item.key, State.inventory[item.key]);
+                Storage.updateInventoryQty(item.key, -item.qty);
             }
         });
 

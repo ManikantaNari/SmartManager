@@ -71,6 +71,7 @@ window.closeTransactionModal = () => Transactions.close();
 window.sendSMSFromTransaction = () => Transactions.sendSMS();
 window.confirmDeleteTransaction = () => Transactions.confirmDelete();
 window.backToHistoryFromTransaction = () => Transactions.backToHistory();
+window.addCustomerFromSale = () => Transactions.addCustomerFromSale();
 
 // ==================== INVENTORY ====================
 window.showInventoryTab = (tab) => Inventory.showTab(tab);
@@ -108,6 +109,15 @@ window.saveEditCategory = () => Products.saveEditCategory();
 window.showEditVariantModal = (category, variant) => Products.showEditVariantModal(category, variant);
 window.closeEditVariantModal = () => Products.closeEditVariantModal();
 window.saveEditVariant = () => Products.saveEditVariant();
+// Delete category/variant
+window.showDeleteCategoryConfirm = () => Products.showDeleteCategoryConfirm();
+window.closeDeleteCategoryModal = () => Products.closeDeleteCategoryModal();
+window.confirmDeleteCategory = () => Products.deleteCategory();
+window.showDeleteVariantConfirm = () => Products.showDeleteVariantConfirm();
+window.closeDeleteVariantModal = () => Products.closeDeleteVariantModal();
+window.confirmDeleteVariant = () => Products.deleteVariant();
+// Emoji picker
+window.selectEmoji = (containerId, hiddenInputId, emoji) => Products.selectEmoji(containerId, hiddenInputId, emoji);
 
 // ==================== REPORTS ====================
 window.showReportTab = (tab) => Reports.showTab(tab);
@@ -122,6 +132,82 @@ window.closePhotoModal = () => Reports.closePhotoModal();
 // ==================== BACKUP ====================
 window.downloadBackup = () => Backup.download();
 window.restoreBackup = (event) => Backup.restore(event);
+
+// ==================== SYNC ====================
+// Auto sync status - called when settings page is opened
+window.checkSyncStatus = async () => {
+    const { Storage } = await import('./state/index.js');
+    const { DOM } = await import('./utils/index.js');
+
+    const statusEl = document.getElementById('firebaseStatus');
+    if (statusEl) {
+        statusEl.textContent = 'Checking...';
+        statusEl.className = '';
+    }
+
+    const result = await Storage.checkFirebaseConnection();
+    const status = Storage.getSyncStatus();
+
+    // Update connection status
+    if (statusEl) {
+        if (result.connected) {
+            statusEl.textContent = 'Connected';
+            statusEl.className = 'sync-connected';
+        } else {
+            statusEl.textContent = result.error || 'Disconnected';
+            statusEl.className = 'sync-disconnected';
+        }
+    }
+
+    // Update last sync time
+    const lastSyncEl = document.getElementById('lastSyncTime');
+    if (lastSyncEl) {
+        if (status.lastSyncTime) {
+            const now = new Date();
+            const syncTime = new Date(status.lastSyncTime);
+            const diffMs = now - syncTime;
+            const diffMins = Math.floor(diffMs / 60000);
+
+            if (diffMins < 1) {
+                lastSyncEl.textContent = 'Just now';
+            } else if (diffMins < 60) {
+                lastSyncEl.textContent = `${diffMins} min ago`;
+            } else {
+                lastSyncEl.textContent = syncTime.toLocaleTimeString();
+            }
+        } else {
+            lastSyncEl.textContent = 'Not yet';
+        }
+    }
+
+    // Update counts using direct DOM access
+    const setCount = (id, value) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value;
+    };
+
+    setCount('syncCountInventory', status.collections.inventory);
+    setCount('syncCountSales', status.collections.sales);
+    setCount('syncCountCustomers', status.collections.customers);
+    setCount('syncCountBookings', status.collections.bookings);
+    setCount('syncCountProducts', status.collections.products);
+
+    // Show errors if any
+    const errorsEl = document.getElementById('syncErrors');
+    const errorsListEl = document.getElementById('syncErrorsList');
+    if (errorsEl && errorsListEl) {
+        if (status.errors.length > 0) {
+            errorsEl.style.display = 'block';
+            errorsListEl.innerHTML = status.errors.slice(-5).map(e =>
+                `<div style="margin-bottom: 4px;">${e.collection}: ${e.error}</div>`
+            ).join('');
+        } else {
+            errorsEl.style.display = 'none';
+        }
+    }
+
+    console.log('Sync status checked:', { connected: result.connected, collections: status.collections });
+};
 
 // ==================== BOOKINGS ====================
 window.showBookingTab = (tab) => Bookings.showTab(tab);

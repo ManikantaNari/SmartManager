@@ -207,13 +207,10 @@ export const Bookings = {
             finalPayment: null
         };
 
-        // Reduce inventory
+        // Reduce inventory using transaction-based update
         items.forEach(item => {
             if (State.inventory[item.key]) {
-                State.inventory[item.key].qty = Math.max(0,
-                    (State.inventory[item.key].qty || 0) - item.qty
-                );
-                Storage.saveInventoryItem(item.key, State.inventory[item.key]);
+                Storage.updateInventoryQty(item.key, -item.qty);
             }
         });
 
@@ -542,12 +539,10 @@ export const Bookings = {
         const today = now.toISOString().split('T')[0];
         const time = now.toLocaleTimeString();
 
-        // Restore inventory
+        // Restore inventory using transaction-based update
         booking.items.forEach(item => {
             if (State.inventory[item.key]) {
-                State.inventory[item.key].qty =
-                    (State.inventory[item.key].qty || 0) + item.qty;
-                Storage.saveInventoryItem(item.key, State.inventory[item.key]);
+                Storage.updateInventoryQty(item.key, item.qty);
             }
         });
 

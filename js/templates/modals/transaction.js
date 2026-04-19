@@ -23,6 +23,17 @@ export const TransactionModalTemplate = `
                     Send Bill via SMS
                 </button>
             </div>
+            <div id="addCustomerFromSaleSection" style="display: none; margin-bottom: 12px;">
+                <button class="btn btn-outline btn-block" onclick="addCustomerFromSale()" style="border-color: var(--success); color: var(--success);">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+                        <circle cx="8.5" cy="7" r="4"/>
+                        <line x1="20" y1="8" x2="20" y2="14"/>
+                        <line x1="23" y1="11" x2="17" y2="11"/>
+                    </svg>
+                    Add to Customers List
+                </button>
+            </div>
             <button class="btn btn-danger btn-block admin-only" onclick="confirmDeleteTransaction()">
                 Delete Transaction
             </button>
