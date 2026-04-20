@@ -5,6 +5,28 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
     margin-bottom: 16px;
+    max-height: calc(100vh - 300px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 4px;
+}
+
+/* Custom scrollbar for grids */
+.category-grid::-webkit-scrollbar {
+    width: 6px;
+}
+
+.category-grid::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.category-grid::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+}
+
+.category-grid::-webkit-scrollbar-thumb:hover {
+    background: var(--gray);
 }
 
 .category-btn {
@@ -35,6 +57,28 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
+    max-height: calc(100vh - 350px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 4px;
+}
+
+/* Custom scrollbar for variant grid */
+.variant-grid::-webkit-scrollbar {
+    width: 6px;
+}
+
+.variant-grid::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.variant-grid::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+}
+
+.variant-grid::-webkit-scrollbar-thumb:hover {
+    background: var(--gray);
 }
 
 .variant-btn {

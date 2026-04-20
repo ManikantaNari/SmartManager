@@ -1,6 +1,6 @@
 // Inventory Module
 
-import { DOM, Format, DateUtil, GridUtil, Template, Toast, Loader } from '../utils/index.js';
+import { DOM, Format, DateUtil, GridUtil, Template, Toast, Loader, debounce, Confirm } from '../utils/index.js';
 import { Modal } from '../components/index.js';
 import { State, Storage } from '../state/index.js';
 
@@ -78,7 +78,6 @@ export const Inventory = {
     renderAddStockView() {
         if (State.stockSession) {
             // Active session - show session view
-            DOM.hide(DOM.get('stockTypeSelection'));
             DOM.hide(DOM.get('startSessionForm'));
             DOM.show(DOM.get('activeSessionView'));
 
@@ -94,10 +93,14 @@ export const Inventory = {
             this.renderSessionItems();
             this.renderStockCategories();
         } else {
-            // No session - show stock type selection
-            DOM.show(DOM.get('stockTypeSelection'));
-            DOM.hide(DOM.get('startSessionForm'));
+            // No session - show unified form
+            DOM.show(DOM.get('startSessionForm'));
             DOM.hide(DOM.get('activeSessionView'));
+
+            // Reset form
+            const checkbox = DOM.get('isNewPurchase');
+            if (checkbox) checkbox.checked = false;
+            DOM.hide(DOM.get('vendorDetailsSection'));
             DOM.setValue(DOM.get('sessionVendor'), '');
             DOM.setValue(DOM.get('sessionInvoice'), '');
             DOM.hide(DOM.get('photoPreview'));
@@ -105,31 +108,21 @@ export const Inventory = {
         }
     },
 
-    selectStockType(type) {
-        if (type === 'old') {
-            // Old stock - skip vendor form, start session directly
-            State.stockSession = {
-                id: Date.now().toString(36) + Math.random().toString(36).substr(2),
-                vendor: 'Old Stock',
-                invoice: '',
-                photo: null,
-                items: [],
-                startTime: DateUtil.now(),
-                addedBy: State.userRole,
-                stockType: 'old'
-            };
-            this.renderAddStockView();
-            Toast.show('Add your existing inventory items');
-        } else {
-            // New stock - show vendor form
-            DOM.hide(DOM.get('stockTypeSelection'));
-            DOM.show(DOM.get('startSessionForm'));
-        }
-    },
+    toggleVendorFields() {
+        const checkbox = DOM.get('isNewPurchase');
+        const vendorSection = DOM.get('vendorDetailsSection');
 
-    backToStockType() {
-        DOM.show(DOM.get('stockTypeSelection'));
-        DOM.hide(DOM.get('startSessionForm'));
+        if (checkbox && vendorSection) {
+            if (checkbox.checked) {
+                DOM.show(vendorSection);
+            } else {
+                DOM.hide(vendorSection);
+                // Clear vendor fields when toggled off
+                DOM.setValue(DOM.get('sessionVendor'), '');
+                DOM.setValue(DOM.get('sessionInvoice'), '');
+                this.removeInvoicePhoto();
+            }
+        }
     },
 
     invoicePhotoData: null,
@@ -155,27 +148,41 @@ export const Inventory = {
     },
 
     startStockSession() {
-        const vendor = DOM.getValue(DOM.get('sessionVendor')).trim();
-        if (!vendor) {
-            Toast.show('Enter vendor name');
-            return;
-        }
+        const isNewPurchase = DOM.get('isNewPurchase')?.checked || false;
 
-        const invoice = DOM.getValue(DOM.get('sessionInvoice')).trim();
+        let vendor, invoice, photo, stockType;
+
+        if (isNewPurchase) {
+            // New purchase - require vendor details
+            vendor = DOM.getValue(DOM.get('sessionVendor')).trim();
+            if (!vendor) {
+                Toast.show('Enter vendor name');
+                return;
+            }
+            invoice = DOM.getValue(DOM.get('sessionInvoice')).trim();
+            photo = this.invoicePhotoData;
+            stockType = 'new';
+        } else {
+            // Opening stock/existing inventory - skip vendor details
+            vendor = 'Opening Stock';
+            invoice = '';
+            photo = null;
+            stockType = 'old';
+        }
 
         State.stockSession = {
             id: Date.now().toString(36) + Math.random().toString(36).substr(2),
             vendor,
             invoice,
-            photo: this.invoicePhotoData,
+            photo,
             items: [],
             startTime: new Date().toISOString(),
             addedBy: State.userRole,
-            stockType: 'new'
+            stockType
         };
 
         this.renderAddStockView();
-        Toast.show('Session started. Add items now.');
+        Toast.show(isNewPurchase ? 'Session started. Add items now.' : 'Add your existing inventory items');
     },
 
     renderSessionItems() {
@@ -184,7 +191,30 @@ export const Inventory = {
         const card = DOM.get('sessionItemsCard');
         const countEl = DOM.get('sessionItemCount');
 
+        // Calculate session progress stats
+        const totalQty = items.reduce((sum, item) => sum + item.qty, 0);
+        const totalCost = items.reduce((sum, item) => sum + (item.costPrice * item.qty), 0);
+
         DOM.setText(countEl, items.length);
+
+        // Update progress indicator if it exists
+        const progressEl = DOM.get('sessionProgress');
+        if (progressEl) {
+            progressEl.innerHTML = `
+                <div class="session-stat">
+                    <span class="session-stat-label">Products</span>
+                    <span class="session-stat-value">${items.length}</span>
+                </div>
+                <div class="session-stat">
+                    <span class="session-stat-label">Total Qty</span>
+                    <span class="session-stat-value">${totalQty}</span>
+                </div>
+                <div class="session-stat admin-only">
+                    <span class="session-stat-label">Total Cost</span>
+                    <span class="session-stat-value">${Format.currency(totalCost)}</span>
+                </div>
+            `;
+        }
 
         if (items.length === 0) {
             DOM.hide(card);
@@ -202,15 +232,54 @@ export const Inventory = {
                     <h4>${item.category} - ${item.variant}</h4>
                     <p>+${item.qty} @ ${Format.currency(item.costPrice)}</p>
                 </div>
-                <div style="font-weight: 600; color: var(--success);">
-                    ${Format.currency(item.price)}
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="font-weight: 600; color: var(--success); margin-right: 8px;">
+                        ${Format.currency(item.costPrice * item.qty)}
+                    </div>
+                    <button class="btn btn-sm btn-outline" onclick="editSessionItem(${index})" style="padding: 4px 8px; font-size: 12px;">Edit</button>
+                    <button class="btn btn-sm btn-outline" onclick="removeSessionItem(${index})" style="padding: 4px 8px; font-size: 12px; color: var(--danger); border-color: var(--danger);">Remove</button>
                 </div>
             `;
             container.appendChild(div);
         });
     },
 
-    completeStockSession() {
+    editSessionItem(index) {
+        const item = State.stockSession?.items[index];
+        if (!item) return;
+
+        // Store index for updating later
+        State.editingSessionItemIndex = index;
+
+        // Set category and variant
+        State.selectedStockCategory = item.category;
+        State.selectedStockVariant = item.variant;
+
+        // Open modal with pre-filled values
+        DOM.setText(DOM.get('addStockItemProduct'), item.category);
+        DOM.setText(DOM.get('addStockItemVariant'), item.variant);
+        DOM.setValue(DOM.get('addStockItemQty'), item.qty);
+        DOM.setValue(DOM.get('addStockItemCost'), item.costPrice);
+        DOM.setValue(DOM.get('addStockItemPrice'), item.price);
+        DOM.setValue(DOM.get('addStockItemAlert'), item.alertQty);
+
+        Modal.show('addStockItemModal');
+    },
+
+    removeSessionItem(index) {
+        if (!State.stockSession) return;
+
+        const item = State.stockSession.items[index];
+        if (!item) return;
+
+        if (confirm(`Remove ${item.category} - ${item.variant} from queue?`)) {
+            State.stockSession.items.splice(index, 1);
+            this.renderSessionItems();
+            Toast.show('Item removed from queue');
+        }
+    },
+
+    async completeStockSession() {
         if (!State.stockSession) {
             this.renderAddStockView();
             return;
@@ -223,6 +292,30 @@ export const Inventory = {
             }
             return;
         }
+
+        const itemCount = State.stockSession.items.length;
+
+        // Show confirmation dialog
+        const confirmed = await Confirm.show({
+            title: `Save ${itemCount} item${itemCount > 1 ? 's' : ''} to inventory?`,
+            message: 'This will update your stock levels. This action cannot be undone.',
+            confirmText: 'Yes, Save All',
+            cancelText: 'Cancel',
+            type: 'warning'
+        });
+
+        if (!confirmed) {
+            return;
+        }
+
+        // NOW save all items to database
+        State.stockSession.items.forEach(item => {
+            Storage.updateInventoryQty(item.key, item.qty, {
+                costPrice: item.costPrice,
+                price: item.price,
+                alertQty: item.alertQty
+            });
+        });
 
         // Save the stock log
         const log = {
@@ -241,7 +334,7 @@ export const Inventory = {
         State.stockLogs.unshift(log);
         Storage.saveStockLog(log);
 
-        Toast.show(`${State.stockSession.items.length} items logged successfully`);
+        Toast.show(`${itemCount} item${itemCount > 1 ? 's' : ''} saved successfully!`);
 
         // Reset session
         State.stockSession = null;
@@ -291,13 +384,15 @@ export const Inventory = {
         });
     },
 
-    filterStock() {
+    _performStockFilter() {
         const search = DOM.getValue(DOM.get('stockSearch')).toLowerCase();
         DOM.findAll('#stockList .card').forEach(card => {
             const text = card.textContent.toLowerCase();
             card.style.display = text.includes(search) ? 'block' : 'none';
         });
     },
+
+    filterStock: null, // Will be initialized with debounced version
 
     renderStockCategories() {
         const container = DOM.get('stockCategoryGrid');
@@ -343,79 +438,74 @@ export const Inventory = {
 
     selectStockVariant(variant) {
         State.selectedStockVariant = variant;
+        State.editingSessionItemIndex = null; // Clear edit mode
         const key = `${State.selectedStockCategory}|${variant}`;
         const existing = State.inventory[key] || {};
 
-        DOM.setText(DOM.get('addStockProduct'), `${State.selectedStockCategory} - ${variant}`);
-        DOM.setValue(DOM.get('addStockQty'), '');
-        DOM.setValue(DOM.get('addStockCost'), existing.costPrice || '');
-        DOM.setValue(DOM.get('addStockPrice'), existing.price || '');
-        DOM.setValue(DOM.get('addStockAlert'), existing.alertQty || '');
-        DOM.show(DOM.get('addStockForm'));
+        // Open modal instead of showing inline form
+        DOM.setText(DOM.get('addStockItemProduct'), State.selectedStockCategory);
+        DOM.setText(DOM.get('addStockItemVariant'), variant);
+        DOM.setValue(DOM.get('addStockItemQty'), '');
+        DOM.setValue(DOM.get('addStockItemCost'), existing.costPrice || '');
+        DOM.setValue(DOM.get('addStockItemPrice'), existing.price || '');
+        DOM.setValue(DOM.get('addStockItemAlert'), existing.alertQty || '');
+
+        Modal.show('addStockItemModal');
     },
 
-    saveStock() {
-        const qty = parseInt(DOM.getValue(DOM.get('addStockQty'))) || 0;
-        const costPrice = parseFloat(DOM.getValue(DOM.get('addStockCost'))) || 0;
-        const price = parseFloat(DOM.getValue(DOM.get('addStockPrice'))) || 0;
-        const alertQty = parseInt(DOM.getValue(DOM.get('addStockAlert'))) || 0;
+    addItemToQueue() {
+        const qty = parseInt(DOM.getValue(DOM.get('addStockItemQty'))) || 0;
+        const costPrice = parseFloat(DOM.getValue(DOM.get('addStockItemCost'))) || 0;
+        const price = parseFloat(DOM.getValue(DOM.get('addStockItemPrice'))) || 0;
+        const alertQty = parseInt(DOM.getValue(DOM.get('addStockItemAlert'))) || 0;
 
         if (qty <= 0) {
             Toast.show('Enter valid quantity');
             return;
         }
 
-        const key = `${State.selectedStockCategory}|${State.selectedStockVariant}`;
-
-        // Use transaction-based update for concurrent safety
-        Storage.updateInventoryQty(key, qty, { costPrice, price, alertQty });
-
-        // Add to session items for tracking
-        if (State.stockSession) {
-            State.stockSession.items.push({
-                category: State.selectedStockCategory,
-                variant: State.selectedStockVariant,
-                key,
-                qty,
-                costPrice,
-                price,
-                alertQty,
-                addedAt: DateUtil.now()
-            });
-            this.renderSessionItems();
-            Toast.show('Item added. Select next product.');
-        } else {
-            // "During sale" addition - create standalone log entry
-            const log = {
-                id: Date.now().toString(36) + Math.random().toString(36).substr(2),
-                date: Format.today(),
-                time: Format.time(),
-                vendor: 'Added during sale',
-                invoice: '',
-                photo: null,
-                items: [{
-                    category: State.selectedStockCategory,
-                    variant: State.selectedStockVariant,
-                    key,
-                    qty,
-                    costPrice,
-                    price,
-                    alertQty,
-                    addedAt: DateUtil.now()
-                }],
-                addedBy: State.userRole || 'Unknown',
-                type: 'during_sale'
-            };
-            State.stockLogs.unshift(log);
-            Storage.saveStockLog(log);
-            Toast.show('Stock added successfully');
+        if (!State.stockSession) {
+            Toast.show('Session not active');
+            return;
         }
 
-        // Reset form for next item
-        DOM.hide(DOM.get('addStockForm'));
-        DOM.setValue(DOM.get('addStockQty'), '');
+        const key = `${State.selectedStockCategory}|${State.selectedStockVariant}`;
+
+        const item = {
+            category: State.selectedStockCategory,
+            variant: State.selectedStockVariant,
+            key,
+            qty,
+            costPrice,
+            price,
+            alertQty,
+            addedAt: DateUtil.now()
+        };
+
+        // Check if editing existing item in queue
+        if (State.editingSessionItemIndex !== null && State.editingSessionItemIndex !== undefined) {
+            // Update existing item
+            State.stockSession.items[State.editingSessionItemIndex] = item;
+            Toast.show('Item updated in queue');
+        } else {
+            // Add new item to queue (NO DB save yet!)
+            State.stockSession.items.push(item);
+            const count = State.stockSession.items.length;
+            Toast.show(`Item queued (${count} item${count > 1 ? 's' : ''}). Add more or Complete.`);
+        }
+
+        // Close modal and render session items
+        Modal.hide('addStockItemModal');
+        this.renderSessionItems();
+
         State.selectedStockVariant = null;
+        State.editingSessionItemIndex = null;
         // Keep category selected for quick entry of multiple variants
+    },
+
+    closeAddStockItemModal() {
+        Modal.hide('addStockItemModal');
+        State.editingSessionItemIndex = null;
     },
 
     editStock(key) {
@@ -434,6 +524,7 @@ export const Inventory = {
         DOM.setValue(DOM.get('editStockCost'), data.costPrice || '');
         DOM.setValue(DOM.get('editStockPrice'), data.price || '');
         DOM.setValue(DOM.get('editStockAlert'), data.alertQty || '');
+        DOM.setValue(DOM.get('editStockReason'), ''); // Clear reason field
 
         Modal.show('editStockModal');
     },
@@ -446,18 +537,57 @@ export const Inventory = {
     saveStockEdit() {
         if (!State.editingStockKey) return;
 
+        // Get old data before updating
+        const oldData = State.inventory[State.editingStockKey];
+        const oldQty = oldData?.qty || 0;
+
         const qty = parseInt(DOM.getValue(DOM.get('editStockQty'))) || 0;
         const costPrice = parseFloat(DOM.getValue(DOM.get('editStockCost'))) || 0;
         const price = parseFloat(DOM.getValue(DOM.get('editStockPrice'))) || 0;
         const alertQty = parseInt(DOM.getValue(DOM.get('editStockAlert'))) || 0;
+        const reason = DOM.getValue(DOM.get('editStockReason')).trim();
 
         if (qty < 0) {
             Toast.show('Quantity cannot be negative');
             return;
         }
 
+        // Update inventory
         State.inventory[State.editingStockKey] = { qty, costPrice, price, alertQty };
         Storage.saveInventoryItem(State.editingStockKey, State.inventory[State.editingStockKey]);
+
+        // Create stock log if quantity changed
+        if (qty !== oldQty) {
+            const [category, variant] = State.editingStockKey.split('|');
+            const qtyChange = qty - oldQty;
+
+            const log = {
+                id: Date.now().toString(36) + Math.random().toString(36).substr(2),
+                date: Format.today(),
+                time: Format.time(),
+                vendor: 'Stock Adjustment',
+                invoice: '',
+                photo: null,
+                items: [{
+                    category,
+                    variant,
+                    key: State.editingStockKey,
+                    oldQty,
+                    newQty: qty,
+                    qtyChange,
+                    costPrice,
+                    price,
+                    alertQty,
+                    addedAt: DateUtil.now()
+                }],
+                addedBy: State.userRole || 'admin',
+                type: 'adjustment',
+                reason: reason || null
+            };
+
+            State.stockLogs.unshift(log);
+            Storage.saveStockLog(log);
+        }
 
         this.closeEditModal();
         this.renderStockList();
@@ -467,3 +597,6 @@ export const Inventory = {
         Toast.show('Stock updated successfully');
     }
 };
+
+// Initialize debounced stock filter (200ms delay)
+Inventory.filterStock = debounce(Inventory._performStockFilter.bind(Inventory), 200);

@@ -1,6 +1,6 @@
 // Transactions Module
 
-import { DOM, Format, Toast } from '../utils/index.js';
+import { DOM, Format, Toast, DateUtil } from '../utils/index.js';
 import { Modal } from '../components/index.js';
 import { State, Storage } from '../state/index.js';
 import { Sales } from './sales.js';
@@ -31,7 +31,7 @@ export const Transactions = {
 
         const details = [
             { label: 'Date', value: Format.date(sale.date) },
-            { label: 'Time', value: sale.time },
+            { label: 'Time', value: DateUtil.formatTime(sale.time) },
             { label: 'Customer', value: sale.customer?.name || 'Walk-in' }
         ];
         if (sale.customer?.phone) {

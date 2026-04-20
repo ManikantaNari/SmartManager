@@ -1,6 +1,6 @@
 // Dashboard Module
 
-import { DOM, Format, Template, Loader } from '../utils/index.js';
+import { DOM, Format, Template, Loader, DateUtil } from '../utils/index.js';
 import { State } from '../state/index.js';
 import { Bookings } from './bookings.js';
 
@@ -130,7 +130,7 @@ export const Dashboard = {
             (sale) => ({
                 data: {
                     customer: sale.customer?.name || 'Walk-in Customer',
-                    details: `${sale.items.length} items | ${sale.paymentMethod} | ${sale.time}`,
+                    details: `${sale.items.length} items | ${sale.paymentMethod} | ${DateUtil.formatTime(sale.time)}`,
                     total: Format.currency(sale.total)
                 },
                 options: { dataAttrs: { saleId: sale.id } }

@@ -25,6 +25,7 @@
 @import url('./components/toggle.css');
 @import url('./components/pinpad.css');
 @import url('./components/alerts.css');
+@import url('./components/confirm.css');
 
 /* Features */
 @import url('./features/login.css');
@@ -34,6 +35,7 @@
 @import url('./features/roles.css');
 @import url('./features/bookings.css');
 @import url('./features/settings.css');
+@import url('./features/inventory.css');
 
 /* Responsive - Must be last */
 @import url('./layout/responsive.css');

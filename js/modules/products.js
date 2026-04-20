@@ -203,33 +203,63 @@ export const Products = {
 
         if (costPrice || price || stock) {
             const key = `${targetCategory}|${name}`;
-            State.inventory[key] = { qty: stock, costPrice, price, alertQty: 0 };
-            Storage.saveInventoryItem(key, State.inventory[key]);
 
-            // Log stock addition when added during sale
-            if (stock > 0 && State.variantModalContext === 'sale') {
-                const log = {
-                    id: Date.now().toString(36) + Math.random().toString(36).substr(2),
-                    date: Format.today(),
-                    time: Format.time(),
-                    vendor: 'Added during sale',
-                    invoice: '',
-                    photo: null,
-                    items: [{
-                        category: targetCategory,
-                        variant: name,
-                        key,
-                        qty: stock,
-                        costPrice,
-                        price,
-                        alertQty: 0,
-                        addedAt: DateUtil.now()
-                    }],
-                    addedBy: State.userRole || 'Unknown',
-                    type: 'during_sale'
-                };
-                State.stockLogs.unshift(log);
-                Storage.saveStockLog(log);
+            // Check if we're in an active stock session
+            if (State.stockSession && stock > 0) {
+                // During stock session - add to queue (NOT to DB yet!)
+                State.stockSession.items.push({
+                    category: targetCategory,
+                    variant: name,
+                    key,
+                    qty: stock,
+                    costPrice,
+                    price,
+                    alertQty: 0,
+                    addedAt: DateUtil.now()
+                });
+
+                // Initialize inventory entry with 0 qty (so variant exists but no stock yet)
+                if (!State.inventory[key]) {
+                    State.inventory[key] = { qty: 0, costPrice, price, alertQty: 0 };
+                    Storage.saveInventoryItem(key, State.inventory[key]);
+                }
+
+                // Refresh session items list to show the queued item
+                if (window.refreshSessionItems) {
+                    window.refreshSessionItems();
+                }
+
+                Toast.show(`${name} queued (${State.stockSession.items.length} items). Add more or Complete.`);
+            } else {
+                // NOT in session - save immediately (existing behavior)
+                State.inventory[key] = { qty: stock, costPrice, price, alertQty: 0 };
+                Storage.saveInventoryItem(key, State.inventory[key]);
+
+                // Log stock addition when added during sale
+                if (stock > 0 && State.variantModalContext === 'sale') {
+                    const log = {
+                        id: Date.now().toString(36) + Math.random().toString(36).substr(2),
+                        date: Format.today(),
+                        time: Format.time(),
+                        vendor: 'Added during sale',
+                        invoice: '',
+                        photo: null,
+                        items: [{
+                            category: targetCategory,
+                            variant: name,
+                            key,
+                            qty: stock,
+                            costPrice,
+                            price,
+                            alertQty: 0,
+                            addedAt: DateUtil.now()
+                        }],
+                        addedBy: State.userRole || 'Unknown',
+                        type: 'during_sale'
+                    };
+                    State.stockLogs.unshift(log);
+                    Storage.saveStockLog(log);
+                }
             }
         }
 
@@ -238,7 +268,13 @@ export const Products = {
 
         if (onProductsUpdated) onProductsUpdated();
 
-        Toast.show('Variant added');
+        // Show appropriate message
+        if (State.stockSession && stock > 0) {
+            // Already showed toast in the session queue logic above
+            // Don't override it here
+        } else {
+            Toast.show('Variant added');
+        }
     },
 
     // ==================== EDIT CATEGORY ====================

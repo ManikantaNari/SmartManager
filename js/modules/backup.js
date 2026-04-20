@@ -5,6 +5,8 @@ import { Format, DateUtil, Toast, i18n, Keyboard } from '../utils/index.js';
 import { State, Storage } from '../state/index.js';
 
 export const Backup = {
+    inventoryValueTimer: null,
+
     download() {
         const backup = {
             version: 1,
@@ -192,6 +194,11 @@ export const Backup = {
         // Update the UI
         const valueSection = document.getElementById('inventoryValueSection');
         if (valueSection) {
+            // Clear any existing timer
+            if (this.inventoryValueTimer) {
+                clearTimeout(this.inventoryValueTimer);
+            }
+
             valueSection.style.display = 'block';
             document.getElementById('invTotalCost').textContent = Format.currency(value.totalCost);
             document.getElementById('invTotalSelling').textContent = Format.currency(value.totalSelling);
@@ -201,6 +208,12 @@ export const Backup = {
 
             // Announce to screen reader
             Keyboard.announce(`Inventory value loaded. Total selling price: ${Format.currency(value.totalSelling)}`);
+
+            // Auto-hide after 5 seconds
+            this.inventoryValueTimer = setTimeout(() => {
+                valueSection.style.display = 'none';
+                this.inventoryValueTimer = null;
+            }, 5000);
         }
     }
 };

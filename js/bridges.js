@@ -76,15 +76,18 @@ window.addCustomerFromSale = () => Transactions.addCustomerFromSale();
 // ==================== INVENTORY ====================
 window.showInventoryTab = (tab) => Inventory.showTab(tab);
 window.filterStock = () => Inventory.filterStock();
-window.saveStock = () => Inventory.saveStock();
+window.addItemToQueue = () => Inventory.addItemToQueue();
+window.closeAddStockItemModal = () => Inventory.closeAddStockItemModal();
+window.editSessionItem = (index) => Inventory.editSessionItem(index);
+window.removeSessionItem = (index) => Inventory.removeSessionItem(index);
 window.closeEditStockModal = () => Inventory.closeEditModal();
 window.saveStockEdit = () => Inventory.saveStockEdit();
 window.captureInvoicePhoto = (event) => Inventory.captureInvoicePhoto(event);
 window.removeInvoicePhoto = () => Inventory.removeInvoicePhoto();
-window.selectStockType = (type) => Inventory.selectStockType(type);
-window.backToStockType = () => Inventory.backToStockType();
+window.toggleVendorFields = () => Inventory.toggleVendorFields();
 window.startStockSession = () => Inventory.startStockSession();
 window.completeStockSession = () => Inventory.completeStockSession();
+window.refreshSessionItems = () => Inventory.renderSessionItems();
 
 // ==================== CUSTOMERS ====================
 window.filterAllCustomers = () => Customers.filter();

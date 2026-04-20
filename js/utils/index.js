@@ -11,3 +11,6 @@ export { Toast } from './toast.js';
 export { Loader } from './loader.js';
 export { Keyboard } from './keyboard.js';
 export { i18n, I18n, t } from './i18n.js';
+export { Confirm } from './confirm.js';
+export { Unsaved } from './unsaved.js';
+export { debounce, throttle, memoize, lazyLoadImages, requestIdleCallback, cancelIdleCallback, batchDOMUpdates, measurePerformance, observePerformance } from './performance.js';

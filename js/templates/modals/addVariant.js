@@ -22,7 +22,7 @@ export const AddVariantModalTemplate = `
                 <input class="form-input" id="newVariantPrice" placeholder="0" type="number">
             </div>
             <div class="form-group">
-                <label class="form-label">Initial Stock (Optional)</label>
+                <label class="form-label">Quantity (Optional)</label>
                 <input class="form-input" id="newVariantStock" placeholder="0" type="number">
             </div>
             <button class="btn btn-primary btn-block" onclick="saveNewVariant()">

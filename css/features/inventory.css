@@ -1,0 +1,98 @@
+/* Inventory & Stock Session Styles */
+
+/* Session Progress Stats */
+.session-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px;
+    background: var(--light);
+    border-radius: 10px;
+    flex: 1;
+}
+
+.session-stat-label {
+    font-size: 12px;
+    color: var(--gray);
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+
+.session-stat-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--dark);
+}
+
+#sessionProgress {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+/* Session active indicator */
+.session-active-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: linear-gradient(135deg, var(--success), #059669);
+    color: white;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.session-active-badge::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Session completion progress */
+.session-completion {
+    margin-top: 12px;
+    padding: 12px;
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 10px;
+    border-left: 4px solid var(--primary);
+}
+
+.session-completion-text {
+    font-size: 13px;
+    color: var(--gray);
+    margin-bottom: 4px;
+}
+
+.session-completion-count {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    .session-stat {
+        padding: 10px 8px;
+    }
+
+    .session-stat-value {
+        font-size: 18px;
+    }
+
+    .session-stat-label {
+        font-size: 11px;
+    }
+}

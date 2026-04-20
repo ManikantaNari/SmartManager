@@ -1,6 +1,6 @@
 // Sales Module
 
-import { DOM, Format, GridUtil, Template, Toast, Loader } from '../utils/index.js';
+import { DOM, Format, GridUtil, Template, Toast, Loader, debounce, DateUtil } from '../utils/index.js';
 import { Modal } from '../components/index.js';
 import { State, Storage } from '../state/index.js';
 
@@ -187,7 +187,24 @@ export const Sales = {
 
         Modal.hide('addCartModal');
         this.renderCart();
-        Toast.show('Added to cart');
+
+        // Animate the newly added item
+        setTimeout(() => {
+            const cartItems = document.querySelectorAll('.cart-item');
+            const newItem = cartItems[cartItems.length - 1];
+            if (newItem) {
+                newItem.classList.add('cart-item-enter');
+            }
+        }, 10);
+
+        // Badge bounce animation
+        const cartBadge = DOM.get('cartCount');
+        if (cartBadge) {
+            cartBadge.classList.add('badge-bounce');
+            setTimeout(() => cartBadge.classList.remove('badge-bounce'), 600);
+        }
+
+        Toast.success('Added to cart');
     },
 
     renderCart() {
@@ -230,11 +247,23 @@ export const Sales = {
     },
 
     removeFromCart(index) {
-        State.cart.splice(index, 1);
-        this.renderCart();
+        // Animate removal
+        const cartItem = document.querySelector(`.cart-item[data-index="${index}"]`);
+        if (cartItem) {
+            cartItem.classList.add('cart-item-exit');
+            setTimeout(() => {
+                State.cart.splice(index, 1);
+                this.renderCart();
+            }, 300); // Match animation duration
+        } else {
+            // Fallback if element not found
+            State.cart.splice(index, 1);
+            this.renderCart();
+        }
     },
 
-    searchCustomers() {
+    // Internal search implementation
+    _performCustomerSearch() {
         const search = DOM.getValue(DOM.get('customerSearch')).toLowerCase();
         const filtered = State.customers.filter(c =>
             c.name.toLowerCase().includes(search) ||
@@ -254,6 +283,9 @@ export const Sales = {
             })
         );
     },
+
+    // Debounced version for oninput
+    searchCustomers: null, // Will be initialized with debounced version
 
     selectCustomerForSale(name, phone) {
         DOM.setValue(DOM.get('customerName'), name);
@@ -361,7 +393,7 @@ export const Sales = {
         let text = `MANIKANTA ENTERPRISES\n`;
         text += `========================\n\n`;
         text += `Date: ${Format.date(saleData.date)}\n`;
-        text += `Time: ${saleData.time}\n`;
+        text += `Time: ${DateUtil.formatTime(saleData.time)}\n`;
         if (saleData.customer?.name) {
             text += `Customer: ${saleData.customer.name}\n`;
         }
@@ -390,11 +422,17 @@ export const Sales = {
         State.currentSaleData = null;
     },
 
-    filterProducts() {
+    _performProductFilter() {
         const search = DOM.getValue(DOM.get('productSearch')).toLowerCase();
         DOM.findAll('.category-btn').forEach(btn => {
             const matches = btn.textContent.toLowerCase().includes(search);
             btn.style.opacity = search && !matches ? '0.3' : '1';
         });
-    }
+    },
+
+    filterProducts: null // Will be initialized with debounced version
 };
+
+// Initialize debounced search and filter functions (300ms delay)
+Sales.searchCustomers = debounce(Sales._performCustomerSearch.bind(Sales), 300);
+Sales.filterProducts = debounce(Sales._performProductFilter.bind(Sales), 200);

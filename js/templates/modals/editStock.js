@@ -27,6 +27,11 @@ export const EditStockModalTemplate = `
             <label class="form-label">Low Stock Alert (warn when below)</label>
             <input class="form-input" id="editStockAlert" placeholder="e.g., 5" type="number">
         </div>
+        <div class="form-group">
+            <label class="form-label">Reason for Adjustment (Optional)</label>
+            <input class="form-input" id="editStockReason" placeholder="e.g., Physical count, Damaged stock, Error correction" type="text">
+            <p style="font-size: 12px; color: var(--gray); margin-top: 4px;">This will be logged for audit purposes</p>
+        </div>
         <button class="btn btn-success btn-block" onclick="saveStockEdit()">Save Changes</button>
     </div>
 </div>

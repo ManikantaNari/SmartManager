@@ -42,3 +42,33 @@
     color: var(--dark);
     margin-bottom: 8px;
 }
+
+/* Scrollable List Container */
+.list-scrollable {
+    max-height: calc(100vh - 250px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Custom scrollbar for lists */
+.list-scrollable::-webkit-scrollbar {
+    width: 6px;
+}
+
+.list-scrollable::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.list-scrollable::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+}
+
+.list-scrollable::-webkit-scrollbar-thumb:hover {
+    background: var(--gray);
+}
+
+/* Smooth scroll behavior */
+.list-scrollable {
+    scroll-behavior: smooth;
+}

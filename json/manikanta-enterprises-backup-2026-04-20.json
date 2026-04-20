@@ -1,0 +1,1169 @@
+{
+  "version": 1,
+  "date": "2026-04-20T16:36:20.962Z",
+  "products": {
+    "Almara": [
+      "Single - 37 - Lite",
+      "Single - 37 - Mid",
+      "Single - 37 - Heavy",
+      "Single - 42",
+      "Double - 47 - Lite",
+      "Double - 47 - Mid",
+      "Double - 47 - Heavy"
+    ],
+    "Almara Leg": [
+      "Leg"
+    ],
+    "Chair": [
+      "Resto",
+      "Resto Fiber",
+      "AVRo Fiber",
+      "Aram Resto",
+      "Cello Aaram",
+      "Cello Stull",
+      "Cello Step Stull",
+      "Resto Stull",
+      "Tub Chair",
+      "T-pai"
+    ],
+    "Cooler": [
+      "Breeze",
+      "Flapee King",
+      "Ikia Bustar",
+      "Resto Turbo",
+      "Vaishnavi Jumbo",
+      "Vaishnavi Matrix",
+      "Wintro"
+    ],
+    "Cot": [
+      "Box (6 × 5)",
+      "Diwan Normal",
+      "Diwan Teak",
+      "Folding",
+      "Polish (6 × 4)",
+      "Polish (6 × 5)",
+      "Polish (6 × 6)",
+      "Polish (6 × 3)",
+      "Teak (6 × 4)",
+      "Teak (6×3)",
+      "Box (6 × 6)",
+      "Iron Black",
+      "Iron Whight"
+    ],
+    "Dining Table": [
+      "Normal",
+      "Large"
+    ],
+    "Dressing Table": [
+      "Normal",
+      "Polished",
+      "Long"
+    ],
+    "Fan": [
+      "Swift",
+      "Racer",
+      "Luker",
+      "Usha",
+      "Staker",
+      "Surya"
+    ],
+    "Folding Table": [
+      "Normal",
+      "Large"
+    ],
+    "Fridge Stand": [
+      "Small",
+      "Large"
+    ],
+    "Mattress": [
+      "EP - 72*36 - 4",
+      "EP - 72*36 - 5",
+      "Foam - 72*36 - 5",
+      "Foam - 72*36 - 6",
+      "EP - 75*36 - 4",
+      "EP - 75*36 - 5",
+      "Foam - 75*36 - 5",
+      "Foam - 75*36 - 6",
+      "EP - 72*48 - 4",
+      "EP - 72*48 - 5",
+      "Foam - 72*48 - 5",
+      "Foam - 72*48 - 6",
+      "Ep - 75*48 - 4",
+      "Ep - 75*48 - 5",
+      "Foam - 75*48 - 5",
+      "Foam - 75*48 - 6",
+      "EP - 70*60 - 4",
+      "EP - 70*60 - 5",
+      "Foam - 70*60 - 5",
+      "Foam - 70*60 - 6",
+      "Ep - 75*72 - 4",
+      "Ep - 75*72 - 5",
+      "Foam - 75*72 - 5",
+      "Foam - 75*72 - 6"
+    ],
+    "Official Table": [
+      "4*2",
+      "4*2 Polish",
+      "5*2",
+      "5*2 Polish",
+      "All In one"
+    ],
+    "Pillow": [
+      "Regular",
+      "Foam"
+    ],
+    "Shoe Rack": [
+      "077",
+      "087"
+    ],
+    "Table": [
+      "Study Table",
+      "Computer Table"
+    ],
+    "Tv Stand": [
+      "Tv Stand"
+    ]
+  },
+  "inventory": {
+    "Almara Leg|Leg": {
+      "price": 300,
+      "costPrice": 110,
+      "alertQty": 0,
+      "updatedAt": "2026-04-20T15:14:51.233Z",
+      "qty": 75
+    },
+    "Almara|Double - 47 - Heavy": {
+      "price": 18500,
+      "qty": 9,
+      "costPrice": 12000,
+      "alertQty": 0,
+      "updatedAt": "2026-04-20T15:28:29.751Z"
+    },
+    "Almara|Double - 47 - Lite": {
+      "price": 12000,
+      "costPrice": 9200,
+      "alertQty": 0,
+      "qty": 6,
+      "updatedAt": "2026-04-20T08:27:52.250Z"
+    },
+    "Almara|Double - 47 - Mid": {
+      "qty": 5,
+      "updatedAt": "2026-04-20T08:30:25.716Z",
+      "alertQty": 0,
+      "costPrice": 10000,
+      "price": 15000
+    },
+    "Almara|Single - 37 - Heavy": {
+      "qty": 3,
+      "updatedAt": "2026-04-20T08:30:02.499Z",
+      "costPrice": 8500,
+      "alertQty": 0,
+      "price": 12000
+    },
+    "Almara|Single - 37 - Lite": {
+      "price": 8000,
+      "alertQty": 0,
+      "costPrice": 5000,
+      "qty": 5,
+      "updatedAt": "2026-04-20T08:51:32.354Z"
+    },
+    "Almara|Single - 37 - Mid": {
+      "qty": 1,
+      "updatedAt": "2026-04-20T15:27:35.967Z",
+      "alertQty": 0,
+      "costPrice": 7500,
+      "price": 10500
+    },
+    "Almara|Single - 42": {
+      "qty": 2,
+      "updatedAt": "2026-04-20T08:28:28.000Z",
+      "costPrice": 10500,
+      "alertQty": 0,
+      "price": 16500
+    },
+    "Chair|AVRo Fiber": {
+      "costPrice": 470,
+      "alertQty": 0,
+      "price": 750,
+      "qty": 28
+    },
+    "Chair|Aram Resto": {
+      "costPrice": 350,
+      "alertQty": 0,
+      "price": 650,
+      "qty": 10
+    },
+    "Chair|Cello Aaram": {
+      "qty": 9,
+      "updatedAt": "2026-04-19T16:31:43.690Z",
+      "price": 1200,
+      "alertQty": 0,
+      "costPrice": 950
+    },
+    "Chair|Cello Step Stull": {
+      "costPrice": 750,
+      "alertQty": 0,
+      "price": 1000,
+      "qty": 1,
+      "updatedAt": "2026-04-19T16:34:23.540Z"
+    },
+    "Chair|Cello Stull": {
+      "qty": 4,
+      "updatedAt": "2026-04-19T16:33:38.106Z",
+      "costPrice": 360,
+      "alertQty": 0,
+      "price": 500
+    },
+    "Chair|Resto": {
+      "price": 350,
+      "updatedAt": "2026-04-20T15:29:27.099Z",
+      "alertQty": 0,
+      "qty": 56,
+      "costPrice": 230
+    },
+    "Chair|Resto Fiber": {
+      "alertQty": 0,
+      "costPrice": 380,
+      "qty": 19,
+      "price": 650
+    },
+    "Chair|Resto Stull": {
+      "qty": 7,
+      "updatedAt": "2026-04-19T16:35:09.290Z",
+      "price": 350,
+      "costPrice": 250,
+      "alertQty": 0
+    },
+    "Chair|T-pai": {
+      "qty": 2,
+      "updatedAt": "2026-04-19T16:37:57.739Z",
+      "price": 1000,
+      "alertQty": 0,
+      "costPrice": 450
+    },
+    "Chair|Tub Chair": {
+      "qty": 31,
+      "updatedAt": "2026-04-20T04:04:51.481Z",
+      "costPrice": 580,
+      "alertQty": 0,
+      "price": 950
+    },
+    "Cooler|Breeze": {
+      "costPrice": 3100,
+      "alertQty": 0,
+      "price": 6000,
+      "qty": 4
+    },
+    "Cooler|Flapee King": {
+      "costPrice": 3800,
+      "alertQty": 0,
+      "price": 6500,
+      "qty": 4
+    },
+    "Cooler|Ikia Bustar": {
+      "alertQty": 0,
+      "costPrice": 3700,
+      "price": 6500,
+      "qty": 4,
+      "updatedAt": "2026-04-20T11:21:34.716Z"
+    },
+    "Cooler|Resto Turbo": {
+      "alertQty": 0,
+      "costPrice": 3400,
+      "price": 6000,
+      "qty": 2,
+      "updatedAt": "2026-04-20T08:30:50.899Z"
+    },
+    "Cooler|Vaishnavi Jumbo": {
+      "qty": 9,
+      "updatedAt": "2026-04-20T15:27:54.250Z",
+      "alertQty": 5,
+      "costPrice": 3200,
+      "price": 6000
+    },
+    "Cooler|Vaishnavi Matrix": {
+      "price": 6000,
+      "qty": 5,
+      "costPrice": 3750,
+      "alertQty": 0
+    },
+    "Cooler|Wintro": {
+      "qty": 5,
+      "price": 6000,
+      "alertQty": 0,
+      "costPrice": 3700
+    },
+    "Cot|Box (6 × 5)": {
+      "alertQty": 3,
+      "costPrice": 14000,
+      "qty": 6,
+      "price": 22000
+    },
+    "Cot|Box (6 × 6)": {
+      "alertQty": 0,
+      "costPrice": 14500,
+      "price": 25000,
+      "qty": 2,
+      "updatedAt": "2026-04-20T08:30:59.949Z"
+    },
+    "Cot|Diwan Normal": {
+      "qty": 19,
+      "price": 5500,
+      "alertQty": 5,
+      "costPrice": 3000
+    },
+    "Cot|Diwan Teak": {
+      "alertQty": 0,
+      "costPrice": 4000,
+      "qty": 1,
+      "price": 6500
+    },
+    "Cot|Folding": {
+      "price": 3800,
+      "qty": 10,
+      "costPrice": 2300,
+      "alertQty": 5
+    },
+    "Cot|Iron Black": {
+      "alertQty": 5,
+      "costPrice": 1000,
+      "price": 1600,
+      "qty": 16,
+      "updatedAt": "2026-04-19T16:54:27.654Z"
+    },
+    "Cot|Iron Whight": {
+      "alertQty": 5,
+      "costPrice": 1300,
+      "price": 2200,
+      "qty": 21,
+      "updatedAt": "2026-04-19T18:37:33.700Z"
+    },
+    "Cot|Polish (6 × 3)": {
+      "costPrice": 5000,
+      "alertQty": 3,
+      "price": 9000,
+      "qty": 10
+    },
+    "Cot|Polish (6 × 4)": {
+      "costPrice": 6000,
+      "alertQty": 3,
+      "price": 11000,
+      "qty": 14
+    },
+    "Cot|Polish (6 × 5)": {
+      "qty": 12,
+      "price": 16000,
+      "alertQty": 3,
+      "costPrice": 9000
+    },
+    "Cot|Polish (6 × 6)": {
+      "costPrice": 10000,
+      "alertQty": 2,
+      "price": 18000,
+      "qty": 10
+    },
+    "Cot|Teak (6 × 4)": {
+      "costPrice": 5200,
+      "alertQty": 3,
+      "price": 8000,
+      "qty": 10
+    },
+    "Cot|Teak (6×3)": {
+      "alertQty": 3,
+      "costPrice": 4000,
+      "qty": 10,
+      "price": 6500
+    },
+    "Dining Table|Large": {
+      "price": 1500,
+      "alertQty": 0,
+      "costPrice": 900,
+      "qty": 4,
+      "updatedAt": "2026-04-19T18:06:56.185Z"
+    },
+    "Dining Table|Normal": {
+      "price": 1100,
+      "costPrice": 750,
+      "alertQty": 0,
+      "qty": 4,
+      "updatedAt": "2026-04-19T18:05:58.068Z"
+    },
+    "Dressing Table|Long": {
+      "costPrice": 3800,
+      "alertQty": 5,
+      "price": 4800,
+      "qty": 20
+    },
+    "Dressing Table|Normal": {
+      "price": 3200,
+      "costPrice": 1800,
+      "alertQty": 5,
+      "qty": 15,
+      "updatedAt": "2026-04-20T09:17:10.337Z"
+    },
+    "Dressing Table|Polished": {
+      "costPrice": 2300,
+      "alertQty": 3,
+      "price": 3800,
+      "qty": 10
+    },
+    "Fan|Luker": {
+      "price": 1800,
+      "alertQty": 0,
+      "costPrice": 1300,
+      "qty": 4,
+      "updatedAt": "2026-04-19T17:46:25.970Z"
+    },
+    "Fan|Racer": {
+      "qty": 5,
+      "updatedAt": "2026-04-19T17:45:53.320Z",
+      "alertQty": 0,
+      "costPrice": 1800,
+      "price": 2500
+    },
+    "Fan|Staker": {
+      "alertQty": 0,
+      "costPrice": 3200,
+      "price": 4000,
+      "qty": 3,
+      "updatedAt": "2026-04-19T17:48:25.270Z"
+    },
+    "Fan|Surya": {
+      "price": 3500,
+      "alertQty": 0,
+      "costPrice": 2800,
+      "qty": 1,
+      "updatedAt": "2026-04-19T17:48:52.936Z"
+    },
+    "Fan|Swift": {
+      "qty": 4,
+      "updatedAt": "2026-04-19T17:44:49.487Z",
+      "price": 2200,
+      "costPrice": 1700,
+      "alertQty": 0
+    },
+    "Fan|Usha": {
+      "alertQty": 0,
+      "costPrice": 2800,
+      "price": 3800,
+      "qty": 3,
+      "updatedAt": "2026-04-19T17:47:12.820Z"
+    },
+    "Folding Table|Large": {
+      "qty": 13,
+      "updatedAt": "2026-04-19T18:10:06.501Z",
+      "price": 1600,
+      "alertQty": 0,
+      "costPrice": 950
+    },
+    "Folding Table|Normal": {
+      "costPrice": 800,
+      "alertQty": 0,
+      "price": 1200,
+      "qty": 5,
+      "updatedAt": "2026-04-19T18:08:48.585Z"
+    },
+    "Fridge Stand|Large": {
+      "alertQty": 0,
+      "costPrice": 130,
+      "price": 350,
+      "qty": 2,
+      "updatedAt": "2026-04-19T18:02:18.452Z"
+    },
+    "Fridge Stand|Small": {
+      "price": 300,
+      "costPrice": 120,
+      "alertQty": 0,
+      "qty": 3,
+      "updatedAt": "2026-04-19T18:01:11.019Z"
+    },
+    "Mattress|EP - 70*60 - 4": {
+      "qty": 1,
+      "updatedAt": "2026-04-20T05:36:14.724Z",
+      "alertQty": 0,
+      "costPrice": 2800,
+      "price": 6000
+    },
+    "Mattress|EP - 70*60 - 5": {
+      "price": 6500,
+      "alertQty": 0,
+      "costPrice": 3200,
+      "qty": 1,
+      "updatedAt": "2026-04-20T05:36:36.391Z"
+    },
+    "Mattress|EP - 72*36 - 4": {
+      "qty": 6,
+      "updatedAt": "2026-04-20T07:20:59.341Z",
+      "price": 3000,
+      "costPrice": 1800,
+      "alertQty": 0
+    },
+    "Mattress|EP - 72*36 - 5": {
+      "costPrice": 2000,
+      "alertQty": 0,
+      "price": 3500,
+      "qty": 21,
+      "updatedAt": "2026-04-20T07:22:45.674Z"
+    },
+    "Mattress|EP - 72*48 - 4": {
+      "qty": 1,
+      "updatedAt": "2026-04-20T05:28:40.558Z",
+      "alertQty": 0,
+      "costPrice": 2100,
+      "price": 3500
+    },
+    "Mattress|EP - 72*48 - 5": {
+      "qty": 1,
+      "updatedAt": "2026-04-20T05:29:04.991Z",
+      "price": 4500,
+      "alertQty": 0,
+      "costPrice": 2500
+    },
+    "Mattress|EP - 75*36 - 4": {
+      "qty": 1,
+      "updatedAt": "2026-04-20T05:25:43.542Z",
+      "price": 3000,
+      "costPrice": 1800,
+      "alertQty": 0
+    },
+    "Mattress|EP - 75*36 - 5": {
+      "price": 3500,
+      "costPrice": 2000,
+      "alertQty": 0,
+      "qty": 1,
+      "updatedAt": "2026-04-20T05:26:26.975Z"
+    },
+    "Mattress|Ep - 75*48 - 4": {
+      "qty": 1,
+      "updatedAt": "2026-04-20T05:30:48.125Z",
+      "costPrice": 2100,
+      "alertQty": 0,
+      "price": 3500
+    },
+    "Mattress|Ep - 75*48 - 5": {
+      "qty": 1,
+      "updatedAt": "2026-04-20T05:33:10.725Z",
+      "costPrice": 2500,
+      "alertQty": 0,
+      "price": 4500
+    },
+    "Mattress|Ep - 75*72 - 4": {
+      "qty": 1,
+      "updatedAt": "2026-04-20T05:38:25.857Z",
+      "price": 6500,
+      "costPrice": 3500,
+      "alertQty": 0
+    },
+    "Mattress|Ep - 75*72 - 5": {
+      "costPrice": 3700,
+      "alertQty": 0,
+      "price": 7000,
+      "qty": 1,
+      "updatedAt": "2026-04-20T05:38:55.107Z"
+    },
+    "Mattress|Foam - 70*60 - 5": {
+      "qty": 1,
+      "updatedAt": "2026-04-20T05:37:06.707Z",
+      "alertQty": 0,
+      "costPrice": 4200,
+      "price": 7500
+    },
+    "Mattress|Foam - 70*60 - 6": {
+      "price": 11000,
+      "alertQty": 0,
+      "costPrice": 6500,
+      "qty": 1,
+      "updatedAt": "2026-04-20T05:37:26.174Z"
+    },
+    "Mattress|Foam - 72*36 - 5": {
+      "qty": 24,
+      "updatedAt": "2026-04-20T07:24:39.690Z",
+      "alertQty": 0,
+      "costPrice": 2800,
+      "price": 4000
+    },
+    "Mattress|Foam - 72*36 - 6": {
+      "qty": 16,
+      "updatedAt": "2026-04-20T07:25:50.539Z",
+      "alertQty": 0,
+      "costPrice": 4200,
+      "price": 7000
+    },
+    "Mattress|Foam - 72*48 - 5": {
+      "costPrice": 3300,
+      "alertQty": 0,
+      "price": 5500,
+      "qty": 1,
+      "updatedAt": "2026-04-20T05:29:36.976Z"
+    },
+    "Mattress|Foam - 72*48 - 6": {
+      "costPrice": 5300,
+      "alertQty": 0,
+      "price": 9000,
+      "qty": 1,
+      "updatedAt": "2026-04-20T05:30:01.341Z"
+    },
+    "Mattress|Foam - 75*36 - 5": {
+      "price": 4000,
+      "costPrice": 2800,
+      "alertQty": 0,
+      "qty": 1,
+      "updatedAt": "2026-04-20T05:27:05.875Z"
+    },
+    "Mattress|Foam - 75*36 - 6": {
+      "price": 7000,
+      "costPrice": 4200,
+      "alertQty": 0,
+      "qty": 1,
+      "updatedAt": "2026-04-20T05:27:21.991Z"
+    },
+    "Mattress|Foam - 75*48 - 5": {
+      "qty": 1,
+      "updatedAt": "2026-04-20T05:34:27.191Z",
+      "alertQty": 0,
+      "costPrice": 3300,
+      "price": 5500
+    },
+    "Mattress|Foam - 75*48 - 6": {
+      "qty": 1,
+      "updatedAt": "2026-04-20T05:35:06.840Z",
+      "alertQty": 0,
+      "costPrice": 5300,
+      "price": 9000
+    },
+    "Mattress|Foam - 75*72 - 5": {
+      "qty": 1,
+      "updatedAt": "2026-04-20T05:39:36.307Z",
+      "alertQty": 0,
+      "costPrice": 5000,
+      "price": 9000
+    },
+    "Mattress|Foam - 75*72 - 6": {
+      "alertQty": 0,
+      "costPrice": 8000,
+      "price": 14000,
+      "qty": 1,
+      "updatedAt": "2026-04-20T05:40:04.457Z"
+    },
+    "Official Table|4*2": {
+      "qty": 5,
+      "updatedAt": "2026-04-19T18:17:57.817Z",
+      "price": 3800,
+      "alertQty": 0,
+      "costPrice": 2300
+    },
+    "Official Table|4*2 Polish": {
+      "qty": 2,
+      "updatedAt": "2026-04-19T18:18:45.701Z",
+      "alertQty": 0,
+      "costPrice": 2600,
+      "price": 4500
+    },
+    "Official Table|5*2": {
+      "price": 5500,
+      "costPrice": 3500,
+      "alertQty": 0,
+      "qty": 2,
+      "updatedAt": "2026-04-19T18:19:42.683Z"
+    },
+    "Official Table|All In one": {
+      "qty": 2,
+      "updatedAt": "2026-04-19T18:20:37.467Z",
+      "alertQty": 0,
+      "costPrice": 1200,
+      "price": 2000
+    },
+    "Pillow|Foam": {
+      "alertQty": 5,
+      "costPrice": 250,
+      "price": 350,
+      "updatedAt": "2026-04-19T17:49:32.187Z",
+      "qty": 25
+    },
+    "Pillow|Regular": {
+      "price": 0,
+      "alertQty": 0,
+      "costPrice": 0,
+      "qty": 50,
+      "updatedAt": "2026-04-19T17:50:37.170Z"
+    },
+    "Shoe Rack|077": {
+      "alertQty": 0,
+      "costPrice": 1800,
+      "qty": 3,
+      "updatedAt": "2026-04-20T15:27:22.184Z",
+      "price": 2500
+    },
+    "Shoe Rack|087": {
+      "price": 2800,
+      "alertQty": 0,
+      "updatedAt": "2026-04-20T15:26:14.868Z",
+      "costPrice": 2100,
+      "qty": 5
+    },
+    "Tv Stand|Tv Stand": {
+      "qty": 8,
+      "updatedAt": "2026-04-19T17:59:37.119Z",
+      "costPrice": 700,
+      "alertQty": 3,
+      "price": 900
+    }
+  },
+  "customers": [
+    {
+      "id": "9951091903",
+      "name": "B lingaiah AitiPamula",
+      "email": "",
+      "updatedAt": "2026-04-20T11:20:43.250Z",
+      "createdAt": "2026-04-20T11:20:43.250Z",
+      "phone": "9951091903"
+    },
+    {
+      "id": "8790099502",
+      "email": "",
+      "updatedAt": "2026-04-20T09:17:10.339Z",
+      "name": "Gopi",
+      "createdAt": "2026-04-20T09:17:10.339Z",
+      "phone": "8790099502"
+    },
+    {
+      "id": "9912441351",
+      "createdAt": "2026-04-20T14:43:48.682Z",
+      "name": "Gowthami Kundara",
+      "updatedAt": "2026-04-20T14:43:48.682Z",
+      "phone": "9912441351",
+      "email": ""
+    },
+    {
+      "id": "9912795513",
+      "email": "",
+      "updatedAt": "2026-04-20T08:46:14.605Z",
+      "name": "K Bixam maganpelly",
+      "createdAt": "2026-04-20T08:46:14.605Z",
+      "phone": "9912795513"
+    },
+    {
+      "id": "9963931182",
+      "phone": "9963931182",
+      "createdAt": "2026-04-19T15:30:47.149Z",
+      "name": "Srinivasulu",
+      "email": "",
+      "updatedAt": "2026-04-19T15:30:47.149Z"
+    },
+    {
+      "id": "cust_mo5y3eymxg8v",
+      "phone": "",
+      "createdAt": "2026-04-19T15:53:03.359Z",
+      "updatedAt": "2026-04-19T15:53:03.359Z",
+      "email": "",
+      "name": "Ramulu Kadaparthi"
+    },
+    {
+      "id": "cust_mo6yh6yt",
+      "email": "",
+      "updatedAt": "2026-04-20T08:51:32.357Z",
+      "name": "Lingala Venkanna",
+      "createdAt": "2026-04-20T08:51:32.357Z",
+      "phone": ""
+    }
+  ],
+  "sales": [
+    {
+      "id": "1776698967099",
+      "date": "2026-04-20",
+      "updatedAt": "2026-04-20T15:29:27.100Z",
+      "time": "20:59:27",
+      "profit": 700,
+      "total": 3000,
+      "customer": null,
+      "createdAt": "2026-04-20T15:29:27.100Z",
+      "paymentMethod": "UPI",
+      "items": [
+        {
+          "price": 300,
+          "variant": "Resto",
+          "costPrice": 230,
+          "qty": 10,
+          "category": "Chair",
+          "key": "Chair|Resto"
+        }
+      ]
+    },
+    {
+      "id": "1776698909752",
+      "updatedAt": "2026-04-20T15:28:29.752Z",
+      "date": "2026-04-20",
+      "items": [
+        {
+          "costPrice": 12000,
+          "qty": 1,
+          "price": 13000,
+          "variant": "Double - 47 - Heavy",
+          "category": "Almara",
+          "key": "Almara|Double - 47 - Heavy"
+        }
+      ],
+      "paymentMethod": "Cash",
+      "total": 13000,
+      "profit": 1000,
+      "customer": null,
+      "createdAt": "2026-04-20T15:28:29.752Z",
+      "time": "20:58:29"
+    },
+    {
+      "id": "1776698874250",
+      "date": "2026-04-20",
+      "updatedAt": "2026-04-20T15:27:54.250Z",
+      "time": "20:57:54",
+      "createdAt": "2026-04-20T15:27:54.250Z",
+      "total": 4000,
+      "profit": 800,
+      "customer": null,
+      "paymentMethod": "Cash",
+      "items": [
+        {
+          "key": "Cooler|Vaishnavi Jumbo",
+          "category": "Cooler",
+          "costPrice": 3200,
+          "qty": 1,
+          "variant": "Vaishnavi Jumbo",
+          "price": 4000
+        }
+      ]
+    },
+    {
+      "id": "1776698855967",
+      "paymentMethod": "Cash",
+      "items": [
+        {
+          "variant": "Single - 37 - Mid",
+          "price": 10500,
+          "costPrice": 7500,
+          "qty": 1,
+          "category": "Almara",
+          "key": "Almara|Single - 37 - Mid"
+        }
+      ],
+      "time": "20:57:35",
+      "customer": null,
+      "profit": 3000,
+      "total": 10500,
+      "createdAt": "2026-04-20T15:27:35.967Z",
+      "date": "2026-04-20",
+      "updatedAt": "2026-04-20T15:27:35.967Z"
+    },
+    {
+      "id": "1776698842184",
+      "time": "20:57:22",
+      "customer": null,
+      "total": 4000,
+      "profit": 400,
+      "createdAt": "2026-04-20T15:27:22.184Z",
+      "paymentMethod": "Cash",
+      "items": [
+        {
+          "price": 2000,
+          "variant": "077",
+          "qty": 2,
+          "costPrice": 1800,
+          "category": "Shoe Rack",
+          "key": "Shoe Rack|077"
+        }
+      ],
+      "date": "2026-04-20",
+      "updatedAt": "2026-04-20T15:27:22.184Z"
+    },
+    {
+      "id": "1776696228677",
+      "items": [
+        {
+          "key": "Almara|Single - 37 - Mid",
+          "category": "Almara",
+          "qty": 1,
+          "variant": "Single - 37 - Mid",
+          "costPrice": 7500,
+          "price": 8000
+        }
+      ],
+      "total": 8000,
+      "profit": 500,
+      "updatedAt": "2026-04-20T14:43:48.680Z",
+      "paymentMethod": "Cash",
+      "date": "2026-04-20",
+      "customer": {
+        "phone": "9912441351",
+        "name": "Gowthami Kundara"
+      },
+      "createdAt": "2026-04-20T14:43:48.680Z",
+      "time": "20:13:48"
+    },
+    {
+      "id": "1776693859071",
+      "updatedAt": "2026-04-20T14:04:19.073Z",
+      "items": [
+        {
+          "category": "Fridge Stand",
+          "costPrice": 120,
+          "key": "Fridge Stand|Small",
+          "price": 270,
+          "variant": "Small",
+          "qty": 1
+        }
+      ],
+      "profit": 150,
+      "createdAt": "2026-04-20T14:04:19.073Z",
+      "date": "2026-04-20",
+      "total": 270,
+      "time": "19:34:19",
+      "customer": null,
+      "paymentMethod": "Cash"
+    },
+    {
+      "id": "1776684094716",
+      "createdAt": "2026-04-20T11:21:34.719Z",
+      "date": "2026-04-20",
+      "total": 4500,
+      "time": "16:51:34",
+      "updatedAt": "2026-04-20T11:21:34.719Z",
+      "items": [
+        {
+          "category": "Cooler",
+          "costPrice": 3700,
+          "key": "Cooler|Ikia Bustar",
+          "price": 4500,
+          "variant": "Ikia Bustar",
+          "qty": 1
+        }
+      ],
+      "profit": 800,
+      "customer": null,
+      "paymentMethod": "Cash"
+    },
+    {
+      "id": "1776676630338",
+      "total": 2300,
+      "time": "14:47:10",
+      "createdAt": "2026-04-20T09:17:10.338Z",
+      "date": "2026-04-20",
+      "items": [
+        {
+          "price": 2300,
+          "key": "Dressing Table|Normal",
+          "costPrice": 1800,
+          "category": "Dressing Table",
+          "variant": "Normal",
+          "qty": 1
+        }
+      ],
+      "profit": 500,
+      "updatedAt": "2026-04-20T09:17:10.338Z",
+      "paymentMethod": "UPI",
+      "customer": {
+        "name": "Gopi",
+        "phone": "8790099502"
+      }
+    },
+    {
+      "id": "1776675092355",
+      "createdAt": "2026-04-20T08:51:32.356Z",
+      "date": "2026-04-20",
+      "total": 8000,
+      "time": "14:21:32",
+      "updatedAt": "2026-04-20T08:51:32.356Z",
+      "items": [
+        {
+          "key": "Almara|Single - 37 - Lite",
+          "price": 5800,
+          "category": "Almara",
+          "costPrice": 5000,
+          "variant": "Single - 37 - Lite",
+          "qty": 1
+        },
+        {
+          "price": 2200,
+          "key": "Dressing Table|Normal",
+          "costPrice": 1800,
+          "category": "Dressing Table",
+          "variant": "Normal",
+          "qty": 1
+        }
+      ],
+      "profit": 1200,
+      "customer": {
+        "name": "Lingala Venkanna",
+        "phone": ""
+      },
+      "paymentMethod": "Cash"
+    },
+    {
+      "id": "1776674774604",
+      "updatedAt": "2026-04-20T08:46:14.605Z",
+      "items": [
+        {
+          "category": "Dressing Table",
+          "costPrice": 1800,
+          "key": "Dressing Table|Normal",
+          "price": 2200,
+          "qty": 1,
+          "variant": "Normal"
+        }
+      ],
+      "profit": 400,
+      "createdAt": "2026-04-20T08:46:14.605Z",
+      "date": "2026-04-20",
+      "total": 2200,
+      "time": "14:16:14",
+      "customer": {
+        "name": "K Bixam maganpelly",
+        "phone": "9912795513"
+      },
+      "paymentMethod": "UPI"
+    },
+    {
+      "id": "1776670913805",
+      "date": "2026-04-20",
+      "createdAt": "2026-04-20T07:41:53.809Z",
+      "time": "13:11:53",
+      "total": 4600,
+      "updatedAt": "2026-04-20T07:41:53.809Z",
+      "profit": 1200,
+      "items": [
+        {
+          "qty": 1,
+          "variant": "Resto Turbo",
+          "price": 4600,
+          "key": "Cooler|Resto Turbo",
+          "costPrice": 3400,
+          "category": "Cooler"
+        }
+      ],
+      "customer": {
+        "name": "B lingaiah aitpamula",
+        "phone": "9951091903"
+      },
+      "paymentMethod": "Cash"
+    },
+    {
+      "id": "1776623853700",
+      "customer": null,
+      "paymentMethod": "Cash",
+      "updatedAt": "2026-04-19T18:37:33.700Z",
+      "items": [
+        {
+          "qty": 1,
+          "variant": "Iron Whight",
+          "price": 1800,
+          "key": "Cot|Iron Whight",
+          "costPrice": 1300,
+          "category": "Cot"
+        }
+      ],
+      "profit": 500,
+      "createdAt": "2026-04-19T18:37:33.700Z",
+      "date": "2026-04-19",
+      "total": 1800,
+      "time": "12:07:33 AM"
+    },
+    {
+      "id": "1776623724151",
+      "date": "2026-04-19",
+      "createdAt": "2026-04-19T18:35:24.152Z",
+      "time": "12:05:24 AM",
+      "total": 4000,
+      "updatedAt": "2026-04-19T18:35:24.152Z",
+      "profit": 800,
+      "items": [
+        {
+          "key": "Cooler|Vaishnavi Jumbo",
+          "price": 4000,
+          "category": "Cooler",
+          "costPrice": 3200,
+          "variant": "Vaishnavi Jumbo",
+          "qty": 1
+        }
+      ],
+      "customer": null,
+      "paymentMethod": "UPI"
+    },
+    {
+      "id": "1776502857961",
+      "total": 24000,
+      "paymentMethod": "Cash",
+      "time": "2:30:57 PM",
+      "customer": {
+        "name": "Srinivasulu",
+        "phone": "9963931182"
+      },
+      "date": "2026-04-18",
+      "items": [
+        {
+          "price": 8000,
+          "key": "Almara|(6 ½ * 4)",
+          "costPrice": 6900,
+          "category": "Almara",
+          "qty": 1,
+          "variant": "(6 ½ * 4)"
+        },
+        {
+          "costPrice": 4700,
+          "category": "Mattress",
+          "price": 5500,
+          "key": "Mattress|Foam / 75*36 / 5",
+          "variant": "Foam / 75*36 / 5",
+          "qty": 1
+        },
+        {
+          "costPrice": 9000,
+          "category": "Cot",
+          "price": 10500,
+          "key": "Cot|Polish (6 × 5)",
+          "variant": "Polish (6 × 5)",
+          "qty": 1
+        }
+      ],
+      "profit": 3400
+    },
+    {
+      "id": "1776498660155",
+      "customer": null,
+      "date": "2026-04-18",
+      "total": 4500,
+      "paymentMethod": "Cash",
+      "time": "1:21:00 PM",
+      "items": [
+        {
+          "category": "Cooler",
+          "costPrice": 3100,
+          "key": "Cooler|Breeze",
+          "price": 4500,
+          "variant": "Breeze",
+          "qty": 1
+        }
+      ],
+      "profit": 1400
+    },
+    {
+      "id": "1776490149848",
+      "time": "10:59:09 AM",
+      "total": 5000,
+      "paymentMethod": "Cash",
+      "date": "2026-04-18",
+      "customer": {
+        "phone": "",
+        "name": "Ramulu Kadaparthi"
+      },
+      "profit": 1200,
+      "items": [
+        {
+          "qty": 1,
+          "variant": "Flapee King",
+          "key": "Cooler|Flapee King",
+          "price": 5000,
+          "category": "Cooler",
+          "costPrice": 3800
+        }
+      ]
+    }
+  ],
+  "adminPin": "11111"
+}

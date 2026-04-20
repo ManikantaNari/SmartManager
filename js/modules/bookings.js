@@ -265,7 +265,7 @@ export const Bookings = {
         DOM.setText(DOM.get('bdCustomerName'), booking.customer?.name || 'Unknown');
         DOM.setText(DOM.get('bdCustomerPhone'), booking.customer?.phone || '-');
         DOM.setText(DOM.get('bdPickupDate'), Format.date(booking.pickupDate));
-        DOM.setText(DOM.get('bdCreatedDate'), `${Format.date(booking.createdDate)} ${booking.createdTime}`);
+        DOM.setText(DOM.get('bdCreatedDate'), `${Format.date(booking.createdDate)} ${booking.createdTime ? DateUtil.formatTime(booking.createdTime) : ''}`);
 
         // Status badge
         const statusEl = DOM.get('bdStatus');
@@ -710,7 +710,7 @@ export const Bookings = {
         DOM.setText(DOM.get('brTitle'), title);
         DOM.setText(DOM.get('brCustomerName'), booking.customer?.name || 'Customer');
         DOM.setText(DOM.get('brCustomerPhone'), booking.customer?.phone || '-');
-        DOM.setText(DOM.get('brDate'), `${Format.date(payment.date)} ${payment.time || ''}`);
+        DOM.setText(DOM.get('brDate'), `${Format.date(payment.date)} ${payment.time ? DateUtil.formatTime(payment.time) : ''}`);
         DOM.setText(DOM.get('brPickupDate'), Format.date(booking.pickupDate));
 
         // Items

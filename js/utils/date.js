@@ -25,15 +25,14 @@ export const DateUtil = {
     },
 
     /**
-     * Get current time in HH:MM:SS format (24-hour)
-     * Uses en-GB locale for consistent 24-hour format
-     * @returns {string} Time string in HH:MM:SS format
+     * Get current time in 12-hour format with AM/PM (no seconds)
+     * @returns {string} Time string in h:MM AM/PM format
      */
     time() {
-        return new Date().toLocaleTimeString('en-GB', {
-            hour: '2-digit',
+        return new Date().toLocaleTimeString('en-US', {
+            hour: 'numeric',
             minute: '2-digit',
-            second: '2-digit'
+            hour12: true
         });
     },
 
@@ -65,35 +64,66 @@ export const DateUtil = {
     },
 
     /**
-     * Format ISO datetime to readable format
+     * Format ISO date to readable format with full month name and abbreviated year
+     * @param {string} isoDate - ISO date string
+     * @returns {string} Formatted date string (e.g., "April 20, '26")
+     */
+    formatDateReadable(isoDate) {
+        if (!isoDate) return '';
+        const [year, month, day] = isoDate.split('-');
+        const monthNames = [
+            '', 'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+        const monthName = monthNames[parseInt(month)];
+        const shortYear = year.slice(-2);
+        return `${monthName} ${parseInt(day)}, ${shortYear}`;
+    },
+
+    /**
+     * Format ISO datetime to readable format with 12-hour time (no seconds)
      * @param {string} isoDateTime - ISO datetime string
      * @returns {string} Formatted datetime string
      */
     formatDateTime(isoDateTime) {
         if (!isoDateTime) return '';
         const d = new Date(isoDateTime);
-        return d.toLocaleString('en-IN');
+        return d.toLocaleString('en-US', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true
+        });
     },
 
     /**
-     * Format time from ISO datetime or time string
+     * Format time from ISO datetime or time string to 12-hour format with AM/PM (no seconds)
      * @param {string} timeOrDatetime - Time string or ISO datetime
-     * @returns {string} Formatted time string
+     * @returns {string} Formatted time string in h:MM AM/PM format
      */
     formatTime(timeOrDatetime) {
         if (!timeOrDatetime) return '';
 
-        // If it's already a time string (HH:MM:SS), return as-is
+        // If it's a time string (HH:MM:SS), parse it
         if (timeOrDatetime.match(/^\d{2}:\d{2}:\d{2}$/)) {
-            return timeOrDatetime;
+            const [hours, minutes] = timeOrDatetime.split(':');
+            const d = new Date();
+            d.setHours(parseInt(hours), parseInt(minutes), 0);
+            return d.toLocaleTimeString('en-US', {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            });
         }
 
         // Otherwise parse as datetime
         const d = new Date(timeOrDatetime);
-        return d.toLocaleTimeString('en-GB', {
-            hour: '2-digit',
+        return d.toLocaleTimeString('en-US', {
+            hour: 'numeric',
             minute: '2-digit',
-            second: '2-digit'
+            hour12: true
         });
     },
 

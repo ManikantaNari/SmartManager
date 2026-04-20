@@ -1,6 +1,6 @@
 // Customers Module
 
-import { DOM, Format, Template, Toast, Loader } from '../utils/index.js';
+import { DOM, Format, Template, Toast, Loader, Confirm, debounce, DateUtil } from '../utils/index.js';
 import { Modal } from '../components/index.js';
 import { State, Storage } from '../state/index.js';
 import { getDb } from '../config/index.js';
@@ -84,13 +84,15 @@ export const Customers = {
         });
     },
 
-    filter() {
+    _performFilter() {
         const search = DOM.getValue(DOM.get('allCustomerSearch')).toLowerCase();
         DOM.findAll('#allCustomersList .card').forEach(card => {
             const text = card.textContent.toLowerCase();
             card.style.display = text.includes(search) ? 'block' : 'none';
         });
     },
+
+    filter: null, // Will be initialized with debounced version
 
     showAddModal() {
         DOM.setValue(DOM.get('newCustomerName'), '');
@@ -209,19 +211,24 @@ export const Customers = {
         Toast.show('Customer updated');
     },
 
-    delete(idOrPhone) {
-        if (!confirm('Delete this customer? This cannot be undone.')) return;
-
+    async delete(idOrPhone) {
         const index = State.customers.findIndex(c => c.id === idOrPhone || c.phone === idOrPhone);
-        if (index !== -1) {
-            const customer = State.customers[index];
-            const docId = customer.phone || customer.id;
-            State.customers.splice(index, 1);
-            Storage.deleteCustomer(docId);
-        }
+        if (index === -1) return;
+
+        const customer = State.customers[index];
+        const confirmed = await Confirm.delete(
+            customer.name || 'this customer',
+            'All associated data will remain but will not be linked to this customer.'
+        );
+
+        if (!confirmed) return;
+
+        const docId = customer.phone || customer.id;
+        State.customers.splice(index, 1);
+        Storage.deleteCustomer(docId);
 
         this.renderAll();
-        Toast.show('Customer deleted');
+        Toast.success('Customer deleted');
     },
 
     // Get all transactions for a customer
@@ -303,7 +310,7 @@ export const Customers = {
                         <div class="list-item ch-transaction-row" data-type="sale" data-id="${t.id}" style="cursor: pointer;">
                             <div class="list-item-info">
                                 <h4>${Format.date(t.date)}</h4>
-                                <p>${t.time || ''} | ${t.itemCount} items | ${t.paymentMethod || 'Cash'}</p>
+                                <p>${t.time ? DateUtil.formatTime(t.time) : ''} | ${t.itemCount} items | ${t.paymentMethod || 'Cash'}</p>
                                 <span class="badge badge-success" style="font-size: 10px;">Sale</span>
                             </div>
                             <div style="text-align: right;">
@@ -375,3 +382,6 @@ export const Customers = {
         State.cameFromHistory = false;
     }
 };
+
+// Initialize debounced customer filter (300ms delay)
+Customers.filter = debounce(Customers._performFilter.bind(Customers), 300);

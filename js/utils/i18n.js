@@ -27,9 +27,9 @@ const translations = {
 
         // Navigation
         nav: {
-            dashboard: 'Dashboard',
+            dashboard: 'Home',
             sale: 'Sale',
-            inventory: 'Inventory',
+            inventory: 'Stock',
             customers: 'Customers',
             reports: 'Reports',
             settings: 'Settings'

@@ -1,6 +1,6 @@
 // Reports Module
 
-import { DOM, Format, Template, Loader } from '../utils/index.js';
+import { DOM, Format, Template, Loader, DateUtil } from '../utils/index.js';
 import { State } from '../state/index.js';
 import { Bookings } from './bookings.js';
 
@@ -62,7 +62,7 @@ export const Reports = {
             // Display formatted date
             const dateDisplay = DOM.get('selectedDateDisplay');
             if (dateDisplay) {
-                DOM.setText(dateDisplay, date ? Format.date(date) : '');
+                DOM.setText(dateDisplay, date ? DateUtil.formatDateReadable(date) : '');
                 DOM.toggle(dateDisplay, !!date);
             }
 
@@ -162,7 +162,7 @@ export const Reports = {
                         statsHtml += `<div class="list-item transaction-row" data-sale-id="${s.id}" style="cursor: pointer;">
                             <div class="list-item-info">
                                 <h4>${s.customer?.name || 'Walk-in'}</h4>
-                                <p>${s.time || ''} | ${saleItems.length} items | ${s.paymentMethod || 'Cash'}</p>
+                                <p>${s.time ? DateUtil.formatTime(s.time) : ''} | ${saleItems.length} items | ${s.paymentMethod || 'Cash'}</p>
                             </div>
                             <div style="text-align: right;">
                                 <strong>${Format.currency(s.total || 0)}</strong>
@@ -194,7 +194,7 @@ export const Reports = {
                             style="cursor: pointer;">
                             <div class="list-item-info">
                                 <h4>${t.customer?.name || 'Customer'}</h4>
-                                <p>${t.time || ''} | ${t.itemCount} items | ${t.method || ''}</p>
+                                <p>${t.time ? DateUtil.formatTime(t.time) : ''} | ${t.itemCount} items | ${t.method || ''}</p>
                                 <span class="badge" style="background: ${badgeColor}; color: white; font-size: 10px; padding: 2px 6px;">${label}</span>
                             </div>
                             <div style="text-align: right;">
@@ -476,8 +476,12 @@ export const Reports = {
                 const items = log.items || [];
                 const addedBy = log.addedBy || 'Unknown';
 
-                const totalItems = items.reduce((sum, item) => sum + (item?.qty || 0), 0);
+                const isAdjustment = log.type === 'adjustment';
+                const totalItems = isAdjustment
+                    ? items.length
+                    : items.reduce((sum, item) => sum + (item?.qty || 0), 0);
                 const totalCost = items.reduce((sum, item) => sum + ((item?.costPrice || 0) * (item?.qty || 0)), 0);
+                const badgeColor = isAdjustment ? '#f59e0b' : '#10b981';
 
                 html += `
                     <div class="card stock-log-card" data-log-id="${log.id}" style="cursor: pointer; margin-bottom: 12px;">
@@ -488,24 +492,40 @@ export const Reports = {
                                     ${Format.date(logDate)} ${logTime ? 'at ' + logTime : ''}
                                 </p>
                                 ${log.invoice ? `<p style="font-size: 12px; color: var(--primary);">Invoice: ${log.invoice}</p>` : ''}
+                                ${log.reason ? `<p style="font-size: 12px; color: var(--warning);">Reason: ${log.reason}</p>` : ''}
                             </div>
                             <div style="text-align: right;">
-                                <div style="font-weight: 600; color: var(--success);">${totalItems} items</div>
-                                <div style="font-size: 13px; color: var(--gray);">${Format.currency(totalCost)}</div>
+                                <div style="font-weight: 600; color: ${badgeColor};">${totalItems} ${isAdjustment ? 'adjusted' : 'items'}</div>
+                                ${!isAdjustment ? `<div style="font-size: 13px; color: var(--gray);">${Format.currency(totalCost)}</div>` : ''}
                                 ${log.photo ? '<div style="font-size: 11px; color: var(--primary); margin-top: 4px;">Has Photo</div>' : ''}
                             </div>
                         </div>
                         <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border);">
-                            <div style="font-size: 12px; color: var(--gray);">Items:</div>
-                            ${items.slice(0, 3).map(item => `
-                                <div style="font-size: 13px; margin-top: 4px;">
-                                    ${item?.category || 'Unknown'} - ${item?.variant || 'Unknown'}: +${item?.qty || 0} @ ${Format.currency(item?.costPrice || 0)}
-                                </div>
-                            `).join('')}
+                            <div style="font-size: 12px; color: var(--gray);">${isAdjustment ? 'Adjustments:' : 'Items:'}</div>
+                            ${items.slice(0, 3).map(item => {
+                                if (isAdjustment) {
+                                    const changeColor = item.qtyChange > 0 ? 'var(--success)' : 'var(--danger)';
+                                    const changeSign = item.qtyChange > 0 ? '+' : '';
+                                    return `
+                                        <div style="font-size: 13px; margin-top: 4px;">
+                                            ${item?.category || 'Unknown'} - ${item?.variant || 'Unknown'}:
+                                            <span style="color: var(--gray);">${item.oldQty}</span> →
+                                            <span style="font-weight: 600;">${item.newQty}</span>
+                                            <span style="color: ${changeColor}; margin-left: 4px;">(${changeSign}${item.qtyChange})</span>
+                                        </div>
+                                    `;
+                                } else {
+                                    return `
+                                        <div style="font-size: 13px; margin-top: 4px;">
+                                            ${item?.category || 'Unknown'} - ${item?.variant || 'Unknown'}: +${item?.qty || 0} @ ${Format.currency(item?.costPrice || 0)}
+                                        </div>
+                                    `;
+                                }
+                            }).join('')}
                             ${items.length > 3 ? `<div style="font-size: 12px; color: var(--primary); margin-top: 4px;">+${items.length - 3} more items...</div>` : ''}
                         </div>
                         <div style="font-size: 11px; color: var(--gray); margin-top: 8px;">
-                            Added by: ${addedBy}
+                            ${isAdjustment ? 'Adjusted by:' : 'Added by:'} ${addedBy}
                         </div>
                     </div>
                 `;
@@ -536,51 +556,83 @@ export const Reports = {
             const logTime = log.time || '';
             const items = log.items || [];
             const addedBy = log.addedBy || 'Unknown';
+            const isAdjustment = log.type === 'adjustment';
 
-            const totalItems = items.reduce((sum, item) => sum + (item?.qty || 0), 0);
+            const totalItems = isAdjustment
+                ? items.length
+                : items.reduce((sum, item) => sum + (item?.qty || 0), 0);
             const totalCost = items.reduce((sum, item) => sum + ((item?.costPrice || 0) * (item?.qty || 0)), 0);
 
             let itemsHtml = items.map(item => {
                 const category = item?.category || 'Unknown';
                 const variant = item?.variant || 'Unknown';
-                const qty = item?.qty || 0;
-                const costPrice = item?.costPrice || 0;
-                const price = item?.price || 0;
-                return `
-                    <div class="list-item" style="border-bottom: 1px solid var(--border);">
-                        <div class="list-item-info">
-                            <h4>${category} - ${variant}</h4>
-                            <p>Qty: +${qty} | Cost: ${Format.currency(costPrice)} | Price: ${Format.currency(price)}</p>
+
+                if (isAdjustment) {
+                    const changeColor = item.qtyChange > 0 ? 'var(--success)' : 'var(--danger)';
+                    const changeSign = item.qtyChange > 0 ? '+' : '';
+                    return `
+                        <div class="list-item" style="border-bottom: 1px solid var(--border);">
+                            <div class="list-item-info">
+                                <h4>${category} - ${variant}</h4>
+                                <p>
+                                    <span style="color: var(--gray);">Old: ${item.oldQty}</span>
+                                    <span style="margin: 0 8px;">→</span>
+                                    <span style="font-weight: 600;">New: ${item.newQty}</span>
+                                </p>
+                            </div>
+                            <div style="font-weight: 600; color: ${changeColor}; font-size: 18px;">
+                                ${changeSign}${item.qtyChange}
+                            </div>
                         </div>
-                        <div style="font-weight: 600; color: var(--success);">
-                            ${Format.currency(costPrice * qty)}
+                    `;
+                } else {
+                    const qty = item?.qty || 0;
+                    const costPrice = item?.costPrice || 0;
+                    const price = item?.price || 0;
+                    return `
+                        <div class="list-item" style="border-bottom: 1px solid var(--border);">
+                            <div class="list-item-info">
+                                <h4>${category} - ${variant}</h4>
+                                <p>Qty: +${qty} | Cost: ${Format.currency(costPrice)} | Price: ${Format.currency(price)}</p>
+                            </div>
+                            <div style="font-weight: 600; color: var(--success);">
+                                ${Format.currency(costPrice * qty)}
+                            </div>
                         </div>
-                    </div>
-                `;
+                    `;
+                }
             }).join('');
+
+            // Build gradient to avoid CSS validation errors with template literals
+            const gradient = isAdjustment
+                ? 'linear-gradient(135deg, #f59e0b 0%, #ea580c 100%)'
+                : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
 
             const modalContent = `
                 <div class="modal-header">
-                    <h3 class="modal-title">Stock Entry Details</h3>
+                    <h3 class="modal-title">${isAdjustment ? 'Stock Adjustment Details' : 'Stock Entry Details'}</h3>
                     <button class="modal-close" onclick="closeStockLogModal()">&times;</button>
                 </div>
                 <div style="padding: 16px;">
-                    <div class="card" style="background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: white; margin-bottom: 16px;">
+                    <div class="card" style="background: ${gradient}; color: white; margin-bottom: 16px;">
                         <h4 style="margin: 0;">${vendor}</h4>
                         <p style="opacity: 0.9; margin: 4px 0;">${Format.date(logDate)} ${logTime ? 'at ' + logTime : ''}</p>
                         ${log.invoice ? `<p style="opacity: 0.8; font-size: 13px;">Invoice: ${log.invoice}</p>` : ''}
+                        ${log.reason ? `<p style="opacity: 0.9; font-size: 13px; margin-top: 8px; background: rgba(255,255,255,0.2); padding: 8px; border-radius: 6px;">Reason: ${log.reason}</p>` : ''}
                     </div>
 
-                    <div class="stats-grid" style="grid-template-columns: repeat(2, 1fr); margin-bottom: 16px;">
-                        <div class="stat-card">
-                            <div class="stat-label">Total Items</div>
-                            <div class="stat-value">${totalItems}</div>
+                    ${!isAdjustment ? `
+                        <div class="stats-grid" style="grid-template-columns: repeat(2, 1fr); margin-bottom: 16px;">
+                            <div class="stat-card">
+                                <div class="stat-label">Total Items</div>
+                                <div class="stat-value">${totalItems}</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-label">Total Cost</div>
+                                <div class="stat-value">${Format.currency(totalCost)}</div>
+                            </div>
                         </div>
-                        <div class="stat-card">
-                            <div class="stat-label">Total Cost</div>
-                            <div class="stat-value">${Format.currency(totalCost)}</div>
-                        </div>
-                    </div>
+                    ` : ''}
 
                     ${log.photo ? `
                         <button class="btn btn-outline btn-block" onclick="viewStockLogPhoto('${logId}')" style="margin-bottom: 16px;">
@@ -589,12 +641,12 @@ export const Reports = {
                     ` : ''}
 
                     <div class="card">
-                        <div class="card-title">Items Added (${items.length})</div>
+                        <div class="card-title">${isAdjustment ? 'Items Adjusted' : 'Items Added'} (${items.length})</div>
                         ${itemsHtml || '<p style="color: var(--gray);">No items recorded</p>'}
                     </div>
 
                     <p style="text-align: center; color: var(--gray); font-size: 12px; margin-top: 16px;">
-                        Added by: ${addedBy}
+                        ${isAdjustment ? 'Adjusted by:' : 'Added by:'} ${addedBy}
                     </p>
                 </div>
             `;
