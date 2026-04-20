@@ -1,0 +1,170 @@
+/* Settings Page Styles */
+
+/* Sync Status Rows */
+.sync-status-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+}
+
+.sync-status-row:last-child {
+    border-bottom: none;
+}
+
+.sync-count-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    font-size: 13px;
+    color: var(--gray);
+}
+
+/* Coming Soon Cards */
+.coming-soon-card {
+    padding: 16px;
+    background: var(--light);
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
+
+.coming-soon-card:last-child {
+    margin-bottom: 0;
+}
+
+.coming-soon-card h4 {
+    margin: 0 0 4px 0;
+    font-size: 15px;
+    color: var(--dark);
+}
+
+.coming-soon-card p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--gray);
+}
+
+/* Language Selector */
+.language-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.language-option {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px;
+    background: var(--light);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+    width: 100%;
+}
+
+.language-option:hover {
+    border-color: var(--primary);
+    background: rgba(102, 126, 234, 0.05);
+}
+
+.language-option.active {
+    border-color: var(--primary);
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.language-option:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.language-flag {
+    font-size: 28px;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.language-info {
+    flex: 1;
+}
+
+.language-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 2px;
+}
+
+.language-native {
+    font-size: 13px;
+    color: var(--gray);
+}
+
+.language-check {
+    color: var(--primary);
+    opacity: 0;
+    transition: opacity 0.2s;
+    flex-shrink: 0;
+}
+
+.language-option.active .language-check {
+    opacity: 1;
+}
+
+/* Inventory Value Stats */
+.value-stat-card {
+    background: var(--light);
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+}
+
+.value-stat-label {
+    font-size: 12px;
+    color: var(--gray);
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.value-stat-amount {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--dark);
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+    .language-selector {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+    }
+
+    .language-option {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px 14px;
+    }
+
+    .language-flag {
+        font-size: 36px;
+        margin-bottom: 8px;
+    }
+
+    .language-check {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+    }
+
+    .language-option {
+        position: relative;
+    }
+
+    .value-stat-amount {
+        font-size: 24px;
+    }
+}

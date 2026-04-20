@@ -2,6 +2,7 @@
 // Uses timestamp-based conflict resolution for automatic sync
 
 import { STORAGE_KEYS, getDb } from '../config/index.js';
+import { DateUtil } from '../utils/date.js';
 import { State } from './state.js';
 
 export const Storage = {
@@ -21,7 +22,7 @@ export const Storage = {
 
     // Generate current timestamp
     now() {
-        return new Date().toISOString();
+        return DateUtil.now();
     },
 
     // Compare timestamps - returns true if time1 is newer than time2

@@ -1,6 +1,6 @@
 // Bookings Module - Advance Payment & Pickup Tracking
 
-import { DOM, Format, Template, Toast, Loader } from '../utils/index.js';
+import { DOM, Format, DateUtil, Template, Toast, Loader } from '../utils/index.js';
 import { Modal } from '../components/index.js';
 import { State, Storage } from '../state/index.js';
 
@@ -22,7 +22,7 @@ export const Bookings = {
 
     // Get today's date in YYYY-MM-DD format
     getToday() {
-        return new Date().toISOString().split('T')[0];
+        return DateUtil.today();
     },
 
     // Filter bookings by status and date
@@ -148,9 +148,8 @@ export const Bookings = {
             return false;
         }
 
-        const now = new Date();
-        const today = now.toISOString().split('T')[0];
-        const time = now.toLocaleTimeString();
+        const today = DateUtil.today();
+        const time = DateUtil.time();
 
         // Calculate totals
         let total = 0;
@@ -385,9 +384,8 @@ export const Bookings = {
             return;
         }
 
-        const now = new Date();
-        const today = now.toISOString().split('T')[0];
-        const time = now.toLocaleTimeString();
+        const today = DateUtil.today();
+        const time = DateUtil.time();
 
         // Add payment
         booking.advancePayments.push({
@@ -482,9 +480,8 @@ export const Bookings = {
             return;
         }
 
-        const now = new Date();
-        const today = now.toISOString().split('T')[0];
-        const time = now.toLocaleTimeString();
+        const today = DateUtil.today();
+        const time = DateUtil.time();
 
         // Record final payment
         booking.finalPayment = {
@@ -535,9 +532,8 @@ export const Bookings = {
         const booking = State.bookings.find(b => b.id === State.selectedBookingId);
         if (!booking || booking.status !== 'pending') return;
 
-        const now = new Date();
-        const today = now.toISOString().split('T')[0];
-        const time = now.toLocaleTimeString();
+        const today = DateUtil.today();
+        const time = DateUtil.time();
 
         // Restore inventory using transaction-based update
         booking.items.forEach(item => {

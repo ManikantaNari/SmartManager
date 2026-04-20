@@ -1,6 +1,6 @@
 // Inventory Module
 
-import { DOM, Format, Template, Toast, Loader } from '../utils/index.js';
+import { DOM, Format, DateUtil, GridUtil, Template, Toast, Loader } from '../utils/index.js';
 import { Modal } from '../components/index.js';
 import { State, Storage } from '../state/index.js';
 
@@ -114,7 +114,7 @@ export const Inventory = {
                 invoice: '',
                 photo: null,
                 items: [],
-                startTime: new Date().toISOString(),
+                startTime: DateUtil.now(),
                 addedBy: State.userRole,
                 stockType: 'old'
             };
@@ -228,7 +228,7 @@ export const Inventory = {
         const log = {
             id: State.stockSession.id,
             date: State.stockSession.startTime.split('T')[0],
-            time: new Date(State.stockSession.startTime).toLocaleTimeString(),
+            time: DateUtil.formatTime(State.stockSession.startTime),
             vendor: State.stockSession.vendor,
             invoice: State.stockSession.invoice,
             photo: State.stockSession.photo,
@@ -301,32 +301,13 @@ export const Inventory = {
 
     renderStockCategories() {
         const container = DOM.get('stockCategoryGrid');
-        DOM.clear(container);
-
-        Object.keys(State.products).forEach(cat => {
-            const fragment = Template.render('tpl-category-btn', {
-                icon: Format.categoryIcon(cat),
-                name: cat
-            }, { dataAttrs: { value: cat } });
-
-            const btn = fragment.querySelector('.category-btn');
-            if (State.selectedStockCategory === cat) btn.classList.add('active');
-
-            // Add edit button for admin
-            if (State.isAdmin()) {
-                const editBtn = document.createElement('button');
-                editBtn.className = 'edit-btn';
-                editBtn.innerHTML = `<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
-                    <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                </svg>`;
-                btn.appendChild(editBtn);
-            }
-
-            container.appendChild(fragment);
+        GridUtil.renderCategoryGrid(container, State.products, State.selectedStockCategory, {
+            showEdit: true,
+            showAddButton: true,
+            onSelect: (category) => this.selectStockCategory(category),
+            onEdit: (category) => showEditCategoryModal && showEditCategoryModal(category),
+            onAdd: () => showAddCategoryModal && showAddCategoryModal()
         });
-
-        container.appendChild(Template.render('tpl-add-btn', { text: 'Add New' }));
     },
 
     selectStockCategory(cat) {
@@ -347,39 +328,17 @@ export const Inventory = {
 
         DOM.show(card);
         DOM.setText(title, State.selectedStockCategory + ' - Select Variant');
-        DOM.clear(container);
 
         const variants = State.products[State.selectedStockCategory] || [];
-        variants.forEach(v => {
-            const fragment = Template.render('tpl-variant-btn', {
-                name: v,
-                price: '',
-                stock: ''
-            }, { dataAttrs: { value: v } });
-
-            const btn = fragment.querySelector('.variant-btn');
-
-            // Hide price and stock for simple display
-            const priceEl = fragment.querySelector('[data-field="price"]');
-            const stockEl = fragment.querySelector('[data-field="stock"]');
-            if (priceEl) priceEl.style.display = 'none';
-            if (stockEl) stockEl.style.display = 'none';
-
-            // Add edit button for admin
-            if (State.isAdmin()) {
-                const editBtn = document.createElement('button');
-                editBtn.className = 'edit-btn';
-                editBtn.innerHTML = `<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
-                    <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                </svg>`;
-                btn.appendChild(editBtn);
-            }
-
-            container.appendChild(fragment);
+        GridUtil.renderVariantGrid(container, variants, State.selectedStockCategory, {
+            showEdit: true,
+            showStock: false,
+            showPrice: false,
+            showAddButton: true,
+            onSelect: (variant) => this.selectStockVariant(variant),
+            onEdit: (category, variant) => showEditVariantModal && showEditVariantModal(category, variant),
+            onAdd: () => showAddVariantModal && showAddVariantModal('stock')
         });
-
-        container.appendChild(Template.render('tpl-variant-add-btn', { text: '+ Add New' }));
     },
 
     selectStockVariant(variant) {
@@ -421,7 +380,7 @@ export const Inventory = {
                 costPrice,
                 price,
                 alertQty,
-                addedAt: new Date().toISOString()
+                addedAt: DateUtil.now()
             });
             this.renderSessionItems();
             Toast.show('Item added. Select next product.');
@@ -442,7 +401,7 @@ export const Inventory = {
                     costPrice,
                     price,
                     alertQty,
-                    addedAt: new Date().toISOString()
+                    addedAt: DateUtil.now()
                 }],
                 addedBy: State.userRole || 'Unknown',
                 type: 'during_sale'

@@ -37,8 +37,12 @@ export const Navigation = {
         }
     },
 
-    showSettings() {
+    async showSettings() {
         DOM.findAll('.page').forEach(p => DOM.removeClass(p, 'active'));
         DOM.addClass(DOM.get('page-settings'), 'active');
+
+        // Initialize language UI after page is visible
+        const { Backup } = await import('../modules/backup.js');
+        setTimeout(() => Backup.initLanguage(), 100);
     }
 };

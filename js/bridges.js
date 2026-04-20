@@ -18,7 +18,7 @@ import {
 
 import { Modal } from './components/index.js';
 import { State } from './state/index.js';
-import { DOM, Format, Toast } from './utils/index.js';
+import { DOM, Format, DateUtil, Toast } from './utils/index.js';
 
 // ==================== AUTH ====================
 window.selectRole = (role) => Auth.selectRole(role);
@@ -133,6 +133,12 @@ window.closePhotoModal = () => Reports.closePhotoModal();
 window.downloadBackup = () => Backup.download();
 window.restoreBackup = (event) => Backup.restore(event);
 
+// ==================== LANGUAGE ====================
+window.changeLanguage = (langCode) => Backup.changeLanguage(langCode);
+
+// ==================== INVENTORY VALUE ====================
+window.showInventoryValue = () => Backup.showInventoryValue();
+
 // ==================== SYNC ====================
 // Auto sync status - called when settings page is opened
 window.checkSyncStatus = async () => {
@@ -173,7 +179,7 @@ window.checkSyncStatus = async () => {
             } else if (diffMins < 60) {
                 lastSyncEl.textContent = `${diffMins} min ago`;
             } else {
-                lastSyncEl.textContent = syncTime.toLocaleTimeString();
+                lastSyncEl.textContent = DateUtil.formatTime(status.lastSyncTime);
             }
         } else {
             lastSyncEl.textContent = 'Not yet';
@@ -232,7 +238,7 @@ window.showCreateBookingModal = () => {
     DOM.get('cbCustomerPhone').value = customerPhone;
 
     // Set minimum pickup date to today
-    const today = new Date().toISOString().split('T')[0];
+    const today = DateUtil.today();
     const pickupInput = DOM.get('cbPickupDate');
     pickupInput.min = today;
     pickupInput.value = '';

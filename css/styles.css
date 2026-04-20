@@ -5,6 +5,7 @@
 @import url('./base/variables.css');
 @import url('./base/reset.css');
 @import url('./base/animations.css');
+@import url('./base/accessibility.css');
 
 /* Layout */
 @import url('./layout/header.css');
@@ -32,6 +33,7 @@
 @import url('./features/dashboard.css');
 @import url('./features/roles.css');
 @import url('./features/bookings.css');
+@import url('./features/settings.css');
 
 /* Responsive - Must be last */
 @import url('./layout/responsive.css');

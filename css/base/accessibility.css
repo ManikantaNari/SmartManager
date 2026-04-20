@@ -1,0 +1,173 @@
+/* Accessibility Styles */
+
+/* Screen reader only content */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Skip link for keyboard navigation */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    z-index: 10000;
+    padding: 8px 16px;
+    background: var(--primary);
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 0 0 8px 0;
+    transition: top 0.3s;
+}
+
+.skip-link:focus {
+    top: 0;
+    outline: 3px solid var(--warning);
+    outline-offset: 2px;
+}
+
+/* Enhanced focus indicators */
+*:focus {
+    outline: none;
+}
+
+*:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Button focus states */
+button:focus-visible,
+.btn:focus-visible {
+    outline: 3px solid var(--primary);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
+}
+
+/* Input focus states */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    border-color: var(--primary);
+    outline: 2px solid var(--primary);
+    outline-offset: 0;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+}
+
+/* Grid item focus states */
+.category-btn:focus-visible,
+.variant-btn:focus-visible {
+    border-color: var(--primary);
+    outline: 3px solid var(--primary);
+    outline-offset: -1px;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
+    z-index: 10;
+}
+
+/* Modal focus trap */
+.modal:focus {
+    outline: none;
+}
+
+/* Navigation focus */
+.nav-item:focus-visible {
+    background: rgba(102, 126, 234, 0.15);
+    outline: 2px solid var(--primary);
+    outline-offset: -2px;
+}
+
+/* Tab focus */
+.tab:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: -2px;
+}
+
+/* List item focus */
+.list-item:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: -2px;
+    background: rgba(102, 126, 234, 0.05);
+}
+
+/* Card action button focus */
+.card [data-action]:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: more) {
+    .category-btn,
+    .variant-btn,
+    .btn,
+    input,
+    textarea,
+    select {
+        border-width: 2px;
+    }
+
+    .category-btn:focus-visible,
+    .variant-btn:focus-visible,
+    .btn:focus-visible {
+        outline-width: 3px;
+    }
+}
+
+/* Keyboard navigation indicator */
+body.keyboard-nav *:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+body:not(.keyboard-nav) *:focus {
+    outline: none;
+}
+
+/* Ensure sufficient touch targets for mobile */
+@media (max-width: 767px) {
+    button,
+    .btn,
+    .category-btn,
+    .variant-btn,
+    .nav-item,
+    [role="button"] {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+
+/* Focus visible polyfill for older browsers */
+.js-focus-visible :focus:not(.focus-visible) {
+    outline: none;
+}
+
+/* ARIA live region announcer */
+#sr-announcer {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}

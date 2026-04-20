@@ -1,6 +1,6 @@
 // Products Module
 
-import { DOM, Format, Template, Toast, Loader } from '../utils/index.js';
+import { DOM, Format, DateUtil, EntityUpdater, Template, Toast, Loader } from '../utils/index.js';
 import { Modal } from '../components/index.js';
 import { State, Storage } from '../state/index.js';
 import { STORAGE_KEYS, EMOJI_OPTIONS, DEFAULT_ICON } from '../config/index.js';
@@ -223,7 +223,7 @@ export const Products = {
                         costPrice,
                         price,
                         alertQty: 0,
-                        addedAt: new Date().toISOString()
+                        addedAt: DateUtil.now()
                     }],
                     addedBy: State.userRole || 'Unknown',
                     type: 'during_sale'
@@ -257,7 +257,7 @@ export const Products = {
         this.renderEmojiPicker('editCategoryEmojiPicker', 'editCategoryEmoji', currentEmoji);
 
         // Calculate total inventory for this category
-        const categoryStock = this.getCategoryStock(category);
+        const categoryStock = EntityUpdater.getCategoryStock(category);
         const deleteBtn = DOM.get('deleteCategoryBtn');
         const warningEl = DOM.get('deleteCategoryWarning');
         const stockInfoEl = DOM.get('deleteCategoryStockInfo');
@@ -286,24 +286,6 @@ export const Products = {
         }
 
         Modal.show('editCategoryModal');
-    },
-
-    // Get total stock for a category
-    getCategoryStock(category) {
-        let totalQty = 0;
-        let variantCount = 0;
-
-        Object.keys(State.inventory).forEach(key => {
-            if (key.startsWith(category + '|')) {
-                const qty = State.inventory[key]?.qty || 0;
-                if (qty > 0) {
-                    totalQty += qty;
-                    variantCount++;
-                }
-            }
-        });
-
-        return { totalQty, variantCount };
     },
 
     closeEditCategoryModal() {
@@ -350,6 +332,9 @@ export const Products = {
             return;
         }
 
+        // Plan and execute category rename using EntityUpdater
+        const updates = EntityUpdater.planCategoryRename(oldName, newName);
+
         // 1. Update products
         const variants = State.products[oldName] || [];
         delete State.products[oldName];
@@ -358,64 +343,10 @@ export const Products = {
         Storage.deleteProductCategory(oldName);
         Storage.saveProductCategory(newName, variants, emoji);
 
-        // 2. Update inventory keys
-        const inventoryUpdates = [];
-        Object.keys(State.inventory).forEach(key => {
-            if (key.startsWith(oldName + '|')) {
-                const variant = key.split('|')[1];
-                const newKey = `${newName}|${variant}`;
-                const data = State.inventory[key];
-                delete State.inventory[key];
-                State.inventory[newKey] = data;
-                inventoryUpdates.push({ oldKey: key, newKey, data });
-            }
-        });
-        // Save all inventory updates
-        inventoryUpdates.forEach(({ oldKey, newKey, data }) => {
-            Storage.deleteInventoryItem(oldKey);
-            Storage.saveInventoryItem(newKey, data);
-        });
+        // 2. Apply all related updates (inventory, sales, bookings, stock logs)
+        EntityUpdater.applyCategoryRename(oldName, newName, updates);
 
-        // 3. Update sales
-        State.sales.forEach(sale => {
-            let updated = false;
-            sale.items?.forEach(item => {
-                if (item.category === oldName) {
-                    item.category = newName;
-                    if (item.key) item.key = `${newName}|${item.variant}`;
-                    updated = true;
-                }
-            });
-            if (updated) Storage.saveSale(sale);
-        });
-
-        // 4. Update bookings
-        State.bookings.forEach(booking => {
-            let updated = false;
-            booking.items?.forEach(item => {
-                if (item.category === oldName) {
-                    item.category = newName;
-                    if (item.key) item.key = `${newName}|${item.variant}`;
-                    updated = true;
-                }
-            });
-            if (updated) Storage.saveBooking(booking);
-        });
-
-        // 5. Update stock logs
-        State.stockLogs.forEach(log => {
-            let updated = false;
-            log.items?.forEach(item => {
-                if (item.category === oldName) {
-                    item.category = newName;
-                    if (item.key) item.key = `${newName}|${item.variant}`;
-                    updated = true;
-                }
-            });
-            if (updated) Storage.saveStockLog(log);
-        });
-
-        // Update selected category if it was the edited one
+        // 3. Update UI state
         if (State.selectedCategory === oldName) State.selectedCategory = newName;
         if (State.selectedStockCategory === oldName) State.selectedStockCategory = newName;
 
@@ -442,8 +373,7 @@ export const Products = {
         DOM.setValue(DOM.get('editVariantNewName'), variant);
 
         // Check inventory for this variant
-        const key = `${category}|${variant}`;
-        const stockQty = State.inventory[key]?.qty || 0;
+        const stockQty = EntityUpdater.getVariantStock(category, variant);
         const deleteBtn = DOM.get('deleteVariantBtn');
         const warningEl = DOM.get('deleteVariantWarning');
         const stockInfoEl = DOM.get('deleteVariantStockInfo');
@@ -503,6 +433,9 @@ export const Products = {
             return;
         }
 
+        // Plan and execute variant rename using EntityUpdater
+        const updates = EntityUpdater.planVariantRename(category, oldName, newName);
+
         // 1. Update products
         const variantIndex = State.products[category]?.indexOf(oldName);
         if (variantIndex > -1) {
@@ -511,57 +444,10 @@ export const Products = {
             Storage.saveProductCategory(category, State.products[category]);
         }
 
-        // 2. Update inventory key
-        const oldKey = `${category}|${oldName}`;
-        const newKey = `${category}|${newName}`;
-        if (State.inventory[oldKey]) {
-            const data = State.inventory[oldKey];
-            delete State.inventory[oldKey];
-            State.inventory[newKey] = data;
-            Storage.deleteInventoryItem(oldKey);
-            Storage.saveInventoryItem(newKey, data);
-        }
+        // 2. Apply all related updates (inventory, sales, bookings, stock logs)
+        EntityUpdater.applyVariantRename(category, oldName, newName, updates);
 
-        // 3. Update sales
-        State.sales.forEach(sale => {
-            let updated = false;
-            sale.items?.forEach(item => {
-                if (item.category === category && item.variant === oldName) {
-                    item.variant = newName;
-                    item.key = newKey;
-                    updated = true;
-                }
-            });
-            if (updated) Storage.saveSale(sale);
-        });
-
-        // 4. Update bookings
-        State.bookings.forEach(booking => {
-            let updated = false;
-            booking.items?.forEach(item => {
-                if (item.category === category && item.variant === oldName) {
-                    item.variant = newName;
-                    item.key = newKey;
-                    updated = true;
-                }
-            });
-            if (updated) Storage.saveBooking(booking);
-        });
-
-        // 5. Update stock logs
-        State.stockLogs.forEach(log => {
-            let updated = false;
-            log.items?.forEach(item => {
-                if (item.category === category && item.variant === oldName) {
-                    item.variant = newName;
-                    item.key = newKey;
-                    updated = true;
-                }
-            });
-            if (updated) Storage.saveStockLog(log);
-        });
-
-        // Update selected variant if it was the edited one
+        // 3. Update UI state
         if (State.selectedVariant === oldName) State.selectedVariant = newName;
         if (State.selectedStockVariant === oldName) State.selectedStockVariant = newName;
 
@@ -594,20 +480,10 @@ export const Products = {
             return;
         }
 
-        // 1. Delete all inventory items for this category
-        const keysToDelete = Object.keys(State.inventory).filter(key => key.startsWith(category + '|'));
-        keysToDelete.forEach(key => {
-            delete State.inventory[key];
-            Storage.deleteInventoryItem(key);
-        });
-        Storage.setLocal(STORAGE_KEYS.inventory, State.inventory);
+        // Use EntityUpdater to delete category and all related data
+        EntityUpdater.deleteCategory(category);
 
-        // 2. Delete the category from products
-        delete State.products[category];
-        Storage.setLocal(STORAGE_KEYS.products, State.products);
-        Storage.deleteProductCategory(category);
-
-        // 3. Clear selections if this was selected
+        // Clear selections if this was selected
         if (State.selectedCategory === category) State.selectedCategory = null;
         if (State.selectedStockCategory === category) State.selectedStockCategory = null;
         State.editingCategory = null;
@@ -644,23 +520,10 @@ export const Products = {
             return;
         }
 
-        // 1. Delete inventory item
-        const key = `${category}|${variant}`;
-        if (State.inventory[key]) {
-            delete State.inventory[key];
-            Storage.deleteInventoryItem(key);
-            Storage.setLocal(STORAGE_KEYS.inventory, State.inventory);
-        }
+        // Use EntityUpdater to delete variant and related data
+        EntityUpdater.deleteVariant(category, variant);
 
-        // 2. Remove variant from products
-        const variantIndex = State.products[category]?.indexOf(variant);
-        if (variantIndex > -1) {
-            State.products[category].splice(variantIndex, 1);
-            Storage.setLocal(STORAGE_KEYS.products, State.products);
-            Storage.saveProductCategory(category, State.products[category]);
-        }
-
-        // 3. Clear selections if this was selected
+        // Clear selections if this was selected
         if (State.selectedVariant === variant) State.selectedVariant = null;
         if (State.selectedStockVariant === variant) State.selectedStockVariant = null;
         State.editingVariantCategory = null;

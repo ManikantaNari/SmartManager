@@ -1,6 +1,6 @@
 // Sales Module
 
-import { DOM, Format, Template, Toast, Loader } from '../utils/index.js';
+import { DOM, Format, GridUtil, Template, Toast, Loader } from '../utils/index.js';
 import { Modal } from '../components/index.js';
 import { State, Storage } from '../state/index.js';
 
@@ -105,32 +105,13 @@ export const Sales = {
 
     renderCategories() {
         const container = DOM.get('categoryGrid');
-        DOM.clear(container);
-
-        Object.keys(State.products).forEach(cat => {
-            const fragment = Template.render('tpl-category-btn', {
-                icon: Format.categoryIcon(cat),
-                name: cat
-            }, { dataAttrs: { value: cat } });
-
-            const btn = fragment.querySelector('.category-btn');
-            if (State.selectedCategory === cat) btn.classList.add('active');
-
-            // Add edit button for admin
-            if (State.isAdmin()) {
-                const editBtn = document.createElement('button');
-                editBtn.className = 'edit-btn';
-                editBtn.innerHTML = `<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
-                    <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                </svg>`;
-                btn.appendChild(editBtn);
-            }
-
-            container.appendChild(fragment);
+        GridUtil.renderCategoryGrid(container, State.products, State.selectedCategory, {
+            showEdit: true,
+            showAddButton: true,
+            onSelect: (category) => this.selectCategory(category),
+            onEdit: (category) => showEditCategoryModal && showEditCategoryModal(category),
+            onAdd: () => showAddCategoryModal && showAddCategoryModal()
         });
-
-        container.appendChild(Template.render('tpl-add-btn', { text: 'Add New' }));
     },
 
     selectCategory(cat) {
@@ -151,42 +132,17 @@ export const Sales = {
 
         DOM.show(card);
         DOM.setText(title, State.selectedCategory + ' - Select Variant');
-        DOM.clear(container);
 
         const variants = State.products[State.selectedCategory] || [];
-        variants.forEach(v => {
-            const key = `${State.selectedCategory}|${v}`;
-            const inv = State.inventory[key] || { qty: 0, price: 0 };
-            const isLow = inv.qty <= (inv.alertQty || 0);
-
-            const fragment = Template.render('tpl-variant-btn', {
-                name: v,
-                price: Format.currency(inv.price),
-                stock: `Stock: ${inv.qty}`
-            }, {
-                dataAttrs: { value: v },
-                classes: isLow ? ['low-stock'] : []
-            });
-
-            const btn = fragment.querySelector('.variant-btn');
-            const stockEl = fragment.querySelector('[data-field="stock"]');
-            if (stockEl && isLow) stockEl.classList.add('low');
-
-            // Add edit button for admin
-            if (State.isAdmin()) {
-                const editBtn = document.createElement('button');
-                editBtn.className = 'edit-btn';
-                editBtn.innerHTML = `<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
-                    <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                </svg>`;
-                btn.appendChild(editBtn);
-            }
-
-            container.appendChild(fragment);
+        GridUtil.renderVariantGrid(container, variants, State.selectedCategory, {
+            showEdit: true,
+            showStock: true,
+            showPrice: true,
+            showAddButton: true,
+            onSelect: (variant) => this.selectVariantForCart(variant),
+            onEdit: (category, variant) => showEditVariantModal && showEditVariantModal(category, variant),
+            onAdd: () => showAddVariantModal && showAddVariantModal('sale')
         });
-
-        container.appendChild(Template.render('tpl-variant-add-btn', { text: '+ Add New' }));
     },
 
     selectVariantForCart(variant) {

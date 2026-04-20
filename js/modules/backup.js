@@ -1,14 +1,14 @@
-// Backup Module
+// Backup & Settings Module
 
 import { STORAGE_KEYS, getDb } from '../config/index.js';
-import { Format, Toast } from '../utils/index.js';
+import { Format, DateUtil, Toast, i18n, Keyboard } from '../utils/index.js';
 import { State, Storage } from '../state/index.js';
 
 export const Backup = {
     download() {
         const backup = {
             version: 1,
-            date: new Date().toISOString(),
+            date: DateUtil.now(),
             products: State.products,
             inventory: State.inventory,
             customers: State.customers,
@@ -24,7 +24,7 @@ export const Backup = {
         a.click();
         URL.revokeObjectURL(url);
 
-        Storage.setLocal(STORAGE_KEYS.lastBackup, new Date().toISOString());
+        Storage.setLocal(STORAGE_KEYS.lastBackup, DateUtil.now());
         Toast.show('Backup downloaded');
     },
 
@@ -87,6 +87,120 @@ export const Backup = {
                     this.download();
                 }
             }, 3000);
+        }
+    },
+
+    // Language management
+    changeLanguage(langCode) {
+        // Validate language code
+        if (!i18n.hasLocale(langCode)) {
+            Toast.show('Language not supported');
+            return;
+        }
+
+        // Set the new language
+        i18n.setLocale(langCode);
+
+        // Update UI to show active language
+        this.updateLanguageUI(langCode);
+
+        // Announce change to screen readers
+        const langNames = {
+            en: 'English',
+            te: 'Telugu',
+            hi: 'Hindi'
+        };
+        Keyboard.announce(`Language changed to ${langNames[langCode]}`);
+
+        // Show confirmation
+        Toast.show(`Language changed to ${langNames[langCode]}`);
+
+        // Note: Full UI translation will happen in future updates
+        // For now, this just saves the preference
+    },
+
+    updateLanguageUI(selectedLang) {
+        // Remove active class from all options
+        document.querySelectorAll('.language-option').forEach(option => {
+            option.classList.remove('active');
+        });
+
+        // Add active class to selected option
+        const selectedOption = document.querySelector(`.language-option[data-lang="${selectedLang}"]`);
+        if (selectedOption) {
+            selectedOption.classList.add('active');
+        }
+    },
+
+    initLanguage() {
+        // Load saved language preference
+        i18n.loadSavedLocale();
+
+        // Update UI to reflect current language
+        const currentLang = i18n.getLocale();
+        this.updateLanguageUI(currentLang);
+
+        // Update translatable elements
+        this.updateTranslations();
+    },
+
+    updateTranslations() {
+        // Update navigation labels (demo of translation)
+        const navItems = document.querySelectorAll('.nav-item span');
+        if (navItems.length >= 6) {
+            navItems[0].textContent = i18n.t('nav.dashboard');
+            navItems[1].textContent = i18n.t('nav.sale');
+            navItems[2].textContent = i18n.t('nav.inventory');
+            navItems[3].textContent = 'Bookings'; // Not yet in translations
+            navItems[4].textContent = i18n.t('nav.customers');
+            navItems[5].textContent = i18n.t('nav.reports');
+        }
+    },
+
+    // Calculate total inventory value
+    calculateInventoryValue() {
+        let totalCost = 0;
+        let totalSelling = 0;
+        let itemCount = 0;
+
+        for (const [key, item] of Object.entries(State.inventory)) {
+            if (item.qty > 0) {
+                totalCost += (item.costPrice || 0) * item.qty;
+                totalSelling += (item.price || 0) * item.qty;
+                itemCount += item.qty;
+            }
+        }
+
+        return {
+            totalCost,
+            totalSelling,
+            potentialProfit: totalSelling - totalCost,
+            itemCount,
+            uniqueProducts: Object.keys(State.inventory).filter(k => State.inventory[k].qty > 0).length
+        };
+    },
+
+    // Show inventory value (password protected)
+    showInventoryValue() {
+        if (!State.isAdmin()) {
+            Toast.show('Owner access required');
+            return;
+        }
+
+        const value = this.calculateInventoryValue();
+
+        // Update the UI
+        const valueSection = document.getElementById('inventoryValueSection');
+        if (valueSection) {
+            valueSection.style.display = 'block';
+            document.getElementById('invTotalCost').textContent = Format.currency(value.totalCost);
+            document.getElementById('invTotalSelling').textContent = Format.currency(value.totalSelling);
+            document.getElementById('invPotentialProfit').textContent = Format.currency(value.potentialProfit);
+            document.getElementById('invItemCount').textContent = value.itemCount;
+            document.getElementById('invUniqueProducts').textContent = value.uniqueProducts;
+
+            // Announce to screen reader
+            Keyboard.announce(`Inventory value loaded. Total selling price: ${Format.currency(value.totalSelling)}`);
         }
     }
 };
