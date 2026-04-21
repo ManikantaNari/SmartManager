@@ -64,9 +64,9 @@ export const DateUtil = {
     },
 
     /**
-     * Format ISO date to readable format with full month name and abbreviated year
+     * Format ISO date to readable format with full month name and full year
      * @param {string} isoDate - ISO date string
-     * @returns {string} Formatted date string (e.g., "April 20, '26")
+     * @returns {string} Formatted date string (e.g., "April 20, 2026")
      */
     formatDateReadable(isoDate) {
         if (!isoDate) return '';
@@ -76,8 +76,7 @@ export const DateUtil = {
             'July', 'August', 'September', 'October', 'November', 'December'
         ];
         const monthName = monthNames[parseInt(month)];
-        const shortYear = year.slice(-2);
-        return `${monthName} ${parseInt(day)}, ${shortYear}`;
+        return `${monthName} ${parseInt(day)}, ${year}`;
     },
 
     /**

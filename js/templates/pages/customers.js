@@ -7,9 +7,9 @@ export const CustomersTemplate = `
             <circle cx="11" cy="11" r="8"/>
             <path d="M21 21l-4.35-4.35"/>
         </svg>
-        <input id="allCustomerSearch" oninput="filterAllCustomers()" placeholder="Search customers..." type="text">
+        <input id="allCustomerSearch" oninput="filterAllCustomers()" data-i18n-placeholder="customers.search" placeholder="Search customers..." type="text">
     </div>
-    <button class="btn btn-primary btn-block" onclick="showAddCustomerModal()" style="margin-bottom: 16px;">
+    <button class="btn btn-primary btn-block" onclick="showAddCustomerModal()" style="margin-bottom: 16px;" data-i18n="customers.addNew">
         + Add New Customer
     </button>
     <div id="allCustomersList"></div>

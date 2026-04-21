@@ -131,6 +131,7 @@ window.loadStockLog = () => Reports.loadStockLog();
 window.closeStockLogModal = () => Reports.closeStockLogModal();
 window.viewStockLogPhoto = (logId) => Reports.viewStockLogPhoto(logId);
 window.closePhotoModal = () => Reports.closePhotoModal();
+window.updateMonthValue = () => Reports.updateMonthValue();
 
 // ==================== BACKUP ====================
 window.downloadBackup = () => Backup.download();

@@ -9,17 +9,17 @@ export const TransactionModalTemplate = `
                     <path d="M19 12H5M12 19l-7-7 7-7"/>
                 </svg>
             </button>
-            <h3 class="modal-title">Transaction Details</h3>
+            <h3 class="modal-title" data-i18n="modals.transactionDetails">Transaction Details</h3>
             <button class="modal-close" onclick="closeTransactionModal()">&times;</button>
         </div>
         <div id="transactionDetails"></div>
         <div style="margin-top: 20px;">
             <div class="card" style="background: #f8f9fa; margin-bottom: 16px;">
-                <div class="card-title" style="font-size: 14px;">SMS Bill Preview</div>
+                <div class="card-title" style="font-size: 14px;" data-i18n="modals.smsBillPreview">SMS Bill Preview</div>
                 <pre id="smsPreview" style="font-size: 12px; white-space: pre-wrap; color: var(--dark); font-family: monospace; background: white; padding: 12px; border-radius: 8px; border: 1px solid var(--border);"></pre>
             </div>
             <div id="transactionSmsSection" style="display: none;">
-                <button class="btn btn-primary btn-block" onclick="sendSMSFromTransaction()" style="margin-bottom: 12px;">
+                <button class="btn btn-primary btn-block" onclick="sendSMSFromTransaction()" style="margin-bottom: 12px;" data-i18n="modals.sendBillSms">
                     Send Bill via SMS
                 </button>
             </div>
@@ -31,10 +31,10 @@ export const TransactionModalTemplate = `
                         <line x1="20" y1="8" x2="20" y2="14"/>
                         <line x1="23" y1="11" x2="17" y2="11"/>
                     </svg>
-                    Add to Customers List
+                    <span data-i18n="modals.addToCustomersList">Add to Customers List</span>
                 </button>
             </div>
-            <button class="btn btn-danger btn-block admin-only" onclick="confirmDeleteTransaction()">
+            <button class="btn btn-danger btn-block admin-only" onclick="confirmDeleteTransaction()" data-i18n="modals.deleteTransaction">
                 Delete Transaction
             </button>
         </div>

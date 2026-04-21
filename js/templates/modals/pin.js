@@ -4,7 +4,7 @@ export const PinModalTemplate = `
 <div class="modal-overlay" id="pinModal">
     <div class="modal">
         <div class="modal-header">
-            <h3 class="modal-title" id="pinModalTitle">Enter Owner PIN</h3>
+            <h3 class="modal-title" id="pinModalTitle" data-i18n="login.enterPin">Enter Owner PIN</h3>
             <button class="modal-close" onclick="closePinModal()">&times;</button>
         </div>
         <div class="pin-display" id="pinDisplay">

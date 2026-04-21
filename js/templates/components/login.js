@@ -3,29 +3,29 @@
 export const LoginTemplate = `
 <div class="login-screen" id="loginScreen">
     <div class="login-logo">ME</div>
-    <h1 class="login-title">Manikanta Enterprises</h1>
-    <p class="login-subtitle" id="loginSubtitle">Loading data...</p>
+    <h1 class="login-title" data-i18n="login.title">Manikanta Enterprises</h1>
+    <p class="login-subtitle" id="loginSubtitle" data-i18n="login.loadingData">Loading data...</p>
 
     <!-- Initial Loading -->
     <div id="loginLoading" style="display: flex; flex-direction: column; align-items: center; padding: 40px;">
         <div class="loader-spinner" style="border-color: rgba(255,255,255,0.2); border-top-color: white;"></div>
-        <p style="color: rgba(255,255,255,0.8); margin-top: 16px; font-size: 14px;">Syncing your data...</p>
+        <p style="color: rgba(255,255,255,0.8); margin-top: 16px; font-size: 14px;" data-i18n="login.syncingData">Syncing your data...</p>
     </div>
 
     <div class="login-options" id="loginOptions" style="display: none;">
         <div class="login-btn admin" onclick="selectRole('admin')">
-            <h3>Owner</h3>
-            <p>Full access - requires PIN</p>
+            <h3 data-i18n="login.owner">Owner</h3>
+            <p data-i18n="login.ownerDesc">Full access - requires PIN</p>
         </div>
         <div class="login-btn" onclick="selectRole('worker')">
-            <h3>Manager</h3>
-            <p>Sales & daily operations</p>
+            <h3 data-i18n="login.manager">Manager</h3>
+            <p data-i18n="login.managerDesc">Sales & daily operations</p>
         </div>
     </div>
 
     <!-- Owner PIN Entry -->
     <div class="login-pin-section" id="loginPinSection">
-        <p style="color: white; text-align: center; margin-bottom: 20px;">Enter Owner PIN</p>
+        <p style="color: white; text-align: center; margin-bottom: 20px;" data-i18n="login.enterPin">Enter Owner PIN</p>
         <div class="login-pin-display" id="loginPinDisplay">
             <div class="login-pin-dot"></div>
             <div class="login-pin-dot"></div>
@@ -48,13 +48,13 @@ export const LoginTemplate = `
             <button class="login-pin-key" onclick="deleteLoginPin()">&larr;</button>
         </div>
         <p class="login-error" id="loginError"></p>
-        <button class="login-back" onclick="backToRoleSelect()">Back to role selection</button>
-        <button class="login-back" onclick="showForgotPin()" style="margin-top: 10px; color: #667eea;">Forgot PIN?</button>
+        <button class="login-back" onclick="backToRoleSelect()" data-i18n="login.backToRole">Back to role selection</button>
+        <button class="login-back" onclick="showForgotPin()" style="margin-top: 10px; color: #667eea;" data-i18n="login.forgotPin">Forgot PIN?</button>
     </div>
 
     <!-- Master PIN Entry (Forgot PIN) -->
     <div class="login-pin-section" id="forgotPinSection">
-        <p style="color: white; text-align: center; margin-bottom: 20px;">Enter Master PIN (6 digits)</p>
+        <p style="color: white; text-align: center; margin-bottom: 20px;" data-i18n="login.enterMasterPin">Enter Master PIN (6 digits)</p>
         <div class="login-pin-display" id="masterPinDisplay">
             <div class="login-pin-dot"></div>
             <div class="login-pin-dot"></div>
@@ -78,12 +78,12 @@ export const LoginTemplate = `
             <button class="login-pin-key" onclick="deleteMasterPin()">&larr;</button>
         </div>
         <p class="login-error" id="masterPinError"></p>
-        <button class="login-back" onclick="backToLoginPin()">Back to PIN entry</button>
+        <button class="login-back" onclick="backToLoginPin()" data-i18n="login.backToPin">Back to PIN entry</button>
     </div>
 
     <!-- Set New PIN -->
     <div class="login-pin-section" id="newPinSection">
-        <p style="color: white; text-align: center; margin-bottom: 20px;">Set New Owner PIN (5 digits)</p>
+        <p style="color: white; text-align: center; margin-bottom: 20px;" data-i18n="login.setNewPin">Set New Owner PIN (5 digits)</p>
         <div class="login-pin-display" id="newPinDisplay">
             <div class="login-pin-dot"></div>
             <div class="login-pin-dot"></div>

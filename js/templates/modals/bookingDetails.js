@@ -9,36 +9,36 @@ export const BookingDetailsModalTemplate = `
                     <path d="M19 12H5M12 19l-7-7 7-7"/>
                 </svg>
             </button>
-            <h3 class="modal-title">Booking Details</h3>
-            <span id="bdStatus" class="badge badge-primary">Pending</span>
+            <h3 class="modal-title" data-i18n="bookings.bookingDetails">Booking Details</h3>
+            <span id="bdStatus" class="badge badge-primary" data-i18n="bookings.pending">Pending</span>
             <button class="modal-close" onclick="closeBookingDetails()">&times;</button>
         </div>
 
         <div class="modal-body">
             <!-- Customer Info -->
             <div class="bd-section">
-                <h4>Customer</h4>
+                <h4 data-i18n="sale.customer">Customer</h4>
                 <div class="bd-row">
-                    <span class="bd-label">Name:</span>
+                    <span class="bd-label" data-i18n="customers.name">Name:</span>
                     <span id="bdCustomerName">-</span>
                 </div>
                 <div class="bd-row">
-                    <span class="bd-label">Phone:</span>
+                    <span class="bd-label" data-i18n="customers.phone">Phone:</span>
                     <span id="bdCustomerPhone">-</span>
                 </div>
                 <div class="bd-row">
-                    <span class="bd-label">Pickup Date:</span>
+                    <span class="bd-label" data-i18n="bookings.pickupDate">Pickup Date:</span>
                     <span id="bdPickupDate">-</span>
                 </div>
                 <div class="bd-row">
-                    <span class="bd-label">Booked On:</span>
+                    <span class="bd-label" data-i18n="bookings.bookedOn">Booked On:</span>
                     <span id="bdCreatedDate">-</span>
                 </div>
             </div>
 
             <!-- Items -->
             <div class="bd-section">
-                <h4>Items</h4>
+                <h4 data-i18n="common.items">Items</h4>
                 <div id="bdItems" class="bd-items-list">
                     <!-- Items rendered here -->
                 </div>
@@ -47,26 +47,26 @@ export const BookingDetailsModalTemplate = `
             <!-- Totals -->
             <div class="bd-section bd-totals">
                 <div class="bd-row">
-                    <span class="bd-label">Total:</span>
+                    <span class="bd-label" data-i18n="sale.total">Total:</span>
                     <span id="bdTotal" class="bd-value">-</span>
                 </div>
                 <div class="bd-row admin-only">
-                    <span class="bd-label">Profit:</span>
+                    <span class="bd-label" data-i18n="reports.profit">Profit:</span>
                     <span id="bdProfit" class="bd-value profit-text">-</span>
                 </div>
                 <div class="bd-row">
-                    <span class="bd-label">Advance Paid:</span>
+                    <span class="bd-label" data-i18n="bookings.advancePaid">Advance Paid:</span>
                     <span id="bdTotalAdvance" class="bd-value text-success">-</span>
                 </div>
                 <div class="bd-row">
-                    <span class="bd-label">Balance Due:</span>
+                    <span class="bd-label" data-i18n="bookings.balanceDue">Balance Due:</span>
                     <span id="bdBalance" class="bd-value text-danger">-</span>
                 </div>
             </div>
 
             <!-- Payment History -->
             <div class="bd-section">
-                <h4>Payment History</h4>
+                <h4 data-i18n="bookings.paymentHistory">Payment History</h4>
                 <div id="bdPayments" class="bd-payments-list">
                     <!-- Payments rendered here -->
                 </div>
@@ -75,16 +75,16 @@ export const BookingDetailsModalTemplate = `
 
         <!-- Actions (only for pending bookings) -->
         <div class="modal-footer bd-actions" id="bdActions">
-            <button class="btn btn-outline" onclick="showAddAdvanceModal()">
+            <button class="btn btn-outline" onclick="showAddAdvanceModal()" data-i18n="bookings.addAdvance">
                 + Add Advance
             </button>
-            <button class="btn btn-outline" onclick="showChangeDateModal()">
+            <button class="btn btn-outline" onclick="showChangeDateModal()" data-i18n="bookings.changeDate">
                 Change Date
             </button>
-            <button class="btn btn-danger-outline" onclick="showCancelBookingModal()">
+            <button class="btn btn-danger-outline" onclick="showCancelBookingModal()" data-i18n="common.cancel">
                 Cancel
             </button>
-            <button class="btn btn-success" onclick="showCompleteBookingModal()">
+            <button class="btn btn-success" onclick="showCompleteBookingModal()" data-i18n="bookings.completePickup">
                 Complete Pickup
             </button>
         </div>

@@ -49,9 +49,52 @@ export const Reports = {
 
     setDefaultDates() {
         const today = Format.today();
-        const month = today.substring(0, 7);
+        const [currentYear, currentMonth] = today.split('-');
+
+        // Set daily report date
         DOM.setValue(DOM.get('reportDate'), today);
-        DOM.setValue(DOM.get('reportMonth'), month);
+        const dateDisplay = DOM.get('selectedDateDisplay');
+        if (dateDisplay) {
+            DOM.setText(dateDisplay, DateUtil.formatDateReadable(today));
+        }
+
+        // Populate year dropdown (current year and 2 years back)
+        const yearSelect = DOM.get('reportYearSelect');
+        if (yearSelect) {
+            yearSelect.innerHTML = '';
+            for (let y = parseInt(currentYear); y >= parseInt(currentYear) - 2; y--) {
+                const option = document.createElement('option');
+                option.value = y;
+                option.textContent = y;
+                yearSelect.appendChild(option);
+            }
+            yearSelect.value = currentYear;
+        }
+
+        // Set month dropdown
+        const monthSelect = DOM.get('reportMonthSelect');
+        if (monthSelect) {
+            monthSelect.value = currentMonth;
+        }
+
+        // Set hidden month value
+        DOM.setValue(DOM.get('reportMonth'), `${currentYear}-${currentMonth}`);
+
+        // Stock log display
+        const stockLogDisplay = DOM.get('selectedStockLogDateDisplay');
+        if (stockLogDisplay) {
+            DOM.setText(stockLogDisplay, 'All Dates');
+        }
+    },
+
+    updateMonthValue() {
+        const monthSelect = DOM.get('reportMonthSelect');
+        const yearSelect = DOM.get('reportYearSelect');
+        if (monthSelect && yearSelect) {
+            const value = `${yearSelect.value}-${monthSelect.value}`;
+            DOM.setValue(DOM.get('reportMonth'), value);
+            this.loadMonthly();
+        }
     },
 
     loadDaily() {
@@ -218,14 +261,6 @@ export const Reports = {
         const container = DOM.get('monthlyReportContent');
         try {
             const month = DOM.getValue(DOM.get('reportMonth'));
-
-            // Display formatted month
-            const monthDisplay = DOM.get('selectedMonthDisplay');
-            if (monthDisplay && month) {
-                const [year, mon] = month.split('-');
-                DOM.setText(monthDisplay, `${Format.monthName(mon)} ${year}`);
-                DOM.show(monthDisplay);
-            }
 
             const monthSales = (State.sales || []).filter(s => s && s.date && s.date.startsWith(month));
             let total = 0, profit = 0, items = 0;
@@ -447,6 +482,13 @@ export const Reports = {
         const container = DOM.get('stockLogContent');
         try {
             const date = DOM.getValue(DOM.get('stockLogDate'));
+
+            // Update date display
+            const dateDisplay = DOM.get('selectedStockLogDateDisplay');
+            if (dateDisplay) {
+                DOM.setText(dateDisplay, date ? DateUtil.formatDateReadable(date) : 'All Dates');
+            }
+
             let logs = State.stockLogs || [];
 
             // Filter by date if selected

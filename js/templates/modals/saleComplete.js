@@ -9,18 +9,18 @@ export const SaleCompleteModalTemplate = `
                     <path d="M5 13l4 4L19 7"/>
                 </svg>
             </div>
-            <h2 style="margin-bottom: 8px;">Sale Complete!</h2>
-            <p id="saleCompleteAmount" style="color: var(--gray); margin-bottom: 16px;">Total: ₹0</p>
+            <h2 style="margin-bottom: 8px;" data-i18n="modals.saleComplete">Sale Complete!</h2>
+            <p id="saleCompleteAmount" style="color: var(--gray); margin-bottom: 16px;"><span data-i18n="sale.total">Total</span>: ₹0</p>
             <div id="smsBillSection" style="display: none;">
                 <div class="card" style="background: #f8f9fa; margin-bottom: 16px; text-align: left;">
-                    <div class="card-title" style="font-size: 14px;">SMS Bill Preview</div>
+                    <div class="card-title" style="font-size: 14px;" data-i18n="modals.smsBillPreview">SMS Bill Preview</div>
                     <pre id="smsPreviewComplete" style="font-size: 11px; white-space: pre-wrap; color: var(--dark); font-family: monospace; background: white; padding: 12px; border-radius: 8px; border: 1px solid var(--border);"></pre>
                 </div>
-                <button class="btn btn-primary btn-block" onclick="sendSMSBill()" style="margin-bottom: 12px;">
+                <button class="btn btn-primary btn-block" onclick="sendSMSBill()" style="margin-bottom: 12px;" data-i18n="modals.sendBillSms">
                     Send Bill via SMS
                 </button>
             </div>
-            <button class="btn btn-outline btn-block" onclick="closeSaleComplete()">Done</button>
+            <button class="btn btn-outline btn-block" onclick="closeSaleComplete()" data-i18n="common.done">Done</button>
         </div>
     </div>
 </div>

@@ -106,6 +106,9 @@ export const Backup = {
         // Update UI to show active language
         this.updateLanguageUI(langCode);
 
+        // Update translations immediately
+        this.updateTranslations();
+
         // Announce change to screen readers
         const langNames = {
             en: 'English',
@@ -116,9 +119,6 @@ export const Backup = {
 
         // Show confirmation
         Toast.show(`Language changed to ${langNames[langCode]}`);
-
-        // Note: Full UI translation will happen in future updates
-        // For now, this just saves the preference
     },
 
     updateLanguageUI(selectedLang) {
@@ -147,16 +147,98 @@ export const Backup = {
     },
 
     updateTranslations() {
-        // Update navigation labels (demo of translation)
+        // Update navigation labels
         const navItems = document.querySelectorAll('.nav-item span');
         if (navItems.length >= 6) {
             navItems[0].textContent = i18n.t('nav.dashboard');
             navItems[1].textContent = i18n.t('nav.sale');
             navItems[2].textContent = i18n.t('nav.inventory');
-            navItems[3].textContent = 'Bookings'; // Not yet in translations
+            navItems[3].textContent = i18n.t('nav.bookings');
             navItems[4].textContent = i18n.t('nav.customers');
             navItems[5].textContent = i18n.t('nav.reports');
         }
+
+        // Update all elements with data-i18n attribute
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (key) {
+                el.textContent = i18n.t(key);
+            }
+        });
+
+        // Update all elements with data-i18n-placeholder attribute
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+            const key = el.getAttribute('data-i18n-placeholder');
+            if (key) {
+                el.placeholder = i18n.t(key);
+            }
+        });
+
+        // Login screen translations
+        const loginTitle = document.querySelector('.login-title');
+        if (loginTitle) loginTitle.textContent = i18n.t('login.title');
+
+        const loginSubtitle = document.getElementById('loginSubtitle');
+        if (loginSubtitle && loginSubtitle.textContent.includes('Loading')) {
+            loginSubtitle.textContent = i18n.t('login.loadingData');
+        }
+
+        // Login options
+        const ownerBtn = document.querySelector('.login-btn.admin h3');
+        if (ownerBtn) ownerBtn.textContent = i18n.t('login.owner');
+        const ownerDesc = document.querySelector('.login-btn.admin p');
+        if (ownerDesc) ownerDesc.textContent = i18n.t('login.ownerDesc');
+
+        const managerBtn = document.querySelector('.login-btn:not(.admin) h3');
+        if (managerBtn) managerBtn.textContent = i18n.t('login.manager');
+        const managerDesc = document.querySelector('.login-btn:not(.admin) p');
+        if (managerDesc) managerDesc.textContent = i18n.t('login.managerDesc');
+
+        // Settings page card titles
+        this.translateCardTitles();
+
+        // Report tabs
+        this.translateReportTabs();
+    },
+
+    translateCardTitles() {
+        const cardTitles = {
+            'Owner PIN': 'settings.ownerPin',
+            'Data Backup': 'settings.dataBackup',
+            'Auto Sync Status': 'settings.autoSync',
+            'Total Inventory Value': 'settings.inventoryValue',
+            'Coming Soon': 'settings.comingSoon',
+            'About': 'settings.about'
+        };
+
+        document.querySelectorAll('.card-title').forEach(el => {
+            const text = el.textContent.trim();
+            // Check if text matches (ignoring SVG content)
+            for (const [eng, key] of Object.entries(cardTitles)) {
+                if (text.includes(eng)) {
+                    // Preserve SVG if present
+                    const svg = el.querySelector('svg');
+                    if (svg) {
+                        el.innerHTML = '';
+                        el.appendChild(svg);
+                        el.appendChild(document.createTextNode(' ' + i18n.t(key)));
+                    } else {
+                        el.textContent = i18n.t(key);
+                    }
+                    break;
+                }
+            }
+        });
+    },
+
+    translateReportTabs() {
+        const tabs = document.querySelectorAll('.tabs .tab');
+        const tabKeys = ['reports.dailyReport', 'reports.monthlyReport', 'reports.bestSellers', 'reports.stockLog'];
+        tabs.forEach((tab, index) => {
+            if (tabKeys[index]) {
+                tab.textContent = i18n.t(tabKeys[index]);
+            }
+        });
     },
 
     // Calculate total inventory value

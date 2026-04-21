@@ -2,8 +2,7 @@
 // Provides translation support for multiple languages
 
 /**
- * Translation keys and their default English values
- * This serves as the source of truth for all translatable strings
+ * Translation keys and their values for all languages
  */
 const translations = {
     en: {
@@ -22,7 +21,30 @@ const translations = {
             no: 'No',
             ok: 'OK',
             loading: 'Loading...',
-            noData: 'No data available'
+            noData: 'No data available',
+            view: 'View',
+            details: 'Details',
+            total: 'Total',
+            quantity: 'Quantity',
+            price: 'Price',
+            amount: 'Amount',
+            date: 'Date',
+            time: 'Time',
+            name: 'Name',
+            phone: 'Phone',
+            email: 'Email',
+            required: 'Required',
+            optional: 'Optional',
+            all: 'All',
+            none: 'None',
+            items: 'items',
+            clear: 'Clear',
+            continue: 'Continue',
+            done: 'Done',
+            complete: 'Complete',
+            saveChanges: 'Save Changes',
+            synced: 'Synced',
+            switchUser: 'Switch User'
         },
 
         // Navigation
@@ -30,6 +52,7 @@ const translations = {
             dashboard: 'Home',
             sale: 'Sale',
             inventory: 'Stock',
+            bookings: 'Bookings',
             customers: 'Customers',
             reports: 'Reports',
             settings: 'Settings'
@@ -37,99 +60,272 @@ const translations = {
 
         // Login
         login: {
+            title: 'Manikanta Enterprises',
+            loadingData: 'Loading data...',
+            syncingData: 'Syncing your data...',
             selectRole: 'Select Your Role',
             owner: 'Owner',
+            ownerDesc: 'Full access - requires PIN',
             manager: 'Manager',
-            enterPin: 'Enter PIN',
+            managerDesc: 'Sales & daily operations',
+            enterPin: 'Enter Owner PIN',
+            enterMasterPin: 'Enter Master PIN (6 digits)',
+            setNewPin: 'Set New Owner PIN (5 digits)',
             wrongPin: 'Wrong PIN',
-            loginAs: 'Login as'
+            forgotPin: 'Forgot PIN?',
+            backToRole: 'Back to role selection',
+            backToPin: 'Back to PIN entry'
         },
 
         // Dashboard
         dashboard: {
-            todaySales: "Today's Sales",
-            todayProfit: "Today's Profit",
+            todaysSales: "Today's Sales",
+            todaysProfit: "Today's Profit",
+            itemsSold: 'Items Sold',
+            transactions: 'Transactions',
+            lowStockAlert: 'Low Stock Alert',
             lowStockAlerts: 'Low Stock Alerts',
             recentSales: 'Recent Sales',
-            noSales: 'No sales yet',
-            itemsInStock: 'items in stock'
+            recentBookings: 'Recent Bookings',
+            noSales: 'No sales today',
+            noSalesToday: 'No sales today',
+            noAlerts: 'No low stock alerts',
+            itemsInStock: 'items in stock',
+            viewAll: 'View All',
+            viewAllBookings: 'View All Bookings',
+            quickActions: 'Quick Actions',
+            newSale: 'New Sale',
+            addStock: 'Add Stock',
+            newBooking: 'New Booking',
+            pickupsToday: 'Pickups Today'
         },
 
         // Sales
         sale: {
+            title: 'Sale',
+            products: '1. Products',
+            customer: '2. Customer',
+            payment: '3. Payment',
             selectCategory: 'Select Category',
             selectVariant: 'Select Variant',
+            searchProducts: 'Search products...',
             addToCart: 'Add to Cart',
             cart: 'Cart',
+            subtotal: 'Subtotal',
+            total: 'Total',
             checkout: 'Checkout',
-            customerDetails: 'Customer Details',
-            paymentMethod: 'Payment Method',
             completeSale: 'Complete Sale',
             saleCompleted: 'Sale Completed!',
             emptyCart: 'Cart is empty',
             outOfStock: 'Out of stock!',
-            addedToCart: 'Added to cart'
+            addedToCart: 'Added to cart',
+            sellingPrice: 'Selling Price',
+            costPrice: 'Cost Price',
+            profit: 'Profit',
+            paymentMethod: 'Payment Method',
+            cash: 'Cash',
+            upi: 'UPI',
+            customerDetails: 'Customer Details',
+            customerDetailsOptional: 'Customer Details (Optional)',
+            walkIn: 'Walk-in Customer',
+            walkInNote: 'Leave empty for walk-in customer',
+            selectCustomer: 'Select Customer',
+            selectExistingCustomer: 'Select Existing Customer',
+            addNew: 'Add New',
+            itemsSelected: 'items selected',
+            proceedToCheckout: 'Proceed to Checkout',
+            orderSummary: 'Order Summary',
+            totalAmount: 'Total Amount',
+            bookWithAdvance: 'Book with Advance',
+            thankYou: 'Thank you for your purchase!',
+            billSent: 'Bill sent to customer',
+            sendBill: 'Send Bill via SMS',
+            printBill: 'Print Bill',
+            newSaleBtn: 'New Sale',
+            inStock: 'In Stock',
+            available: 'available'
         },
 
         // Inventory
         inventory: {
-            stock: 'Stock',
+            title: 'Stock',
+            currentStock: 'Current Stock',
             addStock: 'Add Stock',
+            addStockDesc: 'Add items to your inventory. Track vendor details for new purchases or skip for existing stock.',
+            stockLog: 'Stock Log',
             editStock: 'Edit Stock',
             stockUpdated: 'Stock updated successfully',
-            selectStockType: 'Select Stock Type',
-            newStock: 'New Stock',
-            oldStock: 'Old Stock',
-            newStockDesc: 'Stock from vendor/supplier',
-            oldStockDesc: 'Adding existing inventory',
             vendorName: 'Vendor Name',
+            enterVendor: 'Enter vendor/supplier name',
             invoiceNumber: 'Invoice Number',
+            invoicePhoto: 'Invoice Photo',
+            camera: 'Camera',
+            file: 'File',
+            removePhoto: 'Remove Photo',
             captureInvoice: 'Capture Invoice Photo',
             startSession: 'Start Session',
+            startAddingItems: 'Start Adding Items',
             completeSession: 'Complete Session',
+            cancelSession: 'Cancel Session',
             sessionStarted: 'Session started. Add items now.',
-            itemAdded: 'Item added. Select next product.',
-            stockLogged: 'items logged successfully',
-            lowStockAlert: 'Low stock alert'
+            itemAdded: 'Item added to list',
+            itemsAdded: 'Items Added',
+            itemsLogged: 'items saved successfully',
+            lowStockAlert: 'Low stock alert',
+            alertQty: 'Alert Quantity',
+            searchInventory: 'Search inventory...',
+            searchProducts: 'Search products...',
+            allCategories: 'All Categories',
+            noProducts: 'No products found',
+            inStock: 'In Stock',
+            lowStock: 'Low Stock',
+            outOfStock: 'Out of Stock',
+            addToList: 'Add to List',
+            sessionItems: 'Session Items',
+            noItemsInSession: 'No items added yet',
+            newPurchase: 'New Purchase',
+            trackVendorDetails: 'Track vendor details and invoice',
+            newPurchaseDesc: 'Track vendor details and invoice',
+            quantityToAdd: 'Quantity',
+            reason: 'Reason for Adjustment',
+            reasonPlaceholder: 'e.g., Physical count, Damaged stock',
+            addingStockFrom: 'Adding stock from',
+            selectProduct: 'Select Product'
         },
 
         // Customers
         customers: {
+            title: 'Customers',
             allCustomers: 'All Customers',
             addCustomer: 'Add Customer',
+            addNew: '+ Add New Customer',
             editCustomer: 'Edit Customer',
             deleteCustomer: 'Delete Customer',
+            name: 'Customer Name',
             customerName: 'Customer Name',
+            phone: 'Phone Number',
             phoneNumber: 'Phone Number',
             email: 'Email',
+            enterName: 'Enter name',
+            enterPhone: 'Enter 10-digit number',
+            search: 'Search customers...',
             customerAdded: 'Customer added',
             customerUpdated: 'Customer updated',
             customerDeleted: 'Customer deleted',
-            noCustomers: 'No customers yet'
+            noCustomers: 'No customers yet',
+            searchCustomers: 'Search customers...',
+            totalPurchases: 'Total Purchases',
+            lastPurchase: 'Last Purchase',
+            viewHistory: 'View History',
+            purchaseHistory: 'Purchase History',
+            transactionHistory: 'Transaction History',
+            allTransactions: 'All Transactions',
+            noPurchases: 'No purchases yet'
+        },
+
+        // Bookings
+        bookings: {
+            title: 'Bookings',
+            today: 'Today',
+            overdue: 'Overdue',
+            upcoming: 'Upcoming',
+            all: 'All',
+            newBooking: 'New Booking',
+            createBooking: 'Create Booking',
+            activeBookings: 'Active Bookings',
+            completedBookings: 'Completed',
+            cancelledBookings: 'Cancelled',
+            bookingDetails: 'Booking Details',
+            deliveryDate: 'Delivery Date',
+            pickupDate: 'Pickup Date',
+            bookedOn: 'Booked On',
+            advanceAmount: 'Advance Amount',
+            enterAdvance: 'Enter advance amount',
+            balanceAmount: 'Balance Amount',
+            balanceRemaining: 'Balance Remaining',
+            balanceDue: 'Balance Due',
+            balanceToCollect: 'Balance to Collect',
+            enterAmount: 'Enter amount',
+            totalAmount: 'Total Amount',
+            advancePaid: 'Advance Paid',
+            amountReceived: 'Amount Received',
+            paymentHistory: 'Payment History',
+            addAdvance: 'Add Advance',
+            changeDate: 'Change Date',
+            changePickupDate: 'Change Pickup Date',
+            newPickupDate: 'New Pickup Date',
+            updateDate: 'Update Date',
+            completePickup: 'Complete Pickup',
+            markDelivered: 'Mark as Delivered',
+            cancelBooking: 'Cancel Booking',
+            keepBooking: 'Keep Booking',
+            cancelAndRefund: 'Cancel & Refund',
+            areYouSure: 'Are you sure?',
+            cancelWarning: 'This action cannot be undone. Inventory will be restored.',
+            advanceToRefund: 'Advance to Refund',
+            noBookings: 'No bookings yet',
+            status: 'Status',
+            pending: 'Pending',
+            delivered: 'Delivered',
+            cancelled: 'Cancelled',
+            refund: 'Refund',
+            pickup: 'Pickup',
+            bookingReceipt: 'Booking Receipt',
+            paymentReceived: 'Payment Received',
+            transactionDate: 'Transaction Date',
+            orderTotal: 'Order Total',
+            thisPayment: 'This Payment',
+            allPayments: 'All Payments',
+            sendSmsReceipt: 'Send SMS Receipt'
         },
 
         // Reports
         reports: {
-            dailyReport: 'Daily Report',
-            monthlyReport: 'Monthly Report',
-            bestSellers: 'Best Sellers',
-            transactions: 'Transactions',
+            title: 'Reports',
+            dailyReport: 'Daily',
+            monthlyReport: 'Monthly',
+            bestSellers: 'Products',
             stockLog: 'Stock Log',
             selectDate: 'Select Date',
             selectMonth: 'Select Month',
-            totalSales: 'Total Sales',
+            filterByDate: 'Filter by Date',
+            allDates: 'All Dates',
+            totalRevenue: 'Total Revenue',
             totalProfit: 'Total Profit',
+            totalSales: 'Total Sales',
+            profit: 'Profit',
             itemsSold: 'Items Sold',
+            transactions: 'Transactions',
             noSales: 'No sales on this date',
+            noTransactions: 'No transactions on this date',
+            viewDetails: 'View Details',
+            revenueBreakdown: 'Revenue Breakdown',
+            directSales: 'Direct Sales',
+            bookingAdvances: 'Booking Advances',
+            pickupPayments: 'Pickup Payments',
+            refunds: 'Refunds',
+            bestSellingProducts: 'Best Selling Products',
+            unitsSold: 'units sold',
+            profitPercent: 'Profit %',
+            stockEntryDetails: 'Stock Entry Details',
+            stockAdjustmentDetails: 'Stock Adjustment Details',
             vendor: 'Vendor',
             invoice: 'Invoice',
-            viewDetails: 'View Details'
+            totalItems: 'Total Items',
+            totalCost: 'Total Cost',
+            hasPhoto: 'Has Photo',
+            adjusted: 'adjusted',
+            addedBy: 'Added by',
+            adjustedBy: 'Adjusted by'
         },
 
         // Products
         products: {
+            title: 'Products',
             categories: 'Categories',
             variants: 'Variants',
+            category: 'Category',
+            addProduct: 'Add Product',
             addCategory: 'Add Category',
             addVariant: 'Add Variant',
             editCategory: 'Edit Category',
@@ -138,7 +334,20 @@ const translations = {
             deleteVariant: 'Delete Variant',
             categoryName: 'Category Name',
             variantName: 'Variant Name',
+            productName: 'Product Name',
+            productNamePlaceholder: 'e.g., Almara',
+            variantsPerLine: 'Variants (one per line)',
+            variantsPlaceholder: 'e.g.,\n2 Door\n3 Door\n4 Door',
+            selectIcon: 'Select Icon',
             selectEmoji: 'Select Emoji',
+            categoryIcon: 'Category Icon',
+            categoryNamePlaceholder: 'e.g., Almara',
+            variantNamePlaceholder: 'e.g., Double Door',
+            currentName: 'Current Name',
+            newName: 'New Name',
+            enterNewName: 'Enter new name',
+            addingTo: 'Adding to',
+            editVariantNote: 'This will update the variant name across all inventory, sales, and bookings.',
             categoryAdded: 'Category added',
             categoryUpdated: 'Category updated',
             categoryDeleted: 'Category deleted',
@@ -147,22 +356,93 @@ const translations = {
             variantDeleted: 'Variant deleted',
             categoryExists: 'Category already exists',
             variantExists: 'Variant already exists',
-            cannotDelete: 'Cannot delete - items in stock'
+            cannotDelete: 'Cannot delete - items in stock',
+            manageCategories: 'Manage Categories',
+            backToProducts: 'Back to Products',
+            deleteCategoryWarning: 'This will remove all variants and inventory under this category.',
+            deleteVariantWarning: 'This will remove the variant and its inventory data.',
+            aboutToDelete: 'You are about to delete',
+            andAllVariants: 'and all its variants',
+            fromCategory: 'from',
+            cannotUndoInventory: 'This action cannot be undone. Inventory data will be removed.',
+            yesDelete: 'Yes, Delete'
         },
 
         // Settings
         settings: {
-            changePin: 'Change PIN',
-            backup: 'Backup & Restore',
-            syncStatus: 'Sync Status',
+            title: 'Settings',
+            ownerPin: 'Owner PIN',
+            ownerPinDesc: 'Set a 5-digit PIN to protect sensitive information',
+            changePin: 'Change Owner PIN',
+            dataBackup: 'Data Backup',
+            backupDesc: 'Download your data as a backup file',
             downloadBackup: 'Download Backup',
-            uploadBackup: 'Upload Backup',
-            newPin: 'New PIN',
-            confirmPin: 'Confirm PIN',
-            pinChanged: 'PIN changed successfully',
-            pinsDoNotMatch: 'PINs do not match',
-            backupDownloaded: 'Backup downloaded',
-            dataRestored: 'Data restored successfully'
+            restoreBackup: 'Restore from Backup',
+            autoSync: 'Auto Sync Status',
+            autoSyncDesc: 'Data syncs automatically across all devices in real-time using timestamp-based merging.',
+            connection: 'Connection',
+            lastActivity: 'Last Activity',
+            syncMode: 'Sync Mode',
+            realTime: 'Real-time',
+            dataCounts: 'Data Counts',
+            refreshStatus: 'Refresh Status',
+            recentErrors: 'Recent Errors',
+            language: 'Language',
+            languageDesc: 'Select your preferred language for the app',
+            languageNote: 'Note: Translation feature is currently in development. Only common interface elements are translated.',
+            inventoryValue: 'Total Inventory Value',
+            inventoryValueDesc: 'View the total value of your current stock inventory',
+            viewInventoryValue: 'View Inventory Value',
+            totalCostPrice: 'Total Cost Price',
+            totalSellingPrice: 'Total Selling Price',
+            potentialProfit: 'Potential Profit',
+            totalItems: 'Total Items',
+            uniqueProducts: 'Unique Products in Stock',
+            comingSoon: 'Coming Soon',
+            monthlyExpenses: 'Monthly Expense Tracking',
+            monthlyExpensesDesc: 'Track rent, electricity, and other monthly expenses',
+            vendorList: 'Vendor/Supplier List',
+            vendorListDesc: 'Manage your suppliers with contact details',
+            emiTracking: 'EMI/Installment Tracking',
+            emiTrackingDesc: 'Track customer payments in installments',
+            about: 'About',
+            version: 'Manikanta Enterprises v1.0',
+            builtFor: 'Built for your business',
+            checking: 'Checking...'
+        },
+
+        // Modals
+        modals: {
+            confirm: 'Confirm',
+            areYouSure: 'Are you sure?',
+            cannotUndo: 'This action cannot be undone.',
+            deleteConfirm: 'Delete this item?',
+            saveChanges: 'Save Changes',
+            discardChanges: 'Discard Changes',
+            addToCart: 'Add to Cart',
+            sellingPrice: 'Selling Price',
+            suggested: 'Suggested',
+            quantity: 'Quantity',
+            addNewCustomer: 'Add New Customer',
+            saleComplete: 'Sale Complete!',
+            smsBillPreview: 'SMS Bill Preview',
+            sendBillSms: 'Send Bill via SMS',
+            editStock: 'Edit Stock',
+            currentStockQty: 'Current Stock Quantity',
+            enterQuantity: 'Enter quantity',
+            enterCostPrice: 'Enter cost price',
+            enterSellingPrice: 'Enter selling price',
+            costPricePerUnit: 'Cost Price (per unit)',
+            sellingPricePerUnit: 'Selling Price (per unit)',
+            lowStockAlert: 'Low Stock Alert (warn when below)',
+            reasonForAdjustment: 'Reason for Adjustment',
+            adjustmentExample: 'e.g., Physical count, Damaged stock, Error correction',
+            loggedForAudit: 'This will be logged for audit purposes',
+            quantityToAdd: 'Quantity to Add',
+            addToList: 'Add to List',
+            transactionDetails: 'Transaction Details',
+            addToCustomersList: 'Add to Customers List',
+            deleteTransaction: 'Delete Transaction'
         },
 
         // Validation
@@ -184,7 +464,8 @@ const translations = {
             syncFailed: 'Sync failed',
             connectionError: 'Connection error',
             notFound: 'Not found',
-            accessDenied: 'Access denied'
+            accessDenied: 'Access denied',
+            ownerAccessRequired: 'Owner access required'
         },
 
         // Date/Time
@@ -196,14 +477,11 @@ const translations = {
             lastWeek: 'Last Week',
             thisMonth: 'This Month',
             lastMonth: 'Last Month',
-            months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-            monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-            daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+            at: 'at'
         }
     },
 
-    // Telugu translations (placeholder - to be filled)
+    // Telugu translations
     te: {
         common: {
             save: 'సేవ్ చేయండి',
@@ -219,12 +497,450 @@ const translations = {
             no: 'కాదు',
             ok: 'సరే',
             loading: 'లోడ్ అవుతోంది...',
-            noData: 'డేటా లేదు'
+            noData: 'డేటా లేదు',
+            view: 'చూడండి',
+            details: 'వివరాలు',
+            total: 'మొత్తం',
+            quantity: 'పరిమాణం',
+            price: 'ధర',
+            amount: 'మొత్తం',
+            date: 'తేదీ',
+            time: 'సమయం',
+            name: 'పేరు',
+            phone: 'ఫోన్',
+            email: 'ఇమెయిల్',
+            required: 'అవసరం',
+            optional: 'ఐచ్ఛికం',
+            all: 'అన్నీ',
+            none: 'ఏదీ లేదు',
+            items: 'వస్తువులు',
+            clear: 'క్లియర్',
+            continue: 'కొనసాగించు',
+            done: 'పూర్తయింది',
+            complete: 'పూర్తి చేయండి',
+            saveChanges: 'మార్పులు సేవ్ చేయండి',
+            synced: 'సింక్ అయింది',
+            switchUser: 'వాడుకరి మార్చు'
+        },
+
+        nav: {
+            dashboard: 'హోమ్',
+            sale: 'అమ్మకం',
+            inventory: 'స్టాక్',
+            bookings: 'బుకింగ్స్',
+            customers: 'కస్టమర్లు',
+            reports: 'రిపోర్ట్స్',
+            settings: 'సెట్టింగ్స్'
+        },
+
+        login: {
+            title: 'మణికాంత ఎంటర్‌ప్రైజెస్',
+            loadingData: 'డేటా లోడ్ అవుతోంది...',
+            syncingData: 'మీ డేటా సింక్ అవుతోంది...',
+            selectRole: 'మీ పాత్రను ఎంచుకోండి',
+            owner: 'యజమాని',
+            ownerDesc: 'పూర్తి యాక్సెస్ - PIN అవసరం',
+            manager: 'మేనేజర్',
+            managerDesc: 'అమ్మకాలు & రోజువారీ కార్యకలాపాలు',
+            enterPin: 'యజమాని PIN నమోదు చేయండి',
+            enterMasterPin: 'మాస్టర్ PIN నమోదు చేయండి (6 అంకెలు)',
+            setNewPin: 'కొత్త యజమాని PIN సెట్ చేయండి (5 అంకెలు)',
+            wrongPin: 'తప్పు PIN',
+            forgotPin: 'PIN మర్చిపోయారా?',
+            backToRole: 'పాత్ర ఎంపికకు తిరిగి వెళ్ళండి',
+            backToPin: 'PIN ఎంట్రీకి తిరిగి వెళ్ళండి'
+        },
+
+        dashboard: {
+            todaysSales: 'ఈరోజు అమ్మకాలు',
+            todaysProfit: 'ఈరోజు లాభం',
+            itemsSold: 'అమ్మిన వస్తువులు',
+            transactions: 'లావాదేవీలు',
+            lowStockAlert: 'తక్కువ స్టాక్ హెచ్చరిక',
+            lowStockAlerts: 'తక్కువ స్టాక్ హెచ్చరికలు',
+            recentSales: 'ఇటీవల అమ్మకాలు',
+            recentBookings: 'ఇటీవల బుకింగ్స్',
+            noSales: 'ఈరోజు అమ్మకాలు లేవు',
+            noSalesToday: 'ఈరోజు అమ్మకాలు లేవు',
+            noAlerts: 'తక్కువ స్టాక్ హెచ్చరికలు లేవు',
+            itemsInStock: 'స్టాక్‌లో వస్తువులు',
+            viewAll: 'అన్నీ చూడండి',
+            viewAllBookings: 'అన్ని బుకింగ్‌లు చూడండి',
+            quickActions: 'త్వరిత చర్యలు',
+            newSale: 'కొత్త అమ్మకం',
+            addStock: 'స్టాక్ జోడించు',
+            newBooking: 'కొత్త బుకింగ్',
+            pickupsToday: 'ఈరోజు పికప్‌లు'
+        },
+
+        sale: {
+            title: 'అమ్మకం',
+            products: '1. ఉత్పత్తులు',
+            customer: '2. కస్టమర్',
+            payment: '3. చెల్లింపు',
+            selectCategory: 'వర్గాన్ని ఎంచుకోండి',
+            selectVariant: 'వేరియంట్ ఎంచుకోండి',
+            searchProducts: 'ఉత్పత్తులను వెతకండి...',
+            addToCart: 'కార్ట్‌కు జోడించు',
+            cart: 'కార్ట్',
+            subtotal: 'ఉప మొత్తం',
+            total: 'మొత్తం',
+            checkout: 'చెక్అవుట్',
+            completeSale: 'అమ్మకం పూర్తి చేయండి',
+            saleCompleted: 'అమ్మకం పూర్తయింది!',
+            emptyCart: 'కార్ట్ ఖాళీగా ఉంది',
+            outOfStock: 'స్టాక్ లేదు!',
+            addedToCart: 'కార్ట్‌కు జోడించబడింది',
+            sellingPrice: 'అమ్మకపు ధర',
+            costPrice: 'ఖర్చు ధర',
+            profit: 'లాభం',
+            paymentMethod: 'చెల్లింపు పద్ధతి',
+            cash: 'నగదు',
+            upi: 'UPI',
+            customerDetails: 'కస్టమర్ వివరాలు',
+            customerDetailsOptional: 'కస్టమర్ వివరాలు (ఐచ్ఛికం)',
+            walkIn: 'వాక్-ఇన్ కస్టమర్',
+            walkInNote: 'వాక్-ఇన్ కస్టమర్ కోసం ఖాళీగా ఉంచండి',
+            selectCustomer: 'కస్టమర్ ఎంచుకోండి',
+            selectExistingCustomer: 'ఇప్పటికే ఉన్న కస్టమర్ ఎంచుకోండి',
+            addNew: 'కొత్తది జోడించు',
+            itemsSelected: 'వస్తువులు ఎంపిక చేయబడ్డాయి',
+            proceedToCheckout: 'చెక్అవుట్‌కు వెళ్ళండి',
+            orderSummary: 'ఆర్డర్ సారాంశం',
+            totalAmount: 'మొత్తం మొత్తం',
+            bookWithAdvance: 'అడ్వాన్స్‌తో బుక్ చేయండి',
+            thankYou: 'మీ కొనుగోలుకు ధన్యవాదాలు!',
+            billSent: 'బిల్లు కస్టమర్‌కు పంపబడింది',
+            sendBill: 'SMS ద్వారా బిల్లు పంపండి',
+            printBill: 'బిల్లు ప్రింట్ చేయండి',
+            newSaleBtn: 'కొత్త అమ్మకం',
+            inStock: 'స్టాక్‌లో',
+            available: 'అందుబాటులో'
+        },
+
+        inventory: {
+            title: 'స్టాక్',
+            currentStock: 'ప్రస్తుత స్టాక్',
+            addStock: 'స్టాక్ జోడించు',
+            addStockDesc: 'మీ ఇన్వెంటరీకి వస్తువులు జోడించండి.',
+            stockLog: 'స్టాక్ లాగ్',
+            editStock: 'స్టాక్ సవరించు',
+            stockUpdated: 'స్టాక్ విజయవంతంగా అప్‌డేట్ చేయబడింది',
+            vendorName: 'వెండర్ పేరు',
+            enterVendor: 'వెండర్/సప్లయర్ పేరు నమోదు చేయండి',
+            invoiceNumber: 'ఇన్వాయిస్ నంబర్',
+            invoicePhoto: 'ఇన్వాయిస్ ఫోటో',
+            camera: 'కెమెరా',
+            file: 'ఫైల్',
+            removePhoto: 'ఫోటో తొలగించు',
+            captureInvoice: 'ఇన్వాయిస్ ఫోటో తీయండి',
+            startSession: 'సెషన్ ప్రారంభించు',
+            startAddingItems: 'వస్తువులు జోడించడం ప్రారంభించండి',
+            completeSession: 'సెషన్ పూర్తి చేయండి',
+            cancelSession: 'సెషన్ రద్దు చేయండి',
+            sessionStarted: 'సెషన్ ప్రారంభమైంది. ఇప్పుడు వస్తువులు జోడించండి.',
+            itemAdded: 'వస్తువు జాబితాకు జోడించబడింది',
+            itemsAdded: 'జోడించిన వస్తువులు',
+            itemsLogged: 'వస్తువులు విజయవంతంగా సేవ్ చేయబడ్డాయి',
+            lowStockAlert: 'తక్కువ స్టాక్ హెచ్చరిక',
+            alertQty: 'హెచ్చరిక పరిమాణం',
+            searchInventory: 'ఇన్వెంటరీ వెతకండి...',
+            searchProducts: 'ఉత్పత్తులను వెతకండి...',
+            allCategories: 'అన్ని వర్గాలు',
+            noProducts: 'ఉత్పత్తులు కనుగొనబడలేదు',
+            inStock: 'స్టాక్‌లో',
+            lowStock: 'తక్కువ స్టాక్',
+            outOfStock: 'స్టాక్ లేదు',
+            addToList: 'జాబితాకు జోడించు',
+            sessionItems: 'సెషన్ వస్తువులు',
+            noItemsInSession: 'ఇంకా వస్తువులు జోడించబడలేదు',
+            newPurchase: 'కొత్త కొనుగోలు',
+            trackVendorDetails: 'వెండర్ వివరాలు మరియు ఇన్వాయిస్ ట్రాక్ చేయండి',
+            newPurchaseDesc: 'వెండర్ వివరాలు మరియు ఇన్వాయిస్ ట్రాక్ చేయండి',
+            quantityToAdd: 'పరిమాణం',
+            reason: 'సర్దుబాటు కారణం',
+            reasonPlaceholder: 'ఉదా., ఫిజికల్ కౌంట్, దెబ్బతిన్న స్టాక్',
+            addingStockFrom: 'నుండి స్టాక్ జోడిస్తోంది',
+            selectProduct: 'ఉత్పత్తి ఎంచుకోండి'
+        },
+
+        customers: {
+            title: 'కస్టమర్లు',
+            allCustomers: 'అందరు కస్టమర్లు',
+            addCustomer: 'కస్టమర్ జోడించు',
+            addNew: '+ కొత్త కస్టమర్ జోడించు',
+            editCustomer: 'కస్టమర్ సవరించు',
+            deleteCustomer: 'కస్టమర్ తొలగించు',
+            name: 'కస్టమర్ పేరు',
+            customerName: 'కస్టమర్ పేరు',
+            phone: 'ఫోన్ నంబర్',
+            phoneNumber: 'ఫోన్ నంబర్',
+            email: 'ఇమెయిల్',
+            enterName: 'పేరు నమోదు చేయండి',
+            enterPhone: '10 అంకెల నంబర్ నమోదు చేయండి',
+            search: 'కస్టమర్లను వెతకండి...',
+            customerAdded: 'కస్టమర్ జోడించబడింది',
+            customerUpdated: 'కస్టమర్ అప్‌డేట్ చేయబడింది',
+            customerDeleted: 'కస్టమర్ తొలగించబడింది',
+            noCustomers: 'ఇంకా కస్టమర్లు లేరు',
+            searchCustomers: 'కస్టమర్లను వెతకండి...',
+            totalPurchases: 'మొత్తం కొనుగోళ్లు',
+            lastPurchase: 'చివరి కొనుగోలు',
+            viewHistory: 'చరిత్ర చూడండి',
+            purchaseHistory: 'కొనుగోలు చరిత్ర',
+            transactionHistory: 'లావాదేవీ చరిత్ర',
+            allTransactions: 'అన్ని లావాదేవీలు',
+            noPurchases: 'ఇంకా కొనుగోళ్లు లేవు'
+        },
+
+        bookings: {
+            title: 'బుకింగ్స్',
+            today: 'ఈరోజు',
+            overdue: 'గడువు దాటింది',
+            upcoming: 'రాబోయేవి',
+            all: 'అన్నీ',
+            newBooking: 'కొత్త బుకింగ్',
+            createBooking: 'బుకింగ్ సృష్టించు',
+            activeBookings: 'యాక్టివ్ బుకింగ్స్',
+            completedBookings: 'పూర్తయినవి',
+            cancelledBookings: 'రద్దు చేయబడినవి',
+            bookingDetails: 'బుకింగ్ వివరాలు',
+            deliveryDate: 'డెలివరీ తేదీ',
+            pickupDate: 'పికప్ తేదీ',
+            bookedOn: 'బుక్ చేసిన తేదీ',
+            advanceAmount: 'అడ్వాన్స్ మొత్తం',
+            enterAdvance: 'అడ్వాన్స్ మొత్తం నమోదు చేయండి',
+            balanceAmount: 'బ్యాలెన్స్ మొత్తం',
+            balanceRemaining: 'మిగిలిన బ్యాలెన్స్',
+            balanceDue: 'చెల్లించవలసిన బ్యాలెన్స్',
+            balanceToCollect: 'సేకరించవలసిన బ్యాలెన్స్',
+            enterAmount: 'మొత్తం నమోదు చేయండి',
+            totalAmount: 'మొత్తం',
+            advancePaid: 'చెల్లించిన అడ్వాన్స్',
+            amountReceived: 'అందుకున్న మొత్తం',
+            paymentHistory: 'చెల్లింపు చరిత్ర',
+            addAdvance: 'అడ్వాన్స్ జోడించు',
+            changeDate: 'తేదీ మార్చు',
+            changePickupDate: 'పికప్ తేదీ మార్చు',
+            newPickupDate: 'కొత్త పికప్ తేదీ',
+            updateDate: 'తేదీ అప్‌డేట్ చేయండి',
+            completePickup: 'పికప్ పూర్తి చేయండి',
+            markDelivered: 'డెలివర్ అయినట్లు మార్క్ చేయండి',
+            cancelBooking: 'బుకింగ్ రద్దు చేయండి',
+            keepBooking: 'బుకింగ్ ఉంచండి',
+            cancelAndRefund: 'రద్దు చేసి రీఫండ్ చేయండి',
+            areYouSure: 'మీరు ఖచ్చితంగా ఉన్నారా?',
+            cancelWarning: 'ఈ చర్యను రద్దు చేయలేము. ఇన్వెంటరీ పునరుద్ధరించబడుతుంది.',
+            advanceToRefund: 'రీఫండ్ చేయవలసిన అడ్వాన్స్',
+            noBookings: 'ఇంకా బుకింగ్స్ లేవు',
+            status: 'స్థితి',
+            pending: 'పెండింగ్',
+            delivered: 'డెలివర్ అయింది',
+            cancelled: 'రద్దు చేయబడింది',
+            refund: 'రీఫండ్',
+            pickup: 'పికప్',
+            bookingReceipt: 'బుకింగ్ రసీదు',
+            paymentReceived: 'చెల్లింపు అందింది',
+            transactionDate: 'లావాదేవీ తేదీ',
+            orderTotal: 'ఆర్డర్ మొత్తం',
+            thisPayment: 'ఈ చెల్లింపు',
+            allPayments: 'అన్ని చెల్లింపులు',
+            sendSmsReceipt: 'SMS రసీదు పంపండి'
+        },
+
+        reports: {
+            title: 'రిపోర్ట్స్',
+            dailyReport: 'రోజువారీ',
+            monthlyReport: 'నెలవారీ',
+            bestSellers: 'ఉత్పత్తులు',
+            stockLog: 'స్టాక్ లాగ్',
+            selectDate: 'తేదీ ఎంచుకోండి',
+            selectMonth: 'నెల ఎంచుకోండి',
+            filterByDate: 'తేదీ ద్వారా ఫిల్టర్ చేయండి',
+            allDates: 'అన్ని తేదీలు',
+            totalRevenue: 'మొత్తం ఆదాయం',
+            totalProfit: 'మొత్తం లాభం',
+            totalSales: 'మొత్తం అమ్మకాలు',
+            profit: 'లాభం',
+            itemsSold: 'అమ్మిన వస్తువులు',
+            transactions: 'లావాదేవీలు',
+            noSales: 'ఈ తేదీన అమ్మకాలు లేవు',
+            noTransactions: 'ఈ తేదీన లావాదేవీలు లేవు',
+            viewDetails: 'వివరాలు చూడండి',
+            revenueBreakdown: 'ఆదాయ విభజన',
+            directSales: 'ప్రత్యక్ష అమ్మకాలు',
+            bookingAdvances: 'బుకింగ్ అడ్వాన్సులు',
+            pickupPayments: 'పికప్ చెల్లింపులు',
+            refunds: 'రీఫండ్లు',
+            bestSellingProducts: 'అత్యధికంగా అమ్ముడవుతున్న ఉత్పత్తులు',
+            unitsSold: 'యూనిట్లు అమ్ముడయ్యాయి',
+            profitPercent: 'లాభం %',
+            stockEntryDetails: 'స్టాక్ ఎంట్రీ వివరాలు',
+            stockAdjustmentDetails: 'స్టాక్ సర్దుబాటు వివరాలు',
+            vendor: 'వెండర్',
+            invoice: 'ఇన్వాయిస్',
+            totalItems: 'మొత్తం వస్తువులు',
+            totalCost: 'మొత్తం ఖర్చు',
+            hasPhoto: 'ఫోటో ఉంది',
+            adjusted: 'సర్దుబాటు చేయబడింది',
+            addedBy: 'జోడించినది',
+            adjustedBy: 'సర్దుబాటు చేసినది'
+        },
+
+        products: {
+            title: 'ఉత్పత్తులు',
+            categories: 'వర్గాలు',
+            variants: 'వేరియంట్లు',
+            category: 'వర్గం',
+            addProduct: 'ఉత్పత్తి జోడించు',
+            addCategory: 'వర్గం జోడించు',
+            addVariant: 'వేరియంట్ జోడించు',
+            editCategory: 'వర్గం సవరించు',
+            editVariant: 'వేరియంట్ సవరించు',
+            deleteCategory: 'వర్గం తొలగించు',
+            deleteVariant: 'వేరియంట్ తొలగించు',
+            categoryName: 'వర్గం పేరు',
+            variantName: 'వేరియంట్ పేరు',
+            productName: 'ఉత్పత్తి పేరు',
+            productNamePlaceholder: 'ఉదా., అల్మారా',
+            variantsPerLine: 'వేరియంట్లు (ఒక్కో వరుసకు ఒకటి)',
+            variantsPlaceholder: 'ఉదా.,\n2 డోర్\n3 డోర్\n4 డోర్',
+            selectIcon: 'చిహ్నం ఎంచుకోండి',
+            selectEmoji: 'ఎమోజీ ఎంచుకోండి',
+            categoryIcon: 'వర్గం చిహ్నం',
+            categoryNamePlaceholder: 'ఉదా., అల్మారా',
+            variantNamePlaceholder: 'ఉదా., డబుల్ డోర్',
+            currentName: 'ప్రస్తుత పేరు',
+            newName: 'కొత్త పేరు',
+            enterNewName: 'కొత్త పేరు నమోదు చేయండి',
+            addingTo: 'దీనికి జోడిస్తోంది',
+            editVariantNote: 'ఇది అన్ని ఇన్వెంటరీ, అమ్మకాలు మరియు బుకింగ్‌లలో వేరియంట్ పేరును అప్‌డేట్ చేస్తుంది.',
+            categoryAdded: 'వర్గం జోడించబడింది',
+            categoryUpdated: 'వర్గం అప్‌డేట్ చేయబడింది',
+            categoryDeleted: 'వర్గం తొలగించబడింది',
+            variantAdded: 'వేరియంట్ జోడించబడింది',
+            variantUpdated: 'వేరియంట్ అప్‌డేట్ చేయబడింది',
+            variantDeleted: 'వేరియంట్ తొలగించబడింది',
+            categoryExists: 'వర్గం ఇప్పటికే ఉంది',
+            variantExists: 'వేరియంట్ ఇప్పటికే ఉంది',
+            cannotDelete: 'తొలగించలేము - స్టాక్‌లో వస్తువులు ఉన్నాయి',
+            manageCategories: 'వర్గాలను నిర్వహించండి',
+            backToProducts: 'ఉత్పత్తులకు తిరిగి వెళ్ళండి',
+            deleteCategoryWarning: 'ఈ వర్గం కింద ఉన్న అన్ని వేరియంట్లు మరియు ఇన్వెంటరీ తొలగించబడతాయి.',
+            deleteVariantWarning: 'వేరియంట్ మరియు దాని ఇన్వెంటరీ డేటా తొలగించబడతాయి.',
+            aboutToDelete: 'మీరు తొలగించబోతున్నారు',
+            andAllVariants: 'మరియు దాని అన్ని వేరియంట్లు',
+            fromCategory: 'నుండి',
+            cannotUndoInventory: 'ఈ చర్యను రద్దు చేయలేము. ఇన్వెంటరీ డేటా తొలగించబడుతుంది.',
+            yesDelete: 'అవును, తొలగించు'
+        },
+
+        settings: {
+            title: 'సెట్టింగ్స్',
+            ownerPin: 'యజమాని PIN',
+            ownerPinDesc: 'సున్నితమైన సమాచారాన్ని రక్షించడానికి 5 అంకెల PIN సెట్ చేయండి',
+            changePin: 'యజమాని PIN మార్చండి',
+            dataBackup: 'డేటా బ్యాకప్',
+            backupDesc: 'మీ డేటాను బ్యాకప్ ఫైల్‌గా డౌన్‌లోడ్ చేయండి',
+            downloadBackup: 'బ్యాకప్ డౌన్‌లోడ్ చేయండి',
+            restoreBackup: 'బ్యాకప్ నుండి పునరుద్ధరించండి',
+            autoSync: 'ఆటో సింక్ స్థితి',
+            autoSyncDesc: 'డేటా అన్ని పరికరాలలో రియల్-టైమ్‌లో స్వయంచాలకంగా సింక్ అవుతుంది.',
+            connection: 'కనెక్షన్',
+            lastActivity: 'చివరి కార్యాచరణ',
+            syncMode: 'సింక్ మోడ్',
+            realTime: 'రియల్-టైమ్',
+            dataCounts: 'డేటా కౌంట్లు',
+            refreshStatus: 'స్థితి రిఫ్రెష్ చేయండి',
+            recentErrors: 'ఇటీవలి లోపాలు',
+            language: 'భాష',
+            languageDesc: 'యాప్ కోసం మీకు ఇష్టమైన భాషను ఎంచుకోండి',
+            languageNote: 'గమనిక: అనువాద ఫీచర్ ప్రస్తుతం అభివృద్ధిలో ఉంది.',
+            inventoryValue: 'మొత్తం ఇన్వెంటరీ విలువ',
+            inventoryValueDesc: 'మీ ప్రస్తుత స్టాక్ ఇన్వెంటరీ యొక్క మొత్తం విలువను చూడండి',
+            viewInventoryValue: 'ఇన్వెంటరీ విలువ చూడండి',
+            totalCostPrice: 'మొత్తం ఖర్చు ధర',
+            totalSellingPrice: 'మొత్తం అమ్మకపు ధర',
+            potentialProfit: 'సంభావ్య లాభం',
+            totalItems: 'మొత్తం వస్తువులు',
+            uniqueProducts: 'స్టాక్‌లో ప్రత్యేక ఉత్పత్తులు',
+            comingSoon: 'త్వరలో వస్తోంది',
+            monthlyExpenses: 'నెలవారీ ఖర్చుల ట్రాకింగ్',
+            monthlyExpensesDesc: 'అద్దె, విద్యుత్ మరియు ఇతర నెలవారీ ఖర్చులను ట్రాక్ చేయండి',
+            vendorList: 'వెండర్/సప్లయర్ జాబితా',
+            vendorListDesc: 'కాంటాక్ట్ వివరాలతో మీ సప్లయర్లను నిర్వహించండి',
+            emiTracking: 'EMI/వాయిదా ట్రాకింగ్',
+            emiTrackingDesc: 'వాయిదాల్లో కస్టమర్ చెల్లింపులను ట్రాక్ చేయండి',
+            about: 'గురించి',
+            version: 'మణికాంత ఎంటర్‌ప్రైజెస్ v1.0',
+            builtFor: 'మీ వ్యాపారం కోసం నిర్మించబడింది',
+            checking: 'తనిఖీ చేస్తోంది...'
+        },
+
+        modals: {
+            confirm: 'నిర్ధారించు',
+            areYouSure: 'మీరు ఖచ్చితంగా ఉన్నారా?',
+            cannotUndo: 'ఈ చర్యను రద్దు చేయలేము.',
+            deleteConfirm: 'ఈ అంశాన్ని తొలగించాలా?',
+            saveChanges: 'మార్పులు సేవ్ చేయండి',
+            discardChanges: 'మార్పులు విస్మరించండి',
+            addToCart: 'కార్ట్‌కు జోడించు',
+            sellingPrice: 'అమ్మకపు ధర',
+            suggested: 'సూచించినది',
+            quantity: 'పరిమాణం',
+            addNewCustomer: 'కొత్త కస్టమర్ జోడించు',
+            saleComplete: 'అమ్మకం పూర్తయింది!',
+            smsBillPreview: 'SMS బిల్లు ప్రివ్యూ',
+            sendBillSms: 'SMS ద్వారా బిల్లు పంపండి',
+            editStock: 'స్టాక్ సవరించు',
+            currentStockQty: 'ప్రస్తుత స్టాక్ పరిమాణం',
+            enterQuantity: 'పరిమాణం నమోదు చేయండి',
+            enterCostPrice: 'ఖర్చు ధర నమోదు చేయండి',
+            enterSellingPrice: 'అమ్మకపు ధర నమోదు చేయండి',
+            costPricePerUnit: 'ఖర్చు ధర (యూనిట్‌కు)',
+            sellingPricePerUnit: 'అమ్మకపు ధర (యూనిట్‌కు)',
+            lowStockAlert: 'తక్కువ స్టాక్ హెచ్చరిక',
+            reasonForAdjustment: 'సర్దుబాటు కారణం',
+            adjustmentExample: 'ఉదా., ఫిజికల్ కౌంట్, దెబ్బతిన్న స్టాక్',
+            loggedForAudit: 'ఇది ఆడిట్ ప్రయోజనాల కోసం లాగ్ చేయబడుతుంది',
+            quantityToAdd: 'జోడించవలసిన పరిమాణం',
+            addToList: 'జాబితాకు జోడించు',
+            transactionDetails: 'లావాదేవీ వివరాలు',
+            addToCustomersList: 'కస్టమర్ల జాబితాకు జోడించు',
+            deleteTransaction: 'లావాదేవీ తొలగించు'
+        },
+
+        validation: {
+            required: '{field} అవసరం',
+            invalidPhone: 'చెల్లని ఫోన్ నంబర్',
+            invalidEmail: 'చెల్లని ఇమెయిల్ చిరునామా',
+            mustBePositive: '{field} సానుకూలంగా ఉండాలి',
+            mustBeNumber: '{field} సంఖ్య అయి ఉండాలి'
+        },
+
+        errors: {
+            loadFailed: 'డేటా లోడ్ చేయడంలో విఫలమైంది',
+            saveFailed: 'డేటా సేవ్ చేయడంలో విఫలమైంది',
+            syncFailed: 'సింక్ విఫలమైంది',
+            connectionError: 'కనెక్షన్ లోపం',
+            notFound: 'కనుగొనబడలేదు',
+            accessDenied: 'యాక్సెస్ నిరాకరించబడింది',
+            ownerAccessRequired: 'యజమాని యాక్సెస్ అవసరం'
+        },
+
+        datetime: {
+            today: 'ఈరోజు',
+            yesterday: 'నిన్న',
+            tomorrow: 'రేపు',
+            thisWeek: 'ఈ వారం',
+            lastWeek: 'గత వారం',
+            thisMonth: 'ఈ నెల',
+            lastMonth: 'గత నెల',
+            at: 'న'
         }
-        // More Telugu translations can be added as needed
     },
 
-    // Hindi translations (placeholder - to be filled)
+    // Hindi translations
     hi: {
         common: {
             save: 'सहेजें',
@@ -240,9 +956,447 @@ const translations = {
             no: 'नहीं',
             ok: 'ठीक है',
             loading: 'लोड हो रहा है...',
-            noData: 'कोई डेटा उपलब्ध नहीं'
+            noData: 'कोई डेटा उपलब्ध नहीं',
+            view: 'देखें',
+            details: 'विवरण',
+            total: 'कुल',
+            quantity: 'मात्रा',
+            price: 'कीमत',
+            amount: 'राशि',
+            date: 'तारीख',
+            time: 'समय',
+            name: 'नाम',
+            phone: 'फोन',
+            email: 'ईमेल',
+            required: 'आवश्यक',
+            optional: 'वैकल्पिक',
+            all: 'सभी',
+            none: 'कोई नहीं',
+            items: 'आइटम',
+            clear: 'साफ़ करें',
+            continue: 'जारी रखें',
+            done: 'हो गया',
+            complete: 'पूर्ण करें',
+            saveChanges: 'परिवर्तन सहेजें',
+            synced: 'सिंक हो गया',
+            switchUser: 'उपयोगकर्ता बदलें'
+        },
+
+        nav: {
+            dashboard: 'होम',
+            sale: 'बिक्री',
+            inventory: 'स्टॉक',
+            bookings: 'बुकिंग',
+            customers: 'ग्राहक',
+            reports: 'रिपोर्ट',
+            settings: 'सेटिंग्स'
+        },
+
+        login: {
+            title: 'मणिकांत एंटरप्राइजेज',
+            loadingData: 'डेटा लोड हो रहा है...',
+            syncingData: 'आपका डेटा सिंक हो रहा है...',
+            selectRole: 'अपनी भूमिका चुनें',
+            owner: 'मालिक',
+            ownerDesc: 'पूर्ण पहुंच - PIN आवश्यक',
+            manager: 'प्रबंधक',
+            managerDesc: 'बिक्री और दैनिक संचालन',
+            enterPin: 'मालिक PIN दर्ज करें',
+            enterMasterPin: 'मास्टर PIN दर्ज करें (6 अंक)',
+            setNewPin: 'नया मालिक PIN सेट करें (5 अंक)',
+            wrongPin: 'गलत PIN',
+            forgotPin: 'PIN भूल गए?',
+            backToRole: 'भूमिका चयन पर वापस जाएं',
+            backToPin: 'PIN प्रविष्टि पर वापस जाएं'
+        },
+
+        dashboard: {
+            todaysSales: 'आज की बिक्री',
+            todaysProfit: 'आज का लाभ',
+            itemsSold: 'बेचे गए आइटम',
+            transactions: 'लेन-देन',
+            lowStockAlert: 'कम स्टॉक अलर्ट',
+            lowStockAlerts: 'कम स्टॉक अलर्ट',
+            recentSales: 'हाल की बिक्री',
+            recentBookings: 'हाल की बुकिंग',
+            noSales: 'आज कोई बिक्री नहीं',
+            noSalesToday: 'आज कोई बिक्री नहीं',
+            noAlerts: 'कोई कम स्टॉक अलर्ट नहीं',
+            itemsInStock: 'स्टॉक में आइटम',
+            viewAll: 'सभी देखें',
+            viewAllBookings: 'सभी बुकिंग देखें',
+            quickActions: 'त्वरित कार्रवाई',
+            newSale: 'नई बिक्री',
+            addStock: 'स्टॉक जोड़ें',
+            newBooking: 'नई बुकिंग',
+            pickupsToday: 'आज के पिकअप'
+        },
+
+        sale: {
+            title: 'बिक्री',
+            products: '1. उत्पाद',
+            customer: '2. ग्राहक',
+            payment: '3. भुगतान',
+            selectCategory: 'श्रेणी चुनें',
+            selectVariant: 'वेरिएंट चुनें',
+            searchProducts: 'उत्पाद खोजें...',
+            addToCart: 'कार्ट में जोड़ें',
+            cart: 'कार्ट',
+            subtotal: 'उप-योग',
+            total: 'कुल',
+            checkout: 'चेकआउट',
+            completeSale: 'बिक्री पूर्ण करें',
+            saleCompleted: 'बिक्री पूर्ण!',
+            emptyCart: 'कार्ट खाली है',
+            outOfStock: 'स्टॉक में नहीं!',
+            addedToCart: 'कार्ट में जोड़ा गया',
+            sellingPrice: 'बिक्री मूल्य',
+            costPrice: 'लागत मूल्य',
+            profit: 'लाभ',
+            paymentMethod: 'भुगतान विधि',
+            cash: 'नकद',
+            upi: 'UPI',
+            customerDetails: 'ग्राहक विवरण',
+            customerDetailsOptional: 'ग्राहक विवरण (वैकल्पिक)',
+            walkIn: 'वॉक-इन ग्राहक',
+            walkInNote: 'वॉक-इन ग्राहक के लिए खाली छोड़ें',
+            selectCustomer: 'ग्राहक चुनें',
+            selectExistingCustomer: 'मौजूदा ग्राहक चुनें',
+            addNew: 'नया जोड़ें',
+            itemsSelected: 'आइटम चयनित',
+            proceedToCheckout: 'चेकआउट पर जाएं',
+            orderSummary: 'ऑर्डर सारांश',
+            totalAmount: 'कुल राशि',
+            bookWithAdvance: 'अग्रिम के साथ बुक करें',
+            thankYou: 'खरीदारी के लिए धन्यवाद!',
+            billSent: 'बिल ग्राहक को भेजा गया',
+            sendBill: 'SMS से बिल भेजें',
+            printBill: 'बिल प्रिंट करें',
+            newSaleBtn: 'नई बिक्री',
+            inStock: 'स्टॉक में',
+            available: 'उपलब्ध'
+        },
+
+        inventory: {
+            title: 'स्टॉक',
+            currentStock: 'वर्तमान स्टॉक',
+            addStock: 'स्टॉक जोड़ें',
+            addStockDesc: 'अपनी इन्वेंटरी में आइटम जोड़ें।',
+            stockLog: 'स्टॉक लॉग',
+            editStock: 'स्टॉक संपादित करें',
+            stockUpdated: 'स्टॉक सफलतापूर्वक अपडेट किया गया',
+            vendorName: 'विक्रेता का नाम',
+            enterVendor: 'विक्रेता/आपूर्तिकर्ता का नाम दर्ज करें',
+            invoiceNumber: 'इनवॉइस नंबर',
+            invoicePhoto: 'इनवॉइस फोटो',
+            camera: 'कैमरा',
+            file: 'फ़ाइल',
+            removePhoto: 'फोटो हटाएं',
+            captureInvoice: 'इनवॉइस फोटो लें',
+            startSession: 'सत्र शुरू करें',
+            startAddingItems: 'आइटम जोड़ना शुरू करें',
+            completeSession: 'सत्र पूर्ण करें',
+            cancelSession: 'सत्र रद्द करें',
+            sessionStarted: 'सत्र शुरू हुआ। अब आइटम जोड़ें।',
+            itemAdded: 'आइटम सूची में जोड़ा गया',
+            itemsAdded: 'जोड़े गए आइटम',
+            itemsLogged: 'आइटम सफलतापूर्वक सेव किए गए',
+            lowStockAlert: 'कम स्टॉक अलर्ट',
+            alertQty: 'अलर्ट मात्रा',
+            searchInventory: 'इन्वेंटरी खोजें...',
+            searchProducts: 'उत्पाद खोजें...',
+            allCategories: 'सभी श्रेणियां',
+            noProducts: 'कोई उत्पाद नहीं मिला',
+            inStock: 'स्टॉक में',
+            lowStock: 'कम स्टॉक',
+            outOfStock: 'स्टॉक में नहीं',
+            addToList: 'सूची में जोड़ें',
+            sessionItems: 'सत्र आइटम',
+            noItemsInSession: 'अभी तक कोई आइटम नहीं जोड़ा गया',
+            newPurchase: 'नई खरीद',
+            trackVendorDetails: 'विक्रेता विवरण और इनवॉइस ट्रैक करें',
+            newPurchaseDesc: 'विक्रेता विवरण और इनवॉइस ट्रैक करें',
+            quantityToAdd: 'मात्रा',
+            reason: 'समायोजन का कारण',
+            reasonPlaceholder: 'उदा., भौतिक गणना, क्षतिग्रस्त स्टॉक',
+            addingStockFrom: 'से स्टॉक जोड़ रहे हैं',
+            selectProduct: 'उत्पाद चुनें'
+        },
+
+        customers: {
+            title: 'ग्राहक',
+            allCustomers: 'सभी ग्राहक',
+            addCustomer: 'ग्राहक जोड़ें',
+            addNew: '+ नया ग्राहक जोड़ें',
+            editCustomer: 'ग्राहक संपादित करें',
+            deleteCustomer: 'ग्राहक हटाएं',
+            name: 'ग्राहक का नाम',
+            customerName: 'ग्राहक का नाम',
+            phone: 'फोन नंबर',
+            phoneNumber: 'फोन नंबर',
+            email: 'ईमेल',
+            enterName: 'नाम दर्ज करें',
+            enterPhone: '10 अंकों का नंबर दर्ज करें',
+            search: 'ग्राहक खोजें...',
+            customerAdded: 'ग्राहक जोड़ा गया',
+            customerUpdated: 'ग्राहक अपडेट किया गया',
+            customerDeleted: 'ग्राहक हटाया गया',
+            noCustomers: 'अभी तक कोई ग्राहक नहीं',
+            searchCustomers: 'ग्राहक खोजें...',
+            totalPurchases: 'कुल खरीदारी',
+            lastPurchase: 'अंतिम खरीदारी',
+            viewHistory: 'इतिहास देखें',
+            purchaseHistory: 'खरीद इतिहास',
+            transactionHistory: 'लेन-देन इतिहास',
+            allTransactions: 'सभी लेन-देन',
+            noPurchases: 'अभी तक कोई खरीदारी नहीं'
+        },
+
+        bookings: {
+            title: 'बुकिंग',
+            today: 'आज',
+            overdue: 'अतिदेय',
+            upcoming: 'आगामी',
+            all: 'सभी',
+            newBooking: 'नई बुकिंग',
+            createBooking: 'बुकिंग बनाएं',
+            activeBookings: 'सक्रिय बुकिंग',
+            completedBookings: 'पूर्ण',
+            cancelledBookings: 'रद्द',
+            bookingDetails: 'बुकिंग विवरण',
+            deliveryDate: 'डिलीवरी तारीख',
+            pickupDate: 'पिकअप तारीख',
+            bookedOn: 'बुक किया गया',
+            advanceAmount: 'अग्रिम राशि',
+            enterAdvance: 'अग्रिम राशि दर्ज करें',
+            balanceAmount: 'शेष राशि',
+            balanceRemaining: 'शेष बैलेंस',
+            balanceDue: 'देय बैलेंस',
+            balanceToCollect: 'वसूली बैलेंस',
+            enterAmount: 'राशि दर्ज करें',
+            totalAmount: 'कुल राशि',
+            advancePaid: 'भुगतान किया गया अग्रिम',
+            amountReceived: 'प्राप्त राशि',
+            paymentHistory: 'भुगतान इतिहास',
+            addAdvance: 'अग्रिम जोड़ें',
+            changeDate: 'तारीख बदलें',
+            changePickupDate: 'पिकअप तारीख बदलें',
+            newPickupDate: 'नई पिकअप तारीख',
+            updateDate: 'तारीख अपडेट करें',
+            completePickup: 'पिकअप पूर्ण करें',
+            markDelivered: 'डिलीवर के रूप में चिह्नित करें',
+            cancelBooking: 'बुकिंग रद्द करें',
+            keepBooking: 'बुकिंग रखें',
+            cancelAndRefund: 'रद्द करें और रिफंड करें',
+            areYouSure: 'क्या आप निश्चित हैं?',
+            cancelWarning: 'यह क्रिया पूर्ववत नहीं की जा सकती। इन्वेंटरी बहाल हो जाएगी।',
+            advanceToRefund: 'रिफंड के लिए अग्रिम',
+            noBookings: 'अभी तक कोई बुकिंग नहीं',
+            status: 'स्थिति',
+            pending: 'लंबित',
+            delivered: 'डिलीवर किया गया',
+            cancelled: 'रद्द',
+            refund: 'रिफंड',
+            pickup: 'पिकअप',
+            bookingReceipt: 'बुकिंग रसीद',
+            paymentReceived: 'भुगतान प्राप्त हुआ',
+            transactionDate: 'लेन-देन तारीख',
+            orderTotal: 'ऑर्डर कुल',
+            thisPayment: 'यह भुगतान',
+            allPayments: 'सभी भुगतान',
+            sendSmsReceipt: 'SMS रसीद भेजें'
+        },
+
+        reports: {
+            title: 'रिपोर्ट',
+            dailyReport: 'दैनिक',
+            monthlyReport: 'मासिक',
+            bestSellers: 'उत्पाद',
+            stockLog: 'स्टॉक लॉग',
+            selectDate: 'तारीख चुनें',
+            selectMonth: 'महीना चुनें',
+            filterByDate: 'तारीख से फ़िल्टर करें',
+            allDates: 'सभी तारीखें',
+            totalRevenue: 'कुल राजस्व',
+            totalProfit: 'कुल लाभ',
+            totalSales: 'कुल बिक्री',
+            profit: 'लाभ',
+            itemsSold: 'बेचे गए आइटम',
+            transactions: 'लेन-देन',
+            noSales: 'इस तारीख को कोई बिक्री नहीं',
+            noTransactions: 'इस तारीख को कोई लेन-देन नहीं',
+            viewDetails: 'विवरण देखें',
+            revenueBreakdown: 'राजस्व विभाजन',
+            directSales: 'सीधी बिक्री',
+            bookingAdvances: 'बुकिंग अग्रिम',
+            pickupPayments: 'पिकअप भुगतान',
+            refunds: 'रिफंड',
+            bestSellingProducts: 'सबसे ज्यादा बिकने वाले उत्पाद',
+            unitsSold: 'इकाइयां बेची गईं',
+            profitPercent: 'लाभ %',
+            stockEntryDetails: 'स्टॉक प्रविष्टि विवरण',
+            stockAdjustmentDetails: 'स्टॉक समायोजन विवरण',
+            vendor: 'विक्रेता',
+            invoice: 'इनवॉइस',
+            totalItems: 'कुल आइटम',
+            totalCost: 'कुल लागत',
+            hasPhoto: 'फोटो है',
+            adjusted: 'समायोजित',
+            addedBy: 'द्वारा जोड़ा गया',
+            adjustedBy: 'द्वारा समायोजित'
+        },
+
+        products: {
+            title: 'उत्पाद',
+            categories: 'श्रेणियां',
+            variants: 'वेरिएंट',
+            category: 'श्रेणी',
+            addProduct: 'उत्पाद जोड़ें',
+            addCategory: 'श्रेणी जोड़ें',
+            addVariant: 'वेरिएंट जोड़ें',
+            editCategory: 'श्रेणी संपादित करें',
+            editVariant: 'वेरिएंट संपादित करें',
+            deleteCategory: 'श्रेणी हटाएं',
+            deleteVariant: 'वेरिएंट हटाएं',
+            categoryName: 'श्रेणी का नाम',
+            variantName: 'वेरिएंट का नाम',
+            productName: 'उत्पाद का नाम',
+            productNamePlaceholder: 'उदा., अलमारी',
+            variantsPerLine: 'वेरिएंट (प्रति पंक्ति एक)',
+            variantsPlaceholder: 'उदा.,\n2 दरवाज़ा\n3 दरवाज़ा\n4 दरवाज़ा',
+            selectIcon: 'आइकन चुनें',
+            selectEmoji: 'इमोजी चुनें',
+            categoryIcon: 'श्रेणी आइकन',
+            categoryNamePlaceholder: 'उदा., अलमारी',
+            variantNamePlaceholder: 'उदा., डबल डोर',
+            currentName: 'वर्तमान नाम',
+            newName: 'नया नाम',
+            enterNewName: 'नया नाम दर्ज करें',
+            addingTo: 'में जोड़ रहे हैं',
+            editVariantNote: 'यह सभी इन्वेंटरी, बिक्री और बुकिंग में वेरिएंट नाम अपडेट करेगा।',
+            categoryAdded: 'श्रेणी जोड़ी गई',
+            categoryUpdated: 'श्रेणी अपडेट की गई',
+            categoryDeleted: 'श्रेणी हटाई गई',
+            variantAdded: 'वेरिएंट जोड़ा गया',
+            variantUpdated: 'वेरिएंट अपडेट किया गया',
+            variantDeleted: 'वेरिएंट हटाया गया',
+            categoryExists: 'श्रेणी पहले से मौजूद है',
+            variantExists: 'वेरिएंट पहले से मौजूद है',
+            cannotDelete: 'हटा नहीं सकते - स्टॉक में आइटम हैं',
+            manageCategories: 'श्रेणियां प्रबंधित करें',
+            backToProducts: 'उत्पादों पर वापस जाएं',
+            deleteCategoryWarning: 'इस श्रेणी के सभी वेरिएंट और इन्वेंटरी हटा दी जाएगी।',
+            deleteVariantWarning: 'वेरिएंट और उसका इन्वेंटरी डेटा हटा दिया जाएगा।',
+            aboutToDelete: 'आप हटाने वाले हैं',
+            andAllVariants: 'और उसके सभी वेरिएंट',
+            fromCategory: 'से',
+            cannotUndoInventory: 'यह क्रिया पूर्ववत नहीं की जा सकती। इन्वेंटरी डेटा हटा दिया जाएगा।',
+            yesDelete: 'हाँ, हटाएं'
+        },
+
+        settings: {
+            title: 'सेटिंग्स',
+            ownerPin: 'मालिक PIN',
+            ownerPinDesc: 'संवेदनशील जानकारी की सुरक्षा के लिए 5 अंकों का PIN सेट करें',
+            changePin: 'मालिक PIN बदलें',
+            dataBackup: 'डेटा बैकअप',
+            backupDesc: 'अपने डेटा को बैकअप फ़ाइल के रूप में डाउनलोड करें',
+            downloadBackup: 'बैकअप डाउनलोड करें',
+            restoreBackup: 'बैकअप से पुनर्स्थापित करें',
+            autoSync: 'ऑटो सिंक स्थिति',
+            autoSyncDesc: 'डेटा सभी उपकरणों में रीयल-टाइम में स्वचालित रूप से सिंक होता है।',
+            connection: 'कनेक्शन',
+            lastActivity: 'अंतिम गतिविधि',
+            syncMode: 'सिंक मोड',
+            realTime: 'रीयल-टाइम',
+            dataCounts: 'डेटा गणना',
+            refreshStatus: 'स्थिति रिफ्रेश करें',
+            recentErrors: 'हाल की त्रुटियां',
+            language: 'भाषा',
+            languageDesc: 'ऐप के लिए अपनी पसंदीदा भाषा चुनें',
+            languageNote: 'नोट: अनुवाद सुविधा वर्तमान में विकास में है।',
+            inventoryValue: 'कुल इन्वेंटरी मूल्य',
+            inventoryValueDesc: 'अपनी वर्तमान स्टॉक इन्वेंटरी का कुल मूल्य देखें',
+            viewInventoryValue: 'इन्वेंटरी मूल्य देखें',
+            totalCostPrice: 'कुल लागत मूल्य',
+            totalSellingPrice: 'कुल बिक्री मूल्य',
+            potentialProfit: 'संभावित लाभ',
+            totalItems: 'कुल आइटम',
+            uniqueProducts: 'स्टॉक में अद्वितीय उत्पाद',
+            comingSoon: 'जल्द आ रहा है',
+            monthlyExpenses: 'मासिक खर्च ट्रैकिंग',
+            monthlyExpensesDesc: 'किराया, बिजली और अन्य मासिक खर्चों को ट्रैक करें',
+            vendorList: 'विक्रेता/आपूर्तिकर्ता सूची',
+            vendorListDesc: 'संपर्क विवरण के साथ अपने आपूर्तिकर्ताओं को प्रबंधित करें',
+            emiTracking: 'EMI/किस्त ट्रैकिंग',
+            emiTrackingDesc: 'किस्तों में ग्राहक भुगतान ट्रैक करें',
+            about: 'के बारे में',
+            version: 'मणिकांत एंटरप्राइजेज v1.0',
+            builtFor: 'आपके व्यवसाय के लिए बनाया गया',
+            checking: 'जांच हो रही है...'
+        },
+
+        modals: {
+            confirm: 'पुष्टि करें',
+            areYouSure: 'क्या आप निश्चित हैं?',
+            cannotUndo: 'यह क्रिया पूर्ववत नहीं की जा सकती।',
+            deleteConfirm: 'इस आइटम को हटाएं?',
+            saveChanges: 'परिवर्तन सहेजें',
+            discardChanges: 'परिवर्तन छोड़ें',
+            addToCart: 'कार्ट में जोड़ें',
+            sellingPrice: 'बिक्री मूल्य',
+            suggested: 'सुझाया गया',
+            quantity: 'मात्रा',
+            addNewCustomer: 'नया ग्राहक जोड़ें',
+            saleComplete: 'बिक्री पूर्ण!',
+            smsBillPreview: 'SMS बिल प्रीव्यू',
+            sendBillSms: 'SMS से बिल भेजें',
+            editStock: 'स्टॉक संपादित करें',
+            currentStockQty: 'वर्तमान स्टॉक मात्रा',
+            enterQuantity: 'मात्रा दर्ज करें',
+            enterCostPrice: 'लागत मूल्य दर्ज करें',
+            enterSellingPrice: 'बिक्री मूल्य दर्ज करें',
+            costPricePerUnit: 'लागत मूल्य (प्रति यूनिट)',
+            sellingPricePerUnit: 'बिक्री मूल्य (प्रति यूनिट)',
+            lowStockAlert: 'कम स्टॉक अलर्ट',
+            reasonForAdjustment: 'समायोजन का कारण',
+            adjustmentExample: 'उदा., भौतिक गणना, क्षतिग्रस्त स्टॉक',
+            loggedForAudit: 'यह ऑडिट उद्देश्यों के लिए लॉग किया जाएगा',
+            quantityToAdd: 'जोड़ने की मात्रा',
+            addToList: 'सूची में जोड़ें',
+            transactionDetails: 'लेन-देन विवरण',
+            addToCustomersList: 'ग्राहक सूची में जोड़ें',
+            deleteTransaction: 'लेन-देन हटाएं'
+        },
+
+        validation: {
+            required: '{field} आवश्यक है',
+            invalidPhone: 'अमान्य फोन नंबर',
+            invalidEmail: 'अमान्य ईमेल पता',
+            mustBePositive: '{field} सकारात्मक होना चाहिए',
+            mustBeNumber: '{field} एक संख्या होनी चाहिए'
+        },
+
+        errors: {
+            loadFailed: 'डेटा लोड करने में विफल',
+            saveFailed: 'डेटा सहेजने में विफल',
+            syncFailed: 'सिंक विफल',
+            connectionError: 'कनेक्शन त्रुटि',
+            notFound: 'नहीं मिला',
+            accessDenied: 'पहुंच अस्वीकृत',
+            ownerAccessRequired: 'मालिक पहुंच आवश्यक'
+        },
+
+        datetime: {
+            today: 'आज',
+            yesterday: 'कल',
+            tomorrow: 'कल',
+            thisWeek: 'इस सप्ताह',
+            lastWeek: 'पिछले सप्ताह',
+            thisMonth: 'इस महीने',
+            lastMonth: 'पिछले महीने',
+            at: 'पर'
         }
-        // More Hindi translations can be added as needed
     }
 };
 
@@ -256,10 +1410,6 @@ export class I18n {
         this.fallbackLocale = 'en';
     }
 
-    /**
-     * Set the current locale
-     * @param {string} locale - Locale code (e.g., 'en', 'te', 'hi')
-     */
     setLocale(locale) {
         if (this.translations[locale]) {
             this.currentLocale = locale;
@@ -267,21 +1417,13 @@ export class I18n {
             document.documentElement.setAttribute('lang', locale);
             return true;
         }
-        console.warn(`Locale '${locale}' not found, using fallback`);
         return false;
     }
 
-    /**
-     * Get the current locale
-     * @returns {string} Current locale code
-     */
     getLocale() {
         return this.currentLocale;
     }
 
-    /**
-     * Load saved locale from localStorage
-     */
     loadSavedLocale() {
         const saved = localStorage.getItem('sm_locale');
         if (saved) {
@@ -289,40 +1431,30 @@ export class I18n {
         }
     }
 
-    /**
-     * Get translation for a key
-     * @param {string} key - Translation key (e.g., 'common.save', 'nav.dashboard')
-     * @param {Object} params - Parameters to replace in translation
-     * @returns {string} Translated string
-     */
     t(key, params = {}) {
         const keys = key.split('.');
         let translation = this.translations[this.currentLocale];
 
-        // Navigate through nested keys
         for (const k of keys) {
             if (translation && translation[k]) {
                 translation = translation[k];
             } else {
-                // Fallback to English
                 translation = this.translations[this.fallbackLocale];
                 for (const fk of keys) {
                     if (translation && translation[fk]) {
                         translation = translation[fk];
                     } else {
-                        return key; // Return key if translation not found
+                        return key;
                     }
                 }
                 break;
             }
         }
 
-        // If translation is still an object, return the key
         if (typeof translation !== 'string') {
             return key;
         }
 
-        // Replace parameters in translation
         let result = translation;
         for (const [param, value] of Object.entries(params)) {
             result = result.replace(`{${param}}`, value);
@@ -331,51 +1463,12 @@ export class I18n {
         return result;
     }
 
-    /**
-     * Check if a locale is available
-     * @param {string} locale - Locale code to check
-     * @returns {boolean} True if locale exists
-     */
     hasLocale(locale) {
         return !!this.translations[locale];
     }
 
-    /**
-     * Get all available locales
-     * @returns {Array} Array of locale codes
-     */
     getAvailableLocales() {
         return Object.keys(this.translations);
-    }
-
-    /**
-     * Add or update translations for a locale
-     * @param {string} locale - Locale code
-     * @param {Object} newTranslations - Translation object to merge
-     */
-    addTranslations(locale, newTranslations) {
-        if (!this.translations[locale]) {
-            this.translations[locale] = {};
-        }
-        this.translations[locale] = this.deepMerge(this.translations[locale], newTranslations);
-    }
-
-    /**
-     * Deep merge two objects
-     * @param {Object} target - Target object
-     * @param {Object} source - Source object
-     * @returns {Object} Merged object
-     */
-    deepMerge(target, source) {
-        const result = { ...target };
-        for (const key in source) {
-            if (source[key] instanceof Object && !Array.isArray(source[key])) {
-                result[key] = this.deepMerge(result[key] || {}, source[key]);
-            } else {
-                result[key] = source[key];
-            }
-        }
-        return result;
     }
 }
 
