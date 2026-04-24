@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "date": "2026-04-24T12:56:11.584Z",
+  "date": "2026-04-24T13:00:34.699Z",
   "products": {
     "Almara": [
       "Double - 47 - Lite",
@@ -2565,52 +2565,46 @@
     },
     {
       "id": "mobhjla7texlsnuk35a",
-      "totalAdvance": 4100,
-      "status": "completed",
       "total": 2300,
-      "pickupDate": "2026-04-24",
+      "status": "completed",
+      "totalAdvance": 2300,
+      "profit": 500,
       "finalPayment": {
         "method": "Cash",
         "amount": 1800,
         "date": "2026-04-24",
         "time": "12:32:07"
       },
-      "profit": 500,
-      "advancePayments": [
-        {
-          "time": "6:26 PM",
-          "date": "2026-04-23",
-          "method": "Cash",
-          "amount": 500
-        },
-        {
-          "method": "Cash",
-          "amount": 1800,
-          "time": "12:31:45",
-          "date": "2026-04-24"
-        }
-      ],
-      "createdAt": "2026-04-23T12:56:21.635Z",
-      "updatedAt": "2026-04-24T07:02:07.776Z",
-      "createdTime": "6:26 PM",
+      "pickupDate": "2026-04-24",
       "items": [
         {
           "key": "Dressing|Normal",
           "costPrice": 1800,
           "qty": 1,
           "variant": "Normal",
-          "category": "Dressing",
-          "price": 2300
+          "price": 2300,
+          "category": "Dressing"
         }
       ],
-      "completedDate": "2026-04-24",
+      "createdTime": "6:26 PM",
+      "updatedAt": "2026-04-24T07:02:07.776Z",
+      "createdAt": "2026-04-23T12:56:21.635Z",
+      "advancePayments": [
+        {
+          "amount": 500,
+          "method": "Cash",
+          "date": "2026-04-23",
+          "time": "6:26 PM"
+        }
+      ],
+      "balanceRemaining": 0,
+      "createdDate": "2026-04-23",
       "completedTime": "12:32:07",
       "customer": {
-        "name": "Pavani",
-        "phone": "12355555"
+        "phone": "12355555",
+        "name": "Pavani"
       },
-      "createdDate": "2026-04-23",
-      "balanceRemaining": 0
+      "completedDate": "2026-04-24"
     },
     {
       "id": "mo6wwngrkf7rnz16bqs",
