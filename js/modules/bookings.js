@@ -7,11 +7,13 @@ import { State, Storage } from '../state/index.js';
 // External dependencies
 let onBookingCreated = null;
 let onBookingCompleted = null;
+let onBookingDeleted = null;
 
 export const Bookings = {
     init(callbacks = {}) {
         onBookingCreated = callbacks.onBookingCreated || null;
         onBookingCompleted = callbacks.onBookingCompleted || null;
+        onBookingDeleted = callbacks.onBookingDeleted || null;
 
         // Setup delegated click handlers for bookings list
         DOM.on(DOM.get('bookingsList'), 'click', '[data-booking-id]', (e, el) => {
@@ -455,8 +457,13 @@ export const Bookings = {
         const booking = State.bookings.find(b => b.id === State.selectedBookingId);
         if (!booking || booking.status !== 'pending') return;
 
-        DOM.setText(DOM.get('completeBalance'), Format.currency(booking.balanceRemaining));
-        DOM.get('completeAmount').value = booking.balanceRemaining;
+        const alreadyPaid = booking.balanceRemaining === 0;
+        DOM.setText(DOM.get('completeBalance'), alreadyPaid ? 'Fully Paid' : Format.currency(booking.balanceRemaining));
+
+        const amountInput = DOM.get('completeAmount');
+        amountInput.value = alreadyPaid ? 0 : booking.balanceRemaining;
+        amountInput.readOnly = alreadyPaid;
+        amountInput.style.opacity = alreadyPaid ? '0.5' : '1';
 
         Modal.show('completeBookingModal');
     },
@@ -471,7 +478,8 @@ export const Bookings = {
         if (!booking || booking.status !== 'pending') return;
 
         const amountInput = DOM.get('completeAmount');
-        const amount = parseFloat(amountInput.value) || 0;
+        // If balance is already 0 (fully paid via advances), force amount to 0
+        const amount = booking.balanceRemaining === 0 ? 0 : (parseFloat(amountInput.value) || 0);
         const method = document.querySelector('input[name="completeMethod"]:checked')?.value || 'Cash';
 
         // Amount should match balance (but allow flexibility)
@@ -483,7 +491,7 @@ export const Bookings = {
         const today = DateUtil.today();
         const time = DateUtil.time();
 
-        // Record final payment
+        // Record final payment (amount is 0 when already fully paid via advances)
         booking.finalPayment = {
             amount: amount,
             date: today,
@@ -563,18 +571,57 @@ export const Bookings = {
         Toast.show(refund ? 'Booking cancelled and refunded' : 'Booking cancelled');
     },
 
+    deleteBooking() {
+        if (!State.isAdmin()) {
+            Toast.show('Owner access required');
+            return;
+        }
+
+        const booking = State.bookings.find(b => b.id === State.selectedBookingId);
+        if (!booking) {
+            Toast.show('Booking not found');
+            return;
+        }
+
+        if (!confirm('Delete this booking permanently? This cannot be undone.')) return;
+
+        // Restore stock only if cancelled booking hasn't already restored it
+        if (booking.status === 'pending' || booking.status === 'completed') {
+            booking.items.forEach(item => {
+                if (State.inventory[item.key]) {
+                    Storage.updateInventoryQty(item.key, item.qty);
+                }
+            });
+        }
+
+        const index = State.bookings.findIndex(b => b.id === State.selectedBookingId);
+        if (index !== -1) State.bookings.splice(index, 1);
+
+        Storage.deleteBooking(State.selectedBookingId);
+        this.closeDetails();
+        Modal.hide('bookingReceiptModal');
+        this.renderList();
+
+        Toast.show('Booking deleted');
+        if (onBookingDeleted) onBookingDeleted();
+    },
+
     // Get bookings revenue for a specific date (for reports)
     getDateRevenue(date) {
         let advancesIn = 0;
         let pickupPayments = 0;
         let refunds = 0;
         let profit = 0;
+        let cashIn = 0;
+        let upiIn = 0;
 
         State.bookings.forEach(b => {
             // Advances received on this date
             b.advancePayments.forEach(p => {
                 if (p.date === date) {
                     advancesIn += p.amount;
+                    if (p.method === 'UPI') upiIn += p.amount;
+                    else cashIn += p.amount;
                 }
             });
 
@@ -586,6 +633,8 @@ export const Bookings = {
             // Final payment on this date
             if (b.finalPayment && b.finalPayment.date === date) {
                 pickupPayments += b.finalPayment.amount;
+                if (b.finalPayment.method === 'UPI') upiIn += b.finalPayment.amount;
+                else cashIn += b.finalPayment.amount;
             }
 
             // Refund on this date
@@ -604,6 +653,8 @@ export const Bookings = {
             pickupPayments,
             refunds,
             profit,
+            cashIn,
+            upiIn,
             totalRevenue: advancesIn + pickupPayments - refunds
         };
     },

@@ -139,6 +139,8 @@ export const Reports = {
 
             // Get booking revenue for this date
             const bookingRevenue = Bookings.getDateRevenue(date);
+            cashTotal += bookingRevenue.cashIn || 0;
+            upiTotal += bookingRevenue.upiIn || 0;
             const totalProfit = profit + bookingRevenue.profit;
             const totalRevenue = total + bookingRevenue.totalRevenue;
             const hasBookingActivity = bookingRevenue.advancesIn > 0 || bookingRevenue.pickupPayments > 0 || bookingRevenue.refunds > 0;

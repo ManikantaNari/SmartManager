@@ -288,6 +288,7 @@ window.confirmCompleteBooking = () => Bookings.completeBooking();
 window.showCancelBookingModal = () => Bookings.showCancelModal();
 window.closeCancelBookingModal = () => Bookings.closeCancelModal();
 window.confirmCancelBooking = () => Bookings.cancelBooking(true);
+window.confirmDeleteBooking = () => Bookings.deleteBooking();
 
 // Booking receipt
 window.showBookingReceipt = (bookingId, paymentType, paymentIndex) => Bookings.showPaymentReceipt(bookingId, paymentType, paymentIndex);

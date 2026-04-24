@@ -1,0 +1,2674 @@
+{
+  "version": 2,
+  "date": "2026-04-24T12:56:11.584Z",
+  "products": {
+    "Almara": [
+      "Double - 47 - Lite",
+      "Double - 47 - Mid",
+      "Single - 37 - Heavy",
+      "Single - 37 - Lite",
+      "Single - 37 - Mid",
+      "Single - 42",
+      "Double - 47 - Heavy"
+    ],
+    "Almara Leg": [
+      "Leg"
+    ],
+    "Chair": [
+      "Resto",
+      "Resto Fiber",
+      "AVRo Fiber",
+      "Aram Resto",
+      "Cello Aaram",
+      "Cello Stull",
+      "Cello Step Stull",
+      "Resto Stull",
+      "Tub Chair",
+      "T-pai",
+      "Office chair",
+      "Cello Step stool",
+      "Cello stool"
+    ],
+    "Cooler": [
+      "Breeze",
+      "Flapee King",
+      "Ikia Bustar",
+      "Resto Turbo",
+      "Vaishnavi Jumbo",
+      "Vaishnavi Matrix",
+      "Wintro"
+    ],
+    "Cot": [
+      "Box (6 × 5)",
+      "Diwan Normal",
+      "Diwan Teak",
+      "Folding",
+      "Polish (6 × 4)",
+      "Polish (6 × 5)",
+      "Polish (6 × 6)",
+      "Polish (6 × 3)",
+      "Teak (6 × 4)",
+      "Teak (6×3)",
+      "Box (6 × 6)",
+      "Iron Black",
+      "Iron Whight"
+    ],
+    "Dining Table": [
+      "Normal",
+      "Large"
+    ],
+    "Dressing": [
+      "Long",
+      "Normal",
+      "Polished"
+    ],
+    "Fan": [
+      "Swift",
+      "Racer",
+      "Luker",
+      "Usha",
+      "Staker",
+      "Surya"
+    ],
+    "Folding Table": [
+      "Normal",
+      "Large"
+    ],
+    "Fridge Stand": [
+      "Small",
+      "Large"
+    ],
+    "Mattress": [
+      "EP - 72*36 - 4",
+      "EP - 72*36 - 5",
+      "Foam - 72*36 - 5",
+      "Foam - 72*36 - 6",
+      "EP - 75*36 - 4",
+      "EP - 75*36 - 5",
+      "Foam - 75*36 - 5",
+      "Foam - 75*36 - 6",
+      "EP - 72*48 - 4",
+      "EP - 72*48 - 5",
+      "Foam - 72*48 - 5",
+      "Foam - 72*48 - 6",
+      "Ep - 75*48 - 4",
+      "Ep - 75*48 - 5",
+      "Foam - 75*48 - 5",
+      "Foam - 75*48 - 6",
+      "EP - 70*60 - 4",
+      "EP - 70*60 - 5",
+      "Foam - 70*60 - 5",
+      "Foam - 70*60 - 6",
+      "Ep - 75*72 - 4",
+      "Ep - 75*72 - 5",
+      "Foam - 75*72 - 5",
+      "Foam - 75*72 - 6",
+      "EP - 75*60 - 4",
+      "EP - 75*60 - 5",
+      "Foam - 75*60 - 5",
+      "Foam - 75*60 - 6"
+    ],
+    "Official Table": [
+      "4*2",
+      "4*2 Polish",
+      "5*2",
+      "5*2 Polish",
+      "All In one"
+    ],
+    "Pillow": [
+      "Regular",
+      "Foam"
+    ],
+    "Shoe Racks": [
+      "077",
+      "087"
+    ],
+    "Table": [
+      "Study Table",
+      "Computer Table"
+    ],
+    "Tv Stand": [
+      "Tv Stand"
+    ]
+  },
+  "categoryEmojis": {
+    "Almara Leg": "📦",
+    "Chair": "🪑",
+    "Cot": "🛏️",
+    "Folding Table": "📦",
+    "Fridge Stand": "📦",
+    "Mattress": "🛏️",
+    "Official Table": "📦",
+    "Pillow": "☁️",
+    "Table": "📚",
+    "Tv Stand": "📦"
+  },
+  "inventory": {
+    "Almara Leg|Leg": {
+      "qty": 74,
+      "costPrice": 110,
+      "alertQty": 0,
+      "updatedAt": "2026-04-24T07:02:58.149Z",
+      "price": 300
+    },
+    "Almara|Double - 47 - Heavy": {
+      "costPrice": 12000,
+      "updatedAt": "2026-04-23T16:17:14.016Z",
+      "qty": 8,
+      "alertQty": 0,
+      "price": 18500
+    },
+    "Almara|Double - 47 - Lite": {
+      "alertQty": 0,
+      "updatedAt": "2026-04-24T02:34:03.054Z",
+      "price": 12000,
+      "qty": 5,
+      "costPrice": 9200
+    },
+    "Almara|Double - 47 - Mid": {
+      "alertQty": 0,
+      "price": 15000,
+      "qty": 4,
+      "updatedAt": "2026-04-23T16:17:14.017Z",
+      "costPrice": 10000
+    },
+    "Almara|Single - 37 - Heavy": {
+      "costPrice": 8500,
+      "updatedAt": "2026-04-23T16:17:14.017Z",
+      "qty": 4,
+      "price": 13000,
+      "alertQty": 0
+    },
+    "Almara|Single - 37 - Lite": {
+      "costPrice": 5000,
+      "updatedAt": "2026-04-23T16:17:14.017Z",
+      "qty": 3,
+      "price": 8000,
+      "alertQty": 0
+    },
+    "Almara|Single - 37 - Mid": {
+      "costPrice": 7850,
+      "updatedAt": "2026-04-23T16:17:14.017Z",
+      "qty": 4,
+      "price": 12000,
+      "alertQty": 0
+    },
+    "Almara|Single - 42": {
+      "qty": 2,
+      "updatedAt": "2026-04-23T16:17:14.017Z",
+      "costPrice": 10500,
+      "price": 16500,
+      "alertQty": 0
+    },
+    "Chair|AVRo Fiber": {
+      "alertQty": 0,
+      "costPrice": 470,
+      "qty": 28,
+      "price": 750
+    },
+    "Chair|Aram Resto": {
+      "costPrice": 350,
+      "alertQty": 0,
+      "price": 650,
+      "qty": 10
+    },
+    "Chair|Cello Aaram": {
+      "qty": 9,
+      "updatedAt": "2026-04-19T16:31:43.690Z",
+      "costPrice": 950,
+      "price": 1200,
+      "alertQty": 0
+    },
+    "Chair|Cello Step stool": {
+      "alertQty": 0,
+      "price": 1000,
+      "qty": 1,
+      "costPrice": 750,
+      "updatedAt": "2026-04-23T16:41:40.038Z"
+    },
+    "Chair|Cello stool": {
+      "price": 500,
+      "alertQty": 0,
+      "qty": 4,
+      "updatedAt": "2026-04-23T16:41:31.388Z",
+      "costPrice": 360
+    },
+    "Chair|Office chair": {
+      "costPrice": 4000,
+      "updatedAt": "2026-04-22T10:20:27.149Z",
+      "qty": 4,
+      "price": 6000,
+      "alertQty": 0
+    },
+    "Chair|Resto": {
+      "updatedAt": "2026-04-20T15:29:27.099Z",
+      "costPrice": 230,
+      "qty": 56,
+      "price": 350,
+      "alertQty": 0
+    },
+    "Chair|Resto Fiber": {
+      "updatedAt": "2026-04-23T12:49:57.939Z",
+      "costPrice": 380,
+      "qty": 9,
+      "price": 650,
+      "alertQty": 0
+    },
+    "Chair|T-pai": {
+      "price": 1000,
+      "alertQty": 0,
+      "qty": 2,
+      "updatedAt": "2026-04-19T16:37:57.739Z",
+      "costPrice": 450
+    },
+    "Chair|Tub Chair": {
+      "price": 950,
+      "alertQty": 0,
+      "updatedAt": "2026-04-23T12:49:57.940Z",
+      "costPrice": 580,
+      "qty": 30
+    },
+    "Cooler|Breeze": {
+      "qty": 4,
+      "price": 6000,
+      "alertQty": 0,
+      "costPrice": 3100
+    },
+    "Cooler|Flapee King": {
+      "price": 6500,
+      "qty": 4,
+      "costPrice": 3800,
+      "alertQty": 0
+    },
+    "Cooler|Ikia Bustar": {
+      "price": 6500,
+      "alertQty": 0,
+      "qty": 4,
+      "costPrice": 3700,
+      "updatedAt": "2026-04-20T11:21:34.716Z"
+    },
+    "Cooler|Resto Turbo": {
+      "updatedAt": "2026-04-20T08:30:50.899Z",
+      "costPrice": 3400,
+      "qty": 2,
+      "price": 6000,
+      "alertQty": 0
+    },
+    "Cooler|Vaishnavi Jumbo": {
+      "qty": 8,
+      "updatedAt": "2026-04-23T13:04:33.814Z",
+      "costPrice": 3200,
+      "price": 6000,
+      "alertQty": 5
+    },
+    "Cooler|Vaishnavi Matrix": {
+      "price": 6000,
+      "alertQty": 0,
+      "qty": 2,
+      "updatedAt": "2026-04-23T15:32:56.793Z",
+      "costPrice": 3750
+    },
+    "Cooler|Wintro": {
+      "price": 6000,
+      "alertQty": 0,
+      "qty": 4,
+      "updatedAt": "2026-04-21T08:08:49.719Z",
+      "costPrice": 3700
+    },
+    "Cot|Box (6 × 5)": {
+      "alertQty": 3,
+      "costPrice": 14000,
+      "qty": 6,
+      "price": 22000
+    },
+    "Cot|Box (6 × 6)": {
+      "price": 25000,
+      "alertQty": 0,
+      "costPrice": 14500,
+      "updatedAt": "2026-04-23T14:42:27.248Z",
+      "qty": 1
+    },
+    "Cot|Diwan Normal": {
+      "price": 5500,
+      "alertQty": 5,
+      "updatedAt": "2026-04-23T06:57:52.442Z",
+      "costPrice": 3000,
+      "qty": 18
+    },
+    "Cot|Diwan Teak": {
+      "alertQty": 0,
+      "costPrice": 4000,
+      "qty": 1,
+      "price": 6500
+    },
+    "Cot|Folding": {
+      "price": 3800,
+      "qty": 10,
+      "costPrice": 2300,
+      "alertQty": 5
+    },
+    "Cot|Iron Black": {
+      "price": 1600,
+      "alertQty": 5,
+      "qty": 16,
+      "updatedAt": "2026-04-19T16:54:27.654Z",
+      "costPrice": 1000
+    },
+    "Cot|Iron Whight": {
+      "price": 2200,
+      "alertQty": 5,
+      "costPrice": 1300,
+      "updatedAt": "2026-04-21T14:50:26.389Z",
+      "qty": 20
+    },
+    "Cot|Polish (6 × 3)": {
+      "qty": 10,
+      "price": 9000,
+      "alertQty": 3,
+      "costPrice": 5000
+    },
+    "Cot|Polish (6 × 4)": {
+      "price": 11000,
+      "alertQty": 3,
+      "qty": 12,
+      "updatedAt": "2026-04-23T07:44:42.600Z",
+      "costPrice": 6000
+    },
+    "Cot|Polish (6 × 5)": {
+      "costPrice": 9000,
+      "updatedAt": "2026-04-23T15:32:56.793Z",
+      "qty": 11,
+      "price": 16000,
+      "alertQty": 3
+    },
+    "Cot|Polish (6 × 6)": {
+      "price": 18000,
+      "qty": 10,
+      "costPrice": 10000,
+      "alertQty": 2
+    },
+    "Cot|Teak (6 × 4)": {
+      "alertQty": 3,
+      "costPrice": 5200,
+      "qty": 10,
+      "price": 8000
+    },
+    "Cot|Teak (6×3)": {
+      "price": 6500,
+      "qty": 10,
+      "costPrice": 4000,
+      "alertQty": 3
+    },
+    "Dining Table|Large": {
+      "updatedAt": "2026-04-23T16:20:00.201Z",
+      "costPrice": 900,
+      "qty": 4,
+      "alertQty": 0,
+      "price": 1500
+    },
+    "Dining Table|Normal": {
+      "costPrice": 750,
+      "updatedAt": "2026-04-23T16:20:00.201Z",
+      "qty": 4,
+      "alertQty": 0,
+      "price": 1100
+    },
+    "Dressing|Long": {
+      "qty": 16,
+      "costPrice": 3800,
+      "updatedAt": "2026-04-23T17:11:45.192Z",
+      "alertQty": 5,
+      "price": 4800
+    },
+    "Dressing|Normal": {
+      "qty": 13,
+      "updatedAt": "2026-04-23T17:11:45.192Z",
+      "costPrice": 1800,
+      "alertQty": 5,
+      "price": 3200
+    },
+    "Dressing|Polished": {
+      "updatedAt": "2026-04-23T17:11:45.192Z",
+      "costPrice": 2300,
+      "qty": 10,
+      "alertQty": 3,
+      "price": 3800
+    },
+    "Fan|Luker": {
+      "updatedAt": "2026-04-19T17:46:25.970Z",
+      "costPrice": 1300,
+      "qty": 4,
+      "price": 1800,
+      "alertQty": 0
+    },
+    "Fan|Racer": {
+      "price": 2500,
+      "alertQty": 0,
+      "qty": 5,
+      "costPrice": 1800,
+      "updatedAt": "2026-04-19T17:45:53.320Z"
+    },
+    "Fan|Staker": {
+      "updatedAt": "2026-04-19T17:48:25.270Z",
+      "costPrice": 3200,
+      "qty": 3,
+      "price": 4000,
+      "alertQty": 0
+    },
+    "Fan|Surya": {
+      "qty": 1,
+      "costPrice": 2800,
+      "updatedAt": "2026-04-19T17:48:52.936Z",
+      "price": 3500,
+      "alertQty": 0
+    },
+    "Fan|Swift": {
+      "costPrice": 1700,
+      "updatedAt": "2026-04-23T07:52:13.773Z",
+      "qty": 4,
+      "price": 2200,
+      "alertQty": 0
+    },
+    "Fan|Usha": {
+      "price": 3800,
+      "alertQty": 0,
+      "qty": 3,
+      "updatedAt": "2026-04-19T17:47:12.820Z",
+      "costPrice": 2800
+    },
+    "Folding Table|Large": {
+      "price": 1600,
+      "alertQty": 0,
+      "updatedAt": "2026-04-19T18:10:06.501Z",
+      "costPrice": 950,
+      "qty": 13
+    },
+    "Folding Table|Normal": {
+      "costPrice": 800,
+      "updatedAt": "2026-04-19T18:08:48.585Z",
+      "qty": 5,
+      "price": 1200,
+      "alertQty": 0
+    },
+    "Fridge Stand|Large": {
+      "costPrice": 130,
+      "updatedAt": "2026-04-19T18:02:18.452Z",
+      "qty": 2,
+      "price": 350,
+      "alertQty": 0
+    },
+    "Fridge Stand|Small": {
+      "qty": 3,
+      "costPrice": 120,
+      "updatedAt": "2026-04-23T17:10:13.732Z",
+      "price": 300,
+      "alertQty": 0
+    },
+    "Mattress|EP - 72*36 - 4": {
+      "updatedAt": "2026-04-20T07:20:59.341Z",
+      "costPrice": 1800,
+      "qty": 6,
+      "price": 3000,
+      "alertQty": 0
+    },
+    "Mattress|EP - 72*36 - 5": {
+      "price": 3500,
+      "alertQty": 0,
+      "costPrice": 2000,
+      "updatedAt": "2026-04-23T07:15:00.183Z",
+      "qty": 26
+    },
+    "Mattress|EP - 72*48 - 4": {
+      "qty": 10,
+      "costPrice": 2100,
+      "updatedAt": "2026-04-23T07:15:00.184Z",
+      "price": 3500,
+      "alertQty": 0
+    },
+    "Mattress|EP - 72*48 - 5": {
+      "price": 4500,
+      "alertQty": 0,
+      "qty": 10,
+      "costPrice": 2500,
+      "updatedAt": "2026-04-23T07:15:00.184Z"
+    },
+    "Mattress|EP - 75*36 - 4": {
+      "price": 3000,
+      "alertQty": 0,
+      "costPrice": 1800,
+      "updatedAt": "2026-04-23T07:11:47.731Z",
+      "qty": 5
+    },
+    "Mattress|EP - 75*36 - 5": {
+      "price": 3500,
+      "alertQty": 0,
+      "qty": 5,
+      "costPrice": 2000,
+      "updatedAt": "2026-04-23T07:05:43.848Z"
+    },
+    "Mattress|EP - 75*60 - 4": {
+      "price": 6000,
+      "alertQty": 0,
+      "costPrice": 2800,
+      "updatedAt": "2026-04-23T07:15:00.185Z",
+      "qty": 6
+    },
+    "Mattress|EP - 75*60 - 5": {
+      "price": 6500,
+      "alertQty": 0,
+      "updatedAt": "2026-04-23T07:15:00.185Z",
+      "costPrice": 3200,
+      "qty": 6
+    },
+    "Mattress|Ep - 75*48 - 4": {
+      "costPrice": 2100,
+      "updatedAt": "2026-04-23T07:15:00.185Z",
+      "qty": 11,
+      "price": 3500,
+      "alertQty": 0
+    },
+    "Mattress|Ep - 75*48 - 5": {
+      "price": 4500,
+      "alertQty": 0,
+      "costPrice": 2500,
+      "updatedAt": "2026-04-23T07:44:42.602Z",
+      "qty": 9
+    },
+    "Mattress|Ep - 75*72 - 4": {
+      "qty": 6,
+      "costPrice": 3500,
+      "updatedAt": "2026-04-23T07:15:00.186Z",
+      "price": 6500,
+      "alertQty": 0
+    },
+    "Mattress|Ep - 75*72 - 5": {
+      "qty": 6,
+      "updatedAt": "2026-04-23T07:15:00.186Z",
+      "costPrice": 3700,
+      "price": 7000,
+      "alertQty": 0
+    },
+    "Mattress|Foam - 72*36 - 5": {
+      "costPrice": 2800,
+      "updatedAt": "2026-04-23T14:47:07.689Z",
+      "qty": 28,
+      "price": 4000,
+      "alertQty": 0
+    },
+    "Mattress|Foam - 72*36 - 6": {
+      "price": 7000,
+      "alertQty": 0,
+      "costPrice": 4200,
+      "updatedAt": "2026-04-23T07:15:00.184Z",
+      "qty": 21
+    },
+    "Mattress|Foam - 72*48 - 5": {
+      "price": 5500,
+      "alertQty": 0,
+      "costPrice": 3300,
+      "updatedAt": "2026-04-23T07:15:00.184Z",
+      "qty": 11
+    },
+    "Mattress|Foam - 72*48 - 6": {
+      "updatedAt": "2026-04-23T07:15:00.184Z",
+      "costPrice": 5300,
+      "qty": 11,
+      "price": 9000,
+      "alertQty": 0
+    },
+    "Mattress|Foam - 75*36 - 5": {
+      "qty": 6,
+      "costPrice": 2800,
+      "updatedAt": "2026-04-23T07:15:00.184Z",
+      "price": 4000,
+      "alertQty": 0
+    },
+    "Mattress|Foam - 75*36 - 6": {
+      "qty": 6,
+      "updatedAt": "2026-04-23T07:15:00.184Z",
+      "costPrice": 4200,
+      "price": 7000,
+      "alertQty": 0
+    },
+    "Mattress|Foam - 75*48 - 5": {
+      "updatedAt": "2026-04-23T07:15:00.185Z",
+      "costPrice": 3300,
+      "qty": 6,
+      "price": 5500,
+      "alertQty": 0
+    },
+    "Mattress|Foam - 75*48 - 6": {
+      "price": 9000,
+      "alertQty": 0,
+      "qty": 6,
+      "updatedAt": "2026-04-23T07:15:00.185Z",
+      "costPrice": 5300
+    },
+    "Mattress|Foam - 75*60 - 5": {
+      "updatedAt": "2026-04-23T15:32:56.793Z",
+      "costPrice": 4200,
+      "qty": 5,
+      "price": 7500,
+      "alertQty": 0
+    },
+    "Mattress|Foam - 75*60 - 6": {
+      "costPrice": 6500,
+      "updatedAt": "2026-04-23T12:49:57.940Z",
+      "qty": 9,
+      "price": 11000,
+      "alertQty": 0
+    },
+    "Mattress|Foam - 75*72 - 5": {
+      "qty": 5,
+      "costPrice": 5000,
+      "updatedAt": "2026-04-23T14:42:27.251Z",
+      "price": 9000,
+      "alertQty": 0
+    },
+    "Mattress|Foam - 75*72 - 6": {
+      "updatedAt": "2026-04-23T07:15:00.186Z",
+      "costPrice": 8000,
+      "qty": 6,
+      "price": 14000,
+      "alertQty": 0
+    },
+    "Official Table|4*2": {
+      "price": 3800,
+      "alertQty": 0,
+      "updatedAt": "2026-04-23T07:03:28.267Z",
+      "costPrice": 2300,
+      "qty": 4
+    },
+    "Official Table|4*2 Polish": {
+      "qty": 1,
+      "costPrice": 2600,
+      "updatedAt": "2026-04-22T10:20:27.150Z",
+      "price": 4500,
+      "alertQty": 0
+    },
+    "Official Table|5*2": {
+      "price": 5500,
+      "alertQty": 0,
+      "qty": 2,
+      "updatedAt": "2026-04-19T18:19:42.683Z",
+      "costPrice": 3500
+    },
+    "Official Table|All In one": {
+      "qty": 2,
+      "updatedAt": "2026-04-19T18:20:37.467Z",
+      "costPrice": 1200,
+      "price": 2000,
+      "alertQty": 0
+    },
+    "Pillow|Foam": {
+      "price": 350,
+      "alertQty": 5,
+      "qty": 25,
+      "updatedAt": "2026-04-19T17:49:32.187Z",
+      "costPrice": 250
+    },
+    "Pillow|Regular": {
+      "price": 0,
+      "alertQty": 0,
+      "qty": 50,
+      "updatedAt": "2026-04-19T17:50:37.170Z",
+      "costPrice": 0
+    },
+    "Shoe Racks|077": {
+      "price": 2500,
+      "alertQty": 0,
+      "qty": 0,
+      "costPrice": 1800,
+      "updatedAt": "2026-04-23T17:13:07.458Z"
+    },
+    "Shoe Racks|087": {
+      "updatedAt": "2026-04-23T17:13:07.458Z",
+      "costPrice": 2100,
+      "qty": 1,
+      "price": 2800,
+      "alertQty": 0
+    },
+    "Tv Stand|Tv Stand": {
+      "price": 1200,
+      "alertQty": 3,
+      "costPrice": 700,
+      "updatedAt": "2026-04-23T19:59:16.783Z",
+      "qty": 7
+    }
+  },
+  "customers": [
+    {
+      "id": "12355555",
+      "phone": "12355555",
+      "updatedAt": "2026-04-23T12:56:21.633Z",
+      "createdAt": "2026-04-23T12:56:21.633Z",
+      "email": "",
+      "name": "Pavani"
+    },
+    {
+      "id": "9951091903",
+      "createdAt": "2026-04-20T11:20:43.250Z",
+      "name": "B lingaiah AitiPamula",
+      "email": "",
+      "phone": "9951091903",
+      "updatedAt": "2026-04-20T11:20:43.250Z"
+    },
+    {
+      "id": "6281529557",
+      "createdAt": "2026-04-22T14:43:25.210Z",
+      "name": "B sarlu surarm",
+      "email": "",
+      "phone": "6281529557",
+      "updatedAt": "2026-04-22T14:43:25.210Z"
+    },
+    {
+      "id": "7702620107",
+      "phone": "7702620107",
+      "updatedAt": "2026-04-21T08:08:49.721Z",
+      "createdAt": "2026-04-21T08:08:49.721Z",
+      "name": "G suman",
+      "email": ""
+    },
+    {
+      "id": "8121516881",
+      "phone": "8121516881",
+      "updatedAt": "2026-04-23T07:44:42.608Z",
+      "createdAt": "2026-04-23T07:44:42.608Z",
+      "name": "Ch babu",
+      "email": ""
+    },
+    {
+      "id": "8266868681",
+      "phone": "8266868681",
+      "updatedAt": "2026-04-22T10:27:42.546Z",
+      "createdAt": "2026-04-22T10:27:42.546Z",
+      "name": "Lingala Venkanna",
+      "email": ""
+    },
+    {
+      "id": "8790099502",
+      "createdAt": "2026-04-20T09:17:10.339Z",
+      "name": "Gopi",
+      "email": "",
+      "phone": "8790099502",
+      "updatedAt": "2026-04-20T09:17:10.339Z"
+    },
+    {
+      "id": "9182986397",
+      "phone": "9182986397",
+      "updatedAt": "2026-04-21T08:13:47.867Z",
+      "createdAt": "2026-04-21T08:13:47.867Z",
+      "name": "GANESH",
+      "email": ""
+    },
+    {
+      "id": "9247848839",
+      "createdAt": "2026-04-23T14:47:07.697Z",
+      "name": "Sudarshan nkl",
+      "email": "",
+      "phone": "9247848839",
+      "updatedAt": "2026-04-23T14:47:07.697Z"
+    },
+    {
+      "id": "9441339984",
+      "name": "lingaiah  Ukku",
+      "email": "",
+      "createdAt": "2026-04-22T12:10:02.083Z",
+      "updatedAt": "2026-04-22T12:10:02.083Z",
+      "phone": "9441339984"
+    },
+    {
+      "id": "9505235426",
+      "updatedAt": "2026-04-23T14:48:42.284Z",
+      "phone": "9505235426",
+      "name": "Saidhulu b. Madharam.",
+      "email": "",
+      "createdAt": "2026-04-23T14:48:42.284Z"
+    },
+    {
+      "id": "9505891763",
+      "updatedAt": "2026-04-22T10:58:52.822Z",
+      "phone": "9505891763",
+      "email": "",
+      "name": "Krishana Gora Kalpa",
+      "createdAt": "2026-04-22T10:58:52.822Z"
+    },
+    {
+      "id": "9703645412",
+      "createdAt": "2026-04-22T05:22:14.762Z",
+      "email": "",
+      "name": "Yadaiah Sura",
+      "phone": "9703645412",
+      "updatedAt": "2026-04-22T05:22:14.762Z"
+    },
+    {
+      "id": "9703645417",
+      "createdAt": "2026-04-22T05:20:25.164Z",
+      "name": "Yadayya Sura",
+      "email": "",
+      "phone": "9703645417",
+      "updatedAt": "2026-04-22T05:20:25.164Z"
+    },
+    {
+      "id": "9704454996",
+      "name": "Gopal",
+      "email": "",
+      "createdAt": "2026-04-23T14:42:27.259Z",
+      "updatedAt": "2026-04-23T14:42:27.259Z",
+      "phone": "9704454996"
+    },
+    {
+      "id": "9912441351",
+      "name": "Gowthami Kundara",
+      "email": "",
+      "createdAt": "2026-04-20T14:43:48.682Z",
+      "updatedAt": "2026-04-20T14:43:48.682Z",
+      "phone": "9912441351"
+    },
+    {
+      "id": "9912795513",
+      "createdAt": "2026-04-20T08:46:14.605Z",
+      "name": "K Bixam maganpelly",
+      "email": "",
+      "phone": "9912795513",
+      "updatedAt": "2026-04-20T08:46:14.605Z"
+    },
+    {
+      "id": "9948567410",
+      "updatedAt": "2026-04-23T15:32:56.793Z",
+      "phone": "9948567410",
+      "name": "V Yadhagiri",
+      "email": "",
+      "createdAt": "2026-04-23T15:32:56.793Z"
+    },
+    {
+      "id": "9963931182",
+      "name": "Srinivasulu",
+      "email": "",
+      "createdAt": "2026-04-19T15:30:47.149Z",
+      "updatedAt": "2026-04-19T15:30:47.149Z",
+      "phone": "9963931182"
+    },
+    {
+      "id": "cust_mo5y3eymxg8v",
+      "updatedAt": "2026-04-19T15:53:03.359Z",
+      "name": "Ramulu Kadaparthi",
+      "createdAt": "2026-04-19T15:53:03.359Z",
+      "phone": "",
+      "email": ""
+    },
+    {
+      "id": "cust_mo9wj8nl",
+      "updatedAt": "2026-04-22T10:20:27.153Z",
+      "phone": "",
+      "name": "Kumar Nakerkal",
+      "email": "",
+      "createdAt": "2026-04-22T10:20:27.153Z"
+    },
+    {
+      "id": "cust_moa2u5ci",
+      "updatedAt": "2026-04-22T13:16:53.778Z",
+      "phone": "",
+      "name": "Nkl manikanta",
+      "email": "",
+      "createdAt": "2026-04-22T13:16:53.778Z"
+    },
+    {
+      "id": "cust_mob4qkow",
+      "name": "Ravi Madharam",
+      "email": "",
+      "createdAt": "2026-04-23T06:57:52.448Z",
+      "updatedAt": "2026-04-23T06:57:52.448Z",
+      "phone": ""
+    },
+    {
+      "id": "cust_mob4xrtl",
+      "name": "Lakshmi Nakirekal",
+      "email": "",
+      "createdAt": "2026-04-23T07:03:28.282Z",
+      "updatedAt": "2026-04-23T07:03:28.282Z",
+      "phone": ""
+    },
+    {
+      "id": "cust_mo6yh6yt",
+      "updatedAt": "2026-04-20T08:51:32.357Z",
+      "phone": "",
+      "name": "Lingala Venkanna",
+      "email": "",
+      "createdAt": "2026-04-20T08:51:32.357Z"
+    }
+  ],
+  "sales": [
+    {
+      "id": "1777014178150",
+      "paymentMethod": "Cash",
+      "items": [
+        {
+          "category": "Almara Leg",
+          "price": 250,
+          "variant": "Leg",
+          "costPrice": 110,
+          "qty": 1,
+          "key": "Almara Leg|Leg"
+        }
+      ],
+      "updatedAt": "2026-04-24T07:02:58.151Z",
+      "date": "2026-04-24",
+      "total": 250,
+      "createdAt": "2026-04-24T07:02:58.151Z",
+      "payments": {
+        "upi": 0,
+        "cash": 250
+      },
+      "profit": 140,
+      "customer": null,
+      "time": "12:32:58"
+    },
+    {
+      "id": "1776502857961",
+      "date": "2026-04-18",
+      "items": [
+        {
+          "category": "Almara",
+          "variant": "(6 ½ * 4)",
+          "price": 8000,
+          "qty": 1,
+          "key": "Almara|(6 ½ * 4)",
+          "costPrice": 6900
+        },
+        {
+          "qty": 1,
+          "costPrice": 4700,
+          "key": "Mattress|Foam / 75*36 / 5",
+          "category": "Mattress",
+          "price": 5500,
+          "variant": "Foam / 75*36 / 5"
+        },
+        {
+          "variant": "Polish (6 × 5)",
+          "price": 10500,
+          "category": "Cot",
+          "key": "Cot|Polish (6 × 5)",
+          "costPrice": 9000,
+          "qty": 1
+        }
+      ],
+      "createdAt": "2026-04-23T16:12:37.709Z",
+      "updatedAt": "2026-04-23T16:17:14.018Z",
+      "customer": {
+        "phone": "9963931182",
+        "name": "Srinivasulu"
+      },
+      "time": "2:30:57 PM",
+      "paymentMethod": "Cash",
+      "total": 24000,
+      "profit": 3400
+    },
+    {
+      "id": "1776955722281",
+      "date": "2026-04-23",
+      "createdAt": "2026-04-23T14:48:42.281Z",
+      "items": [
+        {
+          "costPrice": 5000,
+          "key": "Almara|Single - 37 - Lite",
+          "qty": 1,
+          "price": 6500,
+          "variant": "Single - 37 - Lite",
+          "category": "Almara"
+        }
+      ],
+      "updatedAt": "2026-04-23T16:17:14.018Z",
+      "customer": {
+        "name": "Saidhulu b. Madharam.",
+        "phone": "9505235426"
+      },
+      "time": "8:18 PM",
+      "paymentMethod": "UPI",
+      "total": 6500,
+      "profit": 1500
+    },
+    {
+      "id": "1776955627692",
+      "time": "8:17 PM",
+      "paymentMethod": "UPI",
+      "total": 5000,
+      "profit": 400,
+      "date": "2026-04-23",
+      "createdAt": "2026-04-23T14:47:07.694Z",
+      "items": [
+        {
+          "key": "Mattress|Foam - 72*36 - 5",
+          "costPrice": 2800,
+          "qty": 1,
+          "variant": "Foam - 72*36 - 5",
+          "price": 2800,
+          "category": "Mattress"
+        },
+        {
+          "key": "Shoe Racks|077",
+          "costPrice": 1800,
+          "qty": 1,
+          "variant": "077",
+          "price": 2200,
+          "category": "Shoe Racks"
+        }
+      ],
+      "updatedAt": "2026-04-23T17:13:07.459Z",
+      "customer": {
+        "name": "Sudarshan nkl",
+        "phone": "9247848839"
+      }
+    },
+    {
+      "id": "1776955347252",
+      "date": "2026-04-23",
+      "items": [
+        {
+          "category": "Cot",
+          "price": 17500,
+          "variant": "Box (6 × 6)",
+          "qty": 1,
+          "costPrice": 14500,
+          "key": "Cot|Box (6 × 6)"
+        },
+        {
+          "key": "Mattress|Foam - 75*72 - 5",
+          "costPrice": 5000,
+          "qty": 1,
+          "variant": "Foam - 75*72 - 5",
+          "price": 6000,
+          "category": "Mattress"
+        },
+        {
+          "category": "Dressing",
+          "price": 3500,
+          "variant": "Long",
+          "qty": 1,
+          "costPrice": 3800,
+          "key": "Dressing|Long"
+        }
+      ],
+      "createdAt": "2026-04-23T14:42:27.256Z",
+      "updatedAt": "2026-04-23T17:11:45.192Z",
+      "customer": {
+        "name": "Gopal",
+        "phone": "9704454996"
+      },
+      "paymentMethod": "Cash",
+      "time": "8:12 PM",
+      "total": 27000,
+      "profit": 3700
+    },
+    {
+      "id": "1776949473815",
+      "date": "2026-04-23",
+      "createdAt": "2026-04-23T13:04:33.821Z",
+      "items": [
+        {
+          "costPrice": 3200,
+          "key": "Cooler|Vaishnavi Jumbo",
+          "qty": 1,
+          "price": 4700,
+          "variant": "Vaishnavi Jumbo",
+          "category": "Cooler"
+        }
+      ],
+      "updatedAt": "2026-04-23T13:04:33.821Z",
+      "customer": null,
+      "paymentMethod": "Cash",
+      "time": "6:34 PM",
+      "total": 4700,
+      "profit": 1500
+    },
+    {
+      "id": "1776948597940",
+      "updatedAt": "2026-04-23T12:49:57.946Z",
+      "customer": null,
+      "date": "2026-04-23",
+      "items": [
+        {
+          "key": "Chair|Resto Fiber",
+          "costPrice": 380,
+          "qty": 6,
+          "variant": "Resto Fiber",
+          "price": 500,
+          "category": "Chair"
+        },
+        {
+          "qty": 1,
+          "key": "Chair|Tub Chair",
+          "costPrice": 580,
+          "category": "Chair",
+          "variant": "Tub Chair",
+          "price": 700
+        },
+        {
+          "qty": 1,
+          "key": "Mattress|Foam - 75*60 - 6",
+          "costPrice": 6500,
+          "category": "Mattress",
+          "variant": "Foam - 75*60 - 6",
+          "price": 8000
+        }
+      ],
+      "createdAt": "2026-04-23T12:49:57.946Z",
+      "profit": 2340,
+      "time": "6:19 PM",
+      "paymentMethod": "Cash",
+      "total": 11700
+    },
+    {
+      "id": "1776948232892",
+      "paymentMethod": "Cash",
+      "time": "6:13 PM",
+      "total": 3500,
+      "profit": -300,
+      "date": "2026-04-23",
+      "items": [
+        {
+          "costPrice": 3800,
+          "key": "Dressing|Long",
+          "qty": 1,
+          "price": 3500,
+          "variant": "Long",
+          "category": "Dressing"
+        }
+      ],
+      "createdAt": "2026-04-23T12:43:52.893Z",
+      "updatedAt": "2026-04-23T17:11:45.192Z",
+      "customer": null
+    },
+    {
+      "id": "1776948137341",
+      "paymentMethod": "UPI",
+      "time": "6:12 PM",
+      "total": 2300,
+      "profit": 500,
+      "date": "2026-04-23",
+      "createdAt": "2026-04-23T12:42:17.346Z",
+      "items": [
+        {
+          "qty": 1,
+          "costPrice": 1800,
+          "key": "Dressing|Normal",
+          "category": "Dressing",
+          "price": 2300,
+          "variant": "Normal"
+        }
+      ],
+      "updatedAt": "2026-04-23T17:11:45.193Z",
+      "customer": null
+    },
+    {
+      "id": "1776936274784",
+      "customer": null,
+      "updatedAt": "2026-04-23T09:24:34.792Z",
+      "items": [
+        {
+          "variant": "Resto Fiber",
+          "price": 550,
+          "category": "Chair",
+          "key": "Chair|Resto Fiber",
+          "costPrice": 380,
+          "qty": 2
+        }
+      ],
+      "createdAt": "2026-04-23T09:24:34.792Z",
+      "date": "2026-04-23",
+      "profit": 340,
+      "total": 1100,
+      "paymentMethod": "Cash",
+      "time": "2:54 PM"
+    },
+    {
+      "id": "1776933738702",
+      "profit": -300,
+      "time": "2:12 PM",
+      "paymentMethod": "UPI",
+      "total": 3500,
+      "updatedAt": "2026-04-23T17:11:45.193Z",
+      "customer": null,
+      "date": "2026-04-23",
+      "createdAt": "2026-04-23T08:42:18.707Z",
+      "items": [
+        {
+          "key": "Dressing|Long",
+          "costPrice": 3800,
+          "qty": 1,
+          "variant": "Long",
+          "price": 3500,
+          "category": "Dressing"
+        }
+      ]
+    },
+    {
+      "id": "1776930282602",
+      "updatedAt": "2026-04-23T17:11:45.193Z",
+      "customer": {
+        "phone": "8121516881",
+        "name": "Ch babu"
+      },
+      "date": "2026-04-23",
+      "createdAt": "2026-04-23T07:44:42.606Z",
+      "items": [
+        {
+          "category": "Cot",
+          "price": 8000,
+          "variant": "Polish (6 × 4)",
+          "qty": 1,
+          "costPrice": 6000,
+          "key": "Cot|Polish (6 × 4)"
+        },
+        {
+          "price": 3500,
+          "variant": "Long",
+          "category": "Dressing",
+          "costPrice": 3800,
+          "key": "Dressing|Long",
+          "qty": 1
+        },
+        {
+          "key": "Almara|Double - 47 - Mid",
+          "costPrice": 10000,
+          "qty": 1,
+          "variant": "Double - 47 - Mid",
+          "price": 12500,
+          "category": "Almara"
+        },
+        {
+          "price": 3000,
+          "variant": "Ep - 75*48 - 5",
+          "category": "Mattress",
+          "costPrice": 2500,
+          "key": "Mattress|Ep - 75*48 - 5",
+          "qty": 1
+        }
+      ],
+      "profit": 4700,
+      "time": "1:14 PM",
+      "paymentMethod": "Cash",
+      "total": 27000
+    },
+    {
+      "id": "1776927808270",
+      "date": "2026-04-23",
+      "createdAt": "2026-04-23T07:03:28.272Z",
+      "items": [
+        {
+          "variant": "087",
+          "price": 2250,
+          "category": "Shoe Racks",
+          "key": "Shoe Racks|087",
+          "costPrice": 2100,
+          "qty": 4
+        },
+        {
+          "category": "Official Table",
+          "variant": "4*2",
+          "price": 3000,
+          "qty": 1,
+          "key": "Official Table|4*2",
+          "costPrice": 2300
+        }
+      ],
+      "updatedAt": "2026-04-23T17:13:07.459Z",
+      "customer": {
+        "name": "Lakshmi Nakirekal",
+        "phone": ""
+      },
+      "paymentMethod": "Cash",
+      "time": "12:33 PM",
+      "total": 12000,
+      "profit": 1300
+    },
+    {
+      "id": "1776927472443",
+      "updatedAt": "2026-04-23T06:57:52.446Z",
+      "customer": {
+        "name": "Ravi Madharam",
+        "phone": ""
+      },
+      "date": "2026-04-23",
+      "items": [
+        {
+          "variant": "Diwan Normal",
+          "price": 4000,
+          "category": "Cot",
+          "key": "Cot|Diwan Normal",
+          "costPrice": 3000,
+          "qty": 1
+        },
+        {
+          "key": "Mattress|EP - 75*36 - 5",
+          "costPrice": 2000,
+          "qty": 1,
+          "variant": "EP - 75*36 - 5",
+          "price": 3000,
+          "category": "Mattress"
+        }
+      ],
+      "createdAt": "2026-04-23T06:57:52.446Z",
+      "profit": 2000,
+      "time": "12:27 PM",
+      "paymentMethod": "UPI",
+      "total": 7000
+    },
+    {
+      "id": "1776926613951",
+      "paymentMethod": "Cash",
+      "time": "12:13 PM",
+      "total": 1960,
+      "profit": 210,
+      "date": "2026-04-23",
+      "items": [
+        {
+          "qty": 7,
+          "costPrice": 250,
+          "key": "Chair|Resto stool",
+          "category": "Chair",
+          "price": 280,
+          "variant": "Resto stool"
+        }
+      ],
+      "createdAt": "2026-04-23T06:43:33.952Z",
+      "updatedAt": "2026-04-23T16:41:35.888Z",
+      "customer": null
+    },
+    {
+      "id": "1776869005202",
+      "paymentMethod": "UPI",
+      "time": "8:13 PM",
+      "total": 4600,
+      "profit": 850,
+      "date": "2026-04-22",
+      "items": [
+        {
+          "qty": 1,
+          "key": "Cooler|Vaishnavi Matrix",
+          "costPrice": 3750,
+          "category": "Cooler",
+          "variant": "Vaishnavi Matrix",
+          "price": 4600
+        }
+      ],
+      "createdAt": "2026-04-22T14:43:25.207Z",
+      "updatedAt": "2026-04-22T14:43:25.207Z",
+      "customer": {
+        "name": "B sarlu surarm",
+        "phone": "6281529557"
+      }
+    },
+    {
+      "id": "1776863813770",
+      "customer": {
+        "name": "Nkl manikanta",
+        "phone": ""
+      },
+      "updatedAt": "2026-04-22T13:16:53.775Z",
+      "items": [
+        {
+          "key": "Cooler|Vaishnavi Matrix",
+          "costPrice": 3750,
+          "qty": 1,
+          "variant": "Vaishnavi Matrix",
+          "price": 5000,
+          "category": "Cooler"
+        }
+      ],
+      "createdAt": "2026-04-22T13:16:53.775Z",
+      "date": "2026-04-22",
+      "profit": 1250,
+      "total": 5000,
+      "paymentMethod": "UPI",
+      "time": "6:46 PM"
+    },
+    {
+      "id": "1776859802075",
+      "date": "2026-04-22",
+      "createdAt": "2026-04-22T12:10:02.080Z",
+      "items": [
+        {
+          "category": "Almara",
+          "price": 8500,
+          "variant": "Double - 47 - Lite",
+          "qty": 1,
+          "costPrice": 9200,
+          "key": "Almara|Double - 47 - Lite"
+        }
+      ],
+      "updatedAt": "2026-04-23T16:17:14.018Z",
+      "customer": {
+        "name": "lingaiah  Ukku",
+        "phone": "9441339984"
+      },
+      "time": "5:40 PM",
+      "paymentMethod": "UPI",
+      "total": 8500,
+      "profit": -700
+    },
+    {
+      "id": "1776855532816",
+      "profit": 1000,
+      "total": 6000,
+      "time": "4:28 PM",
+      "paymentMethod": "Cash",
+      "customer": {
+        "name": "Krishana Gora Kalpa",
+        "phone": "9505891763"
+      },
+      "updatedAt": "2026-04-23T16:17:14.018Z",
+      "items": [
+        {
+          "variant": "Single - 37 - Lite",
+          "price": 6000,
+          "category": "Almara",
+          "key": "Almara|Single - 37 - Lite",
+          "costPrice": 5000,
+          "qty": 1
+        }
+      ],
+      "createdAt": "2026-04-22T10:58:52.820Z",
+      "date": "2026-04-22"
+    },
+    {
+      "id": "1776853227150",
+      "profit": 2000,
+      "time": "3:50 PM",
+      "paymentMethod": "Cash",
+      "total": 8600,
+      "updatedAt": "2026-04-22T10:20:27.151Z",
+      "customer": {
+        "name": "Kumar Nakerkal",
+        "phone": ""
+      },
+      "date": "2026-04-22",
+      "createdAt": "2026-04-22T10:20:27.151Z",
+      "items": [
+        {
+          "price": 5000,
+          "variant": "Office chair",
+          "category": "Chair",
+          "costPrice": 4000,
+          "key": "Chair|Office chair",
+          "qty": 1
+        },
+        {
+          "key": "Official Table|4*2 Polish",
+          "costPrice": 2600,
+          "qty": 1,
+          "variant": "4*2 Polish",
+          "price": 3600,
+          "category": "Official Table"
+        }
+      ]
+    },
+    {
+      "id": "1776846633071",
+      "date": "2026-04-22",
+      "createdAt": "2026-04-22T08:30:33.073Z",
+      "items": [
+        {
+          "variant": "Ep - 75*48 - 5",
+          "price": 3000,
+          "category": "Mattress",
+          "key": "Mattress|Ep - 75*48 - 5",
+          "costPrice": 2500,
+          "qty": 1
+        },
+        {
+          "qty": 1,
+          "key": "Cot|Polish (6 × 4)",
+          "costPrice": 6000,
+          "category": "Cot",
+          "variant": "Polish (6 × 4)",
+          "price": 7000
+        }
+      ],
+      "updatedAt": "2026-04-22T08:30:33.073Z",
+      "customer": {
+        "phone": "9703645417",
+        "name": "Yadayya Sura"
+      },
+      "time": "2:00 PM",
+      "paymentMethod": "Cash",
+      "total": 10000,
+      "profit": 1500
+    },
+    {
+      "id": "1776835398313",
+      "profit": 200,
+      "paymentMethod": "Cash",
+      "time": "10:53 AM",
+      "total": 900,
+      "updatedAt": "2026-04-23T19:59:16.783Z",
+      "customer": null,
+      "date": "2026-04-22",
+      "items": [
+        {
+          "category": "Tv Stand",
+          "price": 900,
+          "variant": "Tv Stand",
+          "qty": 1,
+          "costPrice": 700,
+          "key": "Tv Stand|Tv Stand"
+        }
+      ],
+      "createdAt": "2026-04-22T05:23:18.314Z"
+    },
+    {
+      "id": "1776783026389",
+      "createdAt": "2026-04-21T14:50:26.389Z",
+      "items": [
+        {
+          "price": 1800,
+          "variant": "Iron Whight",
+          "category": "Cot",
+          "costPrice": 1300,
+          "key": "Cot|Iron Whight",
+          "qty": 1
+        }
+      ],
+      "date": "2026-04-21",
+      "customer": null,
+      "updatedAt": "2026-04-21T14:50:26.389Z",
+      "total": 1800,
+      "paymentMethod": "Cash",
+      "time": "8:20 PM",
+      "profit": 500
+    },
+    {
+      "id": "1776782829889",
+      "updatedAt": "2026-04-21T14:47:09.890Z",
+      "customer": null,
+      "date": "2026-04-21",
+      "createdAt": "2026-04-21T14:47:09.890Z",
+      "items": [
+        {
+          "qty": 2,
+          "costPrice": 380,
+          "key": "Chair|Resto Fiber",
+          "category": "Chair",
+          "price": 450,
+          "variant": "Resto Fiber"
+        }
+      ],
+      "profit": 140,
+      "time": "8:17 PM",
+      "paymentMethod": "UPI",
+      "total": 900
+    },
+    {
+      "id": "1776780960631",
+      "total": 4000,
+      "time": "7:46 PM",
+      "paymentMethod": "Cash",
+      "profit": 400,
+      "createdAt": "2026-04-21T14:16:00.637Z",
+      "items": [
+        {
+          "qty": 2,
+          "costPrice": 1800,
+          "key": "Shoe Racks|077",
+          "category": "Shoe Racks",
+          "price": 2000,
+          "variant": "077"
+        }
+      ],
+      "date": "2026-04-21",
+      "customer": null,
+      "updatedAt": "2026-04-23T17:13:07.459Z"
+    },
+    {
+      "id": "1776758929719",
+      "paymentMethod": "UPI",
+      "time": "1:38 PM",
+      "total": 4800,
+      "profit": 1100,
+      "date": "2026-04-21",
+      "createdAt": "2026-04-21T08:08:49.720Z",
+      "items": [
+        {
+          "variant": "Wintro",
+          "price": 4800,
+          "category": "Cooler",
+          "key": "Cooler|Wintro",
+          "costPrice": 3700,
+          "qty": 1
+        }
+      ],
+      "updatedAt": "2026-04-21T08:08:49.720Z",
+      "customer": {
+        "phone": "7702620107",
+        "name": "G suman"
+      }
+    },
+    {
+      "id": "1776698967099",
+      "date": "2026-04-20",
+      "items": [
+        {
+          "variant": "Resto",
+          "price": 300,
+          "category": "Chair",
+          "key": "Chair|Resto",
+          "costPrice": 230,
+          "qty": 10
+        }
+      ],
+      "createdAt": "2026-04-20T15:29:27.100Z",
+      "updatedAt": "2026-04-20T15:29:27.100Z",
+      "customer": null,
+      "paymentMethod": "UPI",
+      "time": "20:59:27",
+      "total": 3000,
+      "profit": 700
+    },
+    {
+      "id": "1776698909752",
+      "total": 13000,
+      "paymentMethod": "Cash",
+      "time": "20:58:29",
+      "profit": 1000,
+      "items": [
+        {
+          "qty": 1,
+          "costPrice": 12000,
+          "key": "Almara|Double - 47 - Heavy",
+          "category": "Almara",
+          "price": 13000,
+          "variant": "Double - 47 - Heavy"
+        }
+      ],
+      "createdAt": "2026-04-20T15:28:29.752Z",
+      "date": "2026-04-20",
+      "customer": null,
+      "updatedAt": "2026-04-23T16:17:14.018Z"
+    },
+    {
+      "id": "1776698874250",
+      "updatedAt": "2026-04-20T15:27:54.250Z",
+      "customer": null,
+      "date": "2026-04-20",
+      "createdAt": "2026-04-20T15:27:54.250Z",
+      "items": [
+        {
+          "costPrice": 3200,
+          "key": "Cooler|Vaishnavi Jumbo",
+          "qty": 1,
+          "price": 4000,
+          "variant": "Vaishnavi Jumbo",
+          "category": "Cooler"
+        }
+      ],
+      "profit": 800,
+      "time": "20:57:54",
+      "paymentMethod": "Cash",
+      "total": 4000
+    },
+    {
+      "id": "1776698855967",
+      "total": 10500,
+      "time": "20:57:35",
+      "paymentMethod": "Cash",
+      "profit": 3000,
+      "createdAt": "2026-04-20T15:27:35.967Z",
+      "items": [
+        {
+          "variant": "Single - 37 - Mid",
+          "price": 10500,
+          "category": "Almara",
+          "key": "Almara|Single - 37 - Mid",
+          "costPrice": 7500,
+          "qty": 1
+        }
+      ],
+      "date": "2026-04-20",
+      "customer": null,
+      "updatedAt": "2026-04-23T16:17:14.018Z"
+    },
+    {
+      "id": "1776698842184",
+      "updatedAt": "2026-04-23T17:13:07.459Z",
+      "customer": null,
+      "date": "2026-04-20",
+      "createdAt": "2026-04-20T15:27:22.184Z",
+      "items": [
+        {
+          "key": "Shoe Racks|077",
+          "costPrice": 1800,
+          "qty": 2,
+          "variant": "077",
+          "price": 2000,
+          "category": "Shoe Racks"
+        }
+      ],
+      "profit": 400,
+      "time": "20:57:22",
+      "paymentMethod": "Cash",
+      "total": 4000
+    },
+    {
+      "id": "1776696228677",
+      "total": 8000,
+      "time": "20:13:48",
+      "paymentMethod": "Cash",
+      "profit": 500,
+      "createdAt": "2026-04-20T14:43:48.680Z",
+      "items": [
+        {
+          "qty": 1,
+          "costPrice": 7500,
+          "key": "Almara|Single - 37 - Mid",
+          "category": "Almara",
+          "price": 8000,
+          "variant": "Single - 37 - Mid"
+        }
+      ],
+      "date": "2026-04-20",
+      "customer": {
+        "phone": "9912441351",
+        "name": "Gowthami Kundara"
+      },
+      "updatedAt": "2026-04-23T16:17:14.018Z"
+    },
+    {
+      "id": "1776693859071",
+      "updatedAt": "2026-04-20T14:04:19.073Z",
+      "customer": null,
+      "date": "2026-04-20",
+      "createdAt": "2026-04-20T14:04:19.073Z",
+      "items": [
+        {
+          "price": 270,
+          "variant": "Small",
+          "category": "Fridge Stand",
+          "costPrice": 120,
+          "key": "Fridge Stand|Small",
+          "qty": 1
+        }
+      ],
+      "profit": 150,
+      "time": "19:34:19",
+      "paymentMethod": "Cash",
+      "total": 270
+    },
+    {
+      "id": "1776684094716",
+      "customer": null,
+      "updatedAt": "2026-04-20T11:21:34.719Z",
+      "createdAt": "2026-04-20T11:21:34.719Z",
+      "items": [
+        {
+          "variant": "Ikia Bustar",
+          "price": 4500,
+          "category": "Cooler",
+          "key": "Cooler|Ikia Bustar",
+          "costPrice": 3700,
+          "qty": 1
+        }
+      ],
+      "date": "2026-04-20",
+      "profit": 800,
+      "total": 4500,
+      "paymentMethod": "Cash",
+      "time": "16:51:34"
+    },
+    {
+      "id": "1776676630338",
+      "updatedAt": "2026-04-23T17:11:45.193Z",
+      "customer": {
+        "name": "Gopi",
+        "phone": "8790099502"
+      },
+      "date": "2026-04-20",
+      "items": [
+        {
+          "qty": 1,
+          "costPrice": 1800,
+          "key": "Dressing|Normal",
+          "category": "Dressing",
+          "price": 2300,
+          "variant": "Normal"
+        }
+      ],
+      "createdAt": "2026-04-20T09:17:10.338Z",
+      "profit": 500,
+      "time": "14:47:10",
+      "paymentMethod": "UPI",
+      "total": 2300
+    },
+    {
+      "id": "1776675092355",
+      "profit": 1200,
+      "time": "14:21:32",
+      "paymentMethod": "Cash",
+      "total": 8000,
+      "updatedAt": "2026-04-23T17:11:45.193Z",
+      "customer": {
+        "name": "Lingala Venkanna",
+        "phone": ""
+      },
+      "date": "2026-04-20",
+      "createdAt": "2026-04-20T08:51:32.356Z",
+      "items": [
+        {
+          "costPrice": 5000,
+          "key": "Almara|Single - 37 - Lite",
+          "qty": 1,
+          "price": 5800,
+          "variant": "Single - 37 - Lite",
+          "category": "Almara"
+        },
+        {
+          "variant": "Normal",
+          "price": 2200,
+          "category": "Dressing",
+          "key": "Dressing|Normal",
+          "costPrice": 1800,
+          "qty": 1
+        }
+      ]
+    },
+    {
+      "id": "1776674774604",
+      "customer": {
+        "name": "K Bixam maganpelly",
+        "phone": "9912795513"
+      },
+      "updatedAt": "2026-04-23T17:11:45.193Z",
+      "createdAt": "2026-04-20T08:46:14.605Z",
+      "items": [
+        {
+          "variant": "Normal",
+          "price": 2200,
+          "category": "Dressing",
+          "key": "Dressing|Normal",
+          "costPrice": 1800,
+          "qty": 1
+        }
+      ],
+      "date": "2026-04-20",
+      "profit": 400,
+      "total": 2200,
+      "time": "14:16:14",
+      "paymentMethod": "UPI"
+    },
+    {
+      "id": "1776670913805",
+      "profit": 1200,
+      "total": 4600,
+      "time": "13:11:53",
+      "paymentMethod": "Cash",
+      "customer": {
+        "name": "B lingaiah aitpamula",
+        "phone": "9951091903"
+      },
+      "updatedAt": "2026-04-20T07:41:53.809Z",
+      "items": [
+        {
+          "price": 4600,
+          "variant": "Resto Turbo",
+          "category": "Cooler",
+          "costPrice": 3400,
+          "key": "Cooler|Resto Turbo",
+          "qty": 1
+        }
+      ],
+      "createdAt": "2026-04-20T07:41:53.809Z",
+      "date": "2026-04-20"
+    },
+    {
+      "id": "1776623853700",
+      "total": 1800,
+      "time": "12:07:33 AM",
+      "paymentMethod": "Cash",
+      "profit": 500,
+      "createdAt": "2026-04-19T18:37:33.700Z",
+      "items": [
+        {
+          "category": "Cot",
+          "variant": "Iron Whight",
+          "price": 1800,
+          "qty": 1,
+          "key": "Cot|Iron Whight",
+          "costPrice": 1300
+        }
+      ],
+      "date": "2026-04-19",
+      "customer": null,
+      "updatedAt": "2026-04-19T18:37:33.700Z"
+    },
+    {
+      "id": "1776623724151",
+      "paymentMethod": "UPI",
+      "time": "12:05:24 AM",
+      "total": 4000,
+      "profit": 800,
+      "date": "2026-04-19",
+      "items": [
+        {
+          "category": "Cooler",
+          "price": 4000,
+          "variant": "Vaishnavi Jumbo",
+          "qty": 1,
+          "costPrice": 3200,
+          "key": "Cooler|Vaishnavi Jumbo"
+        }
+      ],
+      "createdAt": "2026-04-19T18:35:24.152Z",
+      "updatedAt": "2026-04-19T18:35:24.152Z",
+      "customer": null
+    },
+    {
+      "id": "1776498660155",
+      "total": 4500,
+      "items": [
+        {
+          "variant": "Breeze",
+          "qty": 1,
+          "key": "Cooler|Breeze",
+          "category": "Cooler",
+          "price": 4500,
+          "costPrice": 3100
+        }
+      ],
+      "customer": null,
+      "paymentMethod": "Cash",
+      "time": "1:21:00 PM",
+      "date": "2026-04-18",
+      "profit": 1400
+    },
+    {
+      "id": "1776490149848",
+      "total": 5000,
+      "paymentMethod": "Cash",
+      "customer": {
+        "phone": "",
+        "name": "Ramulu Kadaparthi"
+      },
+      "items": [
+        {
+          "variant": "Flapee King",
+          "qty": 1,
+          "key": "Cooler|Flapee King",
+          "category": "Cooler",
+          "price": 5000,
+          "costPrice": 3800
+        }
+      ],
+      "time": "10:59:09 AM",
+      "profit": 1200,
+      "date": "2026-04-18"
+    }
+  ],
+  "stockLogs": [
+    {
+      "id": "mobqm2g8icowv1898r",
+      "vendor": "Stock Adjustment",
+      "reason": null,
+      "type": "adjustment",
+      "time": "10:40 PM",
+      "photo": null,
+      "addedBy": "admin",
+      "invoice": "",
+      "createdAt": "2026-04-23T17:10:13.740Z",
+      "items": [
+        {
+          "variant": "Small",
+          "price": 300,
+          "alertQty": 0,
+          "category": "Fridge Stand",
+          "key": "Fridge Stand|Small",
+          "newQty": 3,
+          "oldQty": 2,
+          "qtyChange": 1,
+          "costPrice": 120,
+          "addedAt": "2026-04-23T17:10:13.740Z"
+        }
+      ],
+      "date": "2026-04-23"
+    },
+    {
+      "id": "mobntq0iu1iy831q6q",
+      "invoice": "9063725236",
+      "addedBy": "admin",
+      "date": "2026-04-23",
+      "createdAt": "2026-04-23T15:53:49.637Z",
+      "items": [
+        {
+          "alertQty": 0,
+          "price": 12000,
+          "variant": "Single - 37 - Mid",
+          "category": "Almata",
+          "costPrice": 7850,
+          "key": "Almata|Single - 37 - Mid",
+          "addedAt": "2026-04-23T15:53:39.317Z",
+          "qty": 3
+        },
+        {
+          "variant": "Single - 37 - Heavy",
+          "alertQty": 0,
+          "price": 13000,
+          "category": "Almata",
+          "key": "Almata|Single - 37 - Heavy",
+          "costPrice": 8500,
+          "qty": 1,
+          "addedAt": "2026-04-23T15:53:44.200Z"
+        }
+      ],
+      "type": "bulk",
+      "stockType": "new",
+      "vendor": "Sharma (Nakrekal)",
+      "photo": "data:image/jpeg;base64,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",
+      "time": "9:22 PM"
+    },
+    {
+      "id": "mob59c8sf7t6sx15rsv",
+      "invoice": "",
+      "addedBy": "admin",
+      "date": "2026-04-23",
+      "createdAt": "2026-04-23T07:12:27.964Z",
+      "items": [
+        {
+          "qtyChange": 4,
+          "oldQty": 1,
+          "newQty": 5,
+          "addedAt": "2026-04-23T07:12:27.964Z",
+          "costPrice": 6500,
+          "category": "Mattress",
+          "variant": "Foam - 75*60 - 6",
+          "alertQty": 0,
+          "price": 11000,
+          "key": "Mattress|Foam - 75*60 - 6"
+        }
+      ],
+      "type": "adjustment",
+      "vendor": "Stock Adjustment",
+      "reason": null,
+      "photo": null,
+      "time": "12:42 PM"
+    },
+    {
+      "id": "mob58h77j1e6gcgoht8",
+      "reason": null,
+      "vendor": "Stock Adjustment",
+      "type": "adjustment",
+      "time": "12:41 PM",
+      "photo": null,
+      "invoice": "",
+      "addedBy": "admin",
+      "date": "2026-04-23",
+      "createdAt": "2026-04-23T07:11:47.731Z",
+      "items": [
+        {
+          "category": "Mattress",
+          "alertQty": 0,
+          "price": 3000,
+          "variant": "EP - 75*36 - 4",
+          "key": "Mattress|EP - 75*36 - 4",
+          "qtyChange": 4,
+          "oldQty": 1,
+          "newQty": 5,
+          "addedAt": "2026-04-23T07:11:47.731Z",
+          "costPrice": 1800
+        }
+      ]
+    },
+    {
+      "id": "mob58a51i82vm4yv77h",
+      "items": [
+        {
+          "qtyChange": 4,
+          "oldQty": 1,
+          "newQty": 5,
+          "addedAt": "2026-04-23T07:11:38.581Z",
+          "costPrice": 2500,
+          "category": "Mattress",
+          "variant": "EP - 72*48 - 5",
+          "price": 4500,
+          "alertQty": 0,
+          "key": "Mattress|EP - 72*48 - 5"
+        }
+      ],
+      "createdAt": "2026-04-23T07:11:38.581Z",
+      "date": "2026-04-23",
+      "addedBy": "admin",
+      "invoice": "",
+      "time": "12:41 PM",
+      "photo": null,
+      "vendor": "Stock Adjustment",
+      "reason": null,
+      "type": "adjustment"
+    },
+    {
+      "id": "mob57awzkpa2zqkh3mm",
+      "photo": null,
+      "time": "12:40 PM",
+      "type": "adjustment",
+      "vendor": "Stock Adjustment",
+      "reason": null,
+      "items": [
+        {
+          "costPrice": 2100,
+          "addedAt": "2026-04-23T07:10:52.931Z",
+          "newQty": 5,
+          "qtyChange": 4,
+          "oldQty": 1,
+          "key": "Mattress|EP - 72*48 - 4",
+          "price": 3500,
+          "alertQty": 0,
+          "variant": "EP - 72*48 - 4",
+          "category": "Mattress"
+        }
+      ],
+      "createdAt": "2026-04-23T07:10:52.931Z",
+      "date": "2026-04-23",
+      "addedBy": "admin",
+      "invoice": ""
+    },
+    {
+      "id": "mob52myqeqjcxgskz5i",
+      "vendor": "Opening Stock",
+      "stockType": "old",
+      "type": "bulk",
+      "time": "12:37 PM",
+      "photo": null,
+      "invoice": "",
+      "addedBy": "admin",
+      "date": "2026-04-23",
+      "items": [
+        {
+          "category": "Mattress",
+          "price": 3500,
+          "alertQty": 0,
+          "variant": "EP - 72*36 - 5",
+          "qty": 5,
+          "addedAt": "2026-04-23T07:12:59.481Z",
+          "costPrice": 2000,
+          "key": "Mattress|EP - 72*36 - 5"
+        },
+        {
+          "costPrice": 2800,
+          "key": "Mattress|Foam - 72*36 - 5",
+          "qty": 5,
+          "addedAt": "2026-04-23T07:13:03.864Z",
+          "alertQty": 0,
+          "price": 4000,
+          "variant": "Foam - 72*36 - 5",
+          "category": "Mattress"
+        },
+        {
+          "alertQty": 0,
+          "price": 7000,
+          "variant": "Foam - 72*36 - 6",
+          "category": "Mattress",
+          "costPrice": 4200,
+          "key": "Mattress|Foam - 72*36 - 6",
+          "qty": 5,
+          "addedAt": "2026-04-23T07:13:07.815Z"
+        },
+        {
+          "price": 4000,
+          "alertQty": 0,
+          "variant": "Foam - 75*36 - 5",
+          "category": "Mattress",
+          "costPrice": 2800,
+          "key": "Mattress|Foam - 75*36 - 5",
+          "qty": 5,
+          "addedAt": "2026-04-23T07:13:46.430Z"
+        },
+        {
+          "price": 7000,
+          "alertQty": 0,
+          "variant": "Foam - 75*36 - 6",
+          "category": "Mattress",
+          "costPrice": 4200,
+          "key": "Mattress|Foam - 75*36 - 6",
+          "qty": 5,
+          "addedAt": "2026-04-23T07:13:49.830Z"
+        },
+        {
+          "variant": "EP - 72*48 - 4",
+          "alertQty": 0,
+          "price": 3500,
+          "category": "Mattress",
+          "key": "Mattress|EP - 72*48 - 4",
+          "costPrice": 2100,
+          "addedAt": "2026-04-23T07:13:52.497Z",
+          "qty": 5
+        },
+        {
+          "variant": "EP - 72*48 - 5",
+          "alertQty": 0,
+          "price": 4500,
+          "category": "Mattress",
+          "key": "Mattress|EP - 72*48 - 5",
+          "costPrice": 2500,
+          "addedAt": "2026-04-23T07:13:55.064Z",
+          "qty": 5
+        },
+        {
+          "addedAt": "2026-04-23T07:13:58.130Z",
+          "qty": 5,
+          "costPrice": 3300,
+          "key": "Mattress|Foam - 72*48 - 5",
+          "category": "Mattress",
+          "price": 5500,
+          "alertQty": 0,
+          "variant": "Foam - 72*48 - 5"
+        },
+        {
+          "category": "Mattress",
+          "variant": "Foam - 72*48 - 6",
+          "alertQty": 0,
+          "price": 9000,
+          "addedAt": "2026-04-23T07:14:00.747Z",
+          "qty": 5,
+          "key": "Mattress|Foam - 72*48 - 6",
+          "costPrice": 5300
+        },
+        {
+          "costPrice": 2100,
+          "key": "Mattress|Ep - 75*48 - 4",
+          "qty": 5,
+          "addedAt": "2026-04-23T07:14:03.497Z",
+          "price": 3500,
+          "alertQty": 0,
+          "variant": "Ep - 75*48 - 4",
+          "category": "Mattress"
+        },
+        {
+          "category": "Mattress",
+          "alertQty": 0,
+          "price": 5500,
+          "variant": "Foam - 72*48 - 5",
+          "addedAt": "2026-04-23T07:14:08.330Z",
+          "qty": 5,
+          "costPrice": 3300,
+          "key": "Mattress|Foam - 72*48 - 5"
+        },
+        {
+          "addedAt": "2026-04-23T07:14:11.430Z",
+          "qty": 5,
+          "key": "Mattress|Foam - 72*48 - 6",
+          "costPrice": 5300,
+          "category": "Mattress",
+          "variant": "Foam - 72*48 - 6",
+          "alertQty": 0,
+          "price": 9000
+        },
+        {
+          "qty": 5,
+          "addedAt": "2026-04-23T07:14:13.980Z",
+          "key": "Mattress|Ep - 75*48 - 4",
+          "costPrice": 2100,
+          "category": "Mattress",
+          "variant": "Ep - 75*48 - 4",
+          "alertQty": 0,
+          "price": 3500
+        },
+        {
+          "costPrice": 2500,
+          "key": "Mattress|Ep - 75*48 - 5",
+          "addedAt": "2026-04-23T07:14:16.547Z",
+          "qty": 5,
+          "alertQty": 0,
+          "price": 4500,
+          "variant": "Ep - 75*48 - 5",
+          "category": "Mattress"
+        },
+        {
+          "costPrice": 3300,
+          "key": "Mattress|Foam - 75*48 - 5",
+          "qty": 5,
+          "addedAt": "2026-04-23T07:14:19.280Z",
+          "alertQty": 0,
+          "price": 5500,
+          "variant": "Foam - 75*48 - 5",
+          "category": "Mattress"
+        },
+        {
+          "category": "Mattress",
+          "variant": "Foam - 75*48 - 6",
+          "alertQty": 0,
+          "price": 9000,
+          "addedAt": "2026-04-23T07:14:22.164Z",
+          "qty": 5,
+          "key": "Mattress|Foam - 75*48 - 6",
+          "costPrice": 5300
+        },
+        {
+          "variant": "EP - 75*60 - 4",
+          "price": 6000,
+          "alertQty": 0,
+          "category": "Mattress",
+          "key": "Mattress|EP - 75*60 - 4",
+          "costPrice": 2800,
+          "qty": 5,
+          "addedAt": "2026-04-23T07:14:25.347Z"
+        },
+        {
+          "category": "Mattress",
+          "variant": "EP - 75*60 - 5",
+          "alertQty": 0,
+          "price": 6500,
+          "addedAt": "2026-04-23T07:14:28.480Z",
+          "qty": 5,
+          "key": "Mattress|EP - 75*60 - 5",
+          "costPrice": 3200
+        },
+        {
+          "qty": 5,
+          "addedAt": "2026-04-23T07:14:31.230Z",
+          "key": "Mattress|Foam - 75*60 - 5",
+          "costPrice": 4200,
+          "category": "Mattress",
+          "variant": "Foam - 75*60 - 5",
+          "alertQty": 0,
+          "price": 7500
+        },
+        {
+          "costPrice": 6500,
+          "key": "Mattress|Foam - 75*60 - 6",
+          "qty": 5,
+          "addedAt": "2026-04-23T07:14:33.380Z",
+          "price": 11000,
+          "alertQty": 0,
+          "variant": "Foam - 75*60 - 6",
+          "category": "Mattress"
+        },
+        {
+          "category": "Mattress",
+          "alertQty": 0,
+          "price": 6500,
+          "variant": "Ep - 75*72 - 4",
+          "qty": 5,
+          "addedAt": "2026-04-23T07:14:37.130Z",
+          "costPrice": 3500,
+          "key": "Mattress|Ep - 75*72 - 4"
+        },
+        {
+          "qty": 5,
+          "addedAt": "2026-04-23T07:14:39.663Z",
+          "costPrice": 3700,
+          "key": "Mattress|Ep - 75*72 - 5",
+          "category": "Mattress",
+          "alertQty": 0,
+          "price": 7000,
+          "variant": "Ep - 75*72 - 5"
+        },
+        {
+          "costPrice": 5000,
+          "key": "Mattress|Foam - 75*72 - 5",
+          "addedAt": "2026-04-23T07:14:41.997Z",
+          "qty": 5,
+          "alertQty": 0,
+          "price": 9000,
+          "variant": "Foam - 75*72 - 5",
+          "category": "Mattress"
+        },
+        {
+          "addedAt": "2026-04-23T07:14:44.547Z",
+          "qty": 5,
+          "key": "Mattress|Foam - 75*72 - 6",
+          "costPrice": 8000,
+          "category": "Mattress",
+          "variant": "Foam - 75*72 - 6",
+          "alertQty": 0,
+          "price": 14000
+        }
+      ],
+      "createdAt": "2026-04-23T07:15:00.186Z"
+    },
+    {
+      "id": "mob50znzdodm5eipcyb",
+      "reason": null,
+      "vendor": "Stock Adjustment",
+      "type": "adjustment",
+      "time": "12:35 PM",
+      "photo": null,
+      "invoice": "",
+      "addedBy": "admin",
+      "date": "2026-04-23",
+      "items": [
+        {
+          "costPrice": 2500,
+          "addedAt": "2026-04-23T07:05:58.415Z",
+          "newQty": 5,
+          "qtyChange": 5,
+          "oldQty": 0,
+          "key": "Mattress|Ep - 75*48 - 5",
+          "alertQty": 0,
+          "price": 4500,
+          "variant": "Ep - 75*48 - 5",
+          "category": "Mattress"
+        }
+      ],
+      "createdAt": "2026-04-23T07:05:58.415Z"
+    },
+    {
+      "id": "mob50ofd8jt10qlbys2",
+      "addedBy": "admin",
+      "invoice": "",
+      "items": [
+        {
+          "alertQty": 0,
+          "price": 3500,
+          "variant": "EP - 75*36 - 5",
+          "category": "Mattress",
+          "key": "Mattress|EP - 75*36 - 5",
+          "newQty": 5,
+          "oldQty": 0,
+          "qtyChange": 5,
+          "costPrice": 2000,
+          "addedAt": "2026-04-23T07:05:43.852Z"
+        }
+      ],
+      "createdAt": "2026-04-23T07:05:43.852Z",
+      "date": "2026-04-23",
+      "reason": null,
+      "vendor": "Stock Adjustment",
+      "type": "adjustment",
+      "time": "12:35 PM",
+      "photo": null
+    },
+    {
+      "id": "mo9waxfchhb7rhvp6a6",
+      "time": "3:43 PM",
+      "photo": null,
+      "reason": null,
+      "vendor": "Stock Adjustment",
+      "type": "adjustment",
+      "date": "2026-04-22",
+      "createdAt": "2026-04-22T10:13:59.357Z",
+      "items": [
+        {
+          "category": "Chair",
+          "alertQty": 0,
+          "price": 6000,
+          "variant": "Office chair",
+          "key": "Chair|Office chair",
+          "qtyChange": 5,
+          "oldQty": 0,
+          "newQty": 5,
+          "addedAt": "2026-04-22T10:13:59.357Z",
+          "costPrice": 4000
+        }
+      ],
+      "invoice": "",
+      "addedBy": "admin"
+    }
+  ],
+  "bookings": [
+    {
+      "id": "mobn4ymv15my5svb7ak",
+      "advancePayments": [
+        {
+          "amount": 30000,
+          "date": "2026-04-23",
+          "time": "9:02 PM",
+          "method": "Cash"
+        }
+      ],
+      "profit": 5050,
+      "balanceRemaining": 4000,
+      "finalPayment": null,
+      "pickupDate": "2026-04-26",
+      "total": 34000,
+      "status": "pending",
+      "createdDate": "2026-04-23",
+      "completedDate": null,
+      "completedTime": null,
+      "items": [
+        {
+          "qty": 1,
+          "key": "Almara|Double - 47 - Heavy",
+          "costPrice": 12000,
+          "category": "Almara",
+          "variant": "Double - 47 - Heavy",
+          "price": 14000
+        },
+        {
+          "variant": "Polish (6 × 5)",
+          "price": 11000,
+          "category": "Cot",
+          "key": "Cot|Polish (6 × 5)",
+          "costPrice": 9000,
+          "qty": 1
+        },
+        {
+          "key": "Mattress|Foam - 75*60 - 5",
+          "costPrice": 4200,
+          "qty": 1,
+          "variant": "Foam - 75*60 - 5",
+          "price": 5000,
+          "category": "Mattress"
+        },
+        {
+          "qty": 1,
+          "costPrice": 3750,
+          "key": "Cooler|Vaishnavi Matrix",
+          "category": "Cooler",
+          "price": 4000,
+          "variant": "Vaishnavi Matrix"
+        }
+      ],
+      "createdAt": "2026-04-23T15:32:56.795Z",
+      "createdTime": "9:02 PM",
+      "customer": {
+        "name": "V Yadhagiri",
+        "phone": "9948567410"
+      },
+      "updatedAt": "2026-04-23T16:17:14.019Z",
+      "totalAdvance": 30000
+    },
+    {
+      "id": "mobhjla7texlsnuk35a",
+      "totalAdvance": 4100,
+      "status": "completed",
+      "total": 2300,
+      "pickupDate": "2026-04-24",
+      "finalPayment": {
+        "method": "Cash",
+        "amount": 1800,
+        "date": "2026-04-24",
+        "time": "12:32:07"
+      },
+      "profit": 500,
+      "advancePayments": [
+        {
+          "time": "6:26 PM",
+          "date": "2026-04-23",
+          "method": "Cash",
+          "amount": 500
+        },
+        {
+          "method": "Cash",
+          "amount": 1800,
+          "time": "12:31:45",
+          "date": "2026-04-24"
+        }
+      ],
+      "createdAt": "2026-04-23T12:56:21.635Z",
+      "updatedAt": "2026-04-24T07:02:07.776Z",
+      "createdTime": "6:26 PM",
+      "items": [
+        {
+          "key": "Dressing|Normal",
+          "costPrice": 1800,
+          "qty": 1,
+          "variant": "Normal",
+          "category": "Dressing",
+          "price": 2300
+        }
+      ],
+      "completedDate": "2026-04-24",
+      "completedTime": "12:32:07",
+      "customer": {
+        "name": "Pavani",
+        "phone": "12355555"
+      },
+      "createdDate": "2026-04-23",
+      "balanceRemaining": 0
+    },
+    {
+      "id": "mo6wwngrkf7rnz16bqs",
+      "profit": 1200,
+      "balanceRemaining": 0,
+      "advancePayments": [
+        {
+          "amount": 4100,
+          "time": "13:37:34",
+          "date": "2026-04-20",
+          "method": "Cash"
+        },
+        {
+          "method": "Cash",
+          "amount": 3900,
+          "date": "2026-04-20",
+          "time": "13:38:47"
+        }
+      ],
+      "finalPayment": {
+        "method": "Cash",
+        "time": "13:42:06",
+        "date": "2026-04-20",
+        "amount": 0
+      },
+      "pickupDate": "2026-04-20",
+      "status": "completed",
+      "total": 8000,
+      "createdDate": "2026-04-20",
+      "customer": {
+        "phone": "12222",
+        "name": "Lingala venakanna"
+      },
+      "updatedAt": "2026-04-23T17:11:45.194Z",
+      "totalAdvance": 8000,
+      "createdTime": "13:37:34",
+      "items": [
+        {
+          "qty": 1,
+          "costPrice": 5000,
+          "key": "Almara|Single - 37 - Lite",
+          "category": "Almara",
+          "price": 5800,
+          "variant": "Single - 37 - Lite"
+        },
+        {
+          "qty": 1,
+          "key": "Dressing|Normal",
+          "costPrice": 1800,
+          "category": "Dressing",
+          "variant": "Normal",
+          "price": 2200
+        }
+      ],
+      "createdAt": "2026-04-20T08:07:34.349Z",
+      "completedTime": "13:42:06",
+      "completedDate": "2026-04-20"
+    }
+  ],
+  "adminPin": "11111"
+}

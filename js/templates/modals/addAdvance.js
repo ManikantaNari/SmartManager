@@ -281,6 +281,12 @@ export const BookingReceiptModalTemplate = `
             </div>
 
             <button class="btn btn-primary btn-block" style="margin-top: 12px;" onclick="closeBookingReceipt()" data-i18n="common.done">Done</button>
+            <button class="btn btn-danger btn-block admin-only" style="margin-top: 8px;" onclick="confirmDeleteBooking()">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/>
+                </svg>
+                Delete Booking
+            </button>
         </div>
     </div>
 </div>

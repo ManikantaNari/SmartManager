@@ -88,6 +88,15 @@ export const BookingDetailsModalTemplate = `
                 Complete Pickup
             </button>
         </div>
+        <!-- Delete (admin only, all statuses) -->
+        <div class="modal-footer admin-only" style="padding-top: 0; border-top: none;">
+            <button class="btn btn-danger btn-block" onclick="confirmDeleteBooking()">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/>
+                </svg>
+                Delete Booking
+            </button>
+        </div>
     </div>
 </div>
 `;

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "date": "2026-04-24T02:46:30.036Z",
+  "date": "2026-04-24T12:04:10.439Z",
   "products": {
     "Almara": [
       "Double - 47 - Lite",
@@ -145,11 +145,11 @@
   },
   "inventory": {
     "Almara Leg|Leg": {
-      "updatedAt": "2026-04-20T15:14:51.233Z",
-      "costPrice": 110,
-      "alertQty": 0,
       "price": 300,
-      "qty": 75
+      "qty": 74,
+      "costPrice": 110,
+      "updatedAt": "2026-04-24T07:02:58.149Z",
+      "alertQty": 0
     },
     "Almara|Double - 47 - Heavy": {
       "qty": 8,
@@ -939,6 +939,31 @@
     }
   ],
   "sales": [
+    {
+      "id": "1777014178150",
+      "paymentMethod": "Cash",
+      "total": 250,
+      "profit": 140,
+      "date": "2026-04-24",
+      "payments": {
+        "upi": 0,
+        "cash": 250
+      },
+      "time": "12:32:58",
+      "updatedAt": "2026-04-24T07:02:58.151Z",
+      "customer": null,
+      "createdAt": "2026-04-24T07:02:58.151Z",
+      "items": [
+        {
+          "category": "Almara Leg",
+          "variant": "Leg",
+          "costPrice": 110,
+          "price": 250,
+          "qty": 1,
+          "key": "Almara Leg|Leg"
+        }
+      ]
+    },
     {
       "id": "1776502857961",
       "customer": {
@@ -2540,41 +2565,46 @@
     },
     {
       "id": "mobhjla7texlsnuk35a",
-      "updatedAt": "2026-04-23T17:11:45.193Z",
-      "pickupDate": "2026-04-24",
-      "balanceRemaining": 1800,
-      "createdDate": "2026-04-23",
       "advancePayments": [
         {
-          "method": "Cash",
-          "amount": 500,
           "date": "2026-04-23",
+          "amount": 500,
+          "method": "Cash",
           "time": "6:26 PM"
         }
       ],
-      "finalPayment": null,
+      "total": 2300,
+      "profit": 500,
+      "balanceRemaining": 0,
+      "pickupDate": "2026-04-24",
+      "createdTime": "6:26 PM",
+      "totalAdvance": 2300,
+      "finalPayment": {
+        "time": "12:32:07",
+        "method": "Cash",
+        "amount": 1800,
+        "date": "2026-04-24"
+      },
+      "completedTime": "12:32:07",
+      "customer": {
+        "phone": "12355555",
+        "name": "Pavani"
+      },
+      "status": "completed",
+      "createdAt": "2026-04-23T12:56:21.635Z",
       "items": [
         {
-          "qty": 1,
-          "category": "Dressing",
           "key": "Dressing|Normal",
-          "variant": "Normal",
+          "category": "Dressing",
           "costPrice": 1800,
-          "price": 2300
+          "variant": "Normal",
+          "price": 2300,
+          "qty": 1
         }
       ],
-      "total": 2300,
-      "customer": {
-        "name": "Pavani",
-        "phone": "12355555"
-      },
-      "createdTime": "6:26 PM",
-      "completedDate": null,
-      "completedTime": null,
-      "status": "pending",
-      "profit": 500,
-      "createdAt": "2026-04-23T12:56:21.635Z",
-      "totalAdvance": 500
+      "completedDate": "2026-04-24",
+      "createdDate": "2026-04-23",
+      "updatedAt": "2026-04-24T07:02:07.776Z"
     },
     {
       "id": "mo6wwngrkf7rnz16bqs",

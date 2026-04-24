@@ -253,7 +253,7 @@ export const Backup = {
     },
 
     translateReportTabs() {
-        const tabs = document.querySelectorAll('.tabs .tab');
+        const tabs = document.querySelectorAll('#page-reports .tabs .tab');
         const tabKeys = ['reports.dailyReport', 'reports.monthlyReport', 'reports.bestSellers', 'reports.stockLog'];
         tabs.forEach((tab, index) => {
             if (tabKeys[index]) {
