@@ -80,10 +80,21 @@ export const Reports = {
         // Set hidden month value
         DOM.setValue(DOM.get('reportMonth'), `${currentYear}-${currentMonth}`);
 
-        // Stock log display
-        const stockLogDisplay = DOM.get('selectedStockLogDateDisplay');
-        if (stockLogDisplay) {
-            DOM.setText(stockLogDisplay, 'All Dates');
+        // Stock log month/year selects
+        const stockLogYearSelect = DOM.get('stockLogYearSelect');
+        if (stockLogYearSelect) {
+            stockLogYearSelect.innerHTML = '';
+            for (let y = parseInt(currentYear); y >= parseInt(currentYear) - 2; y--) {
+                const option = document.createElement('option');
+                option.value = y;
+                option.textContent = y;
+                stockLogYearSelect.appendChild(option);
+            }
+            stockLogYearSelect.value = currentYear;
+        }
+        const stockLogMonthSelect = DOM.get('stockLogMonthSelect');
+        if (stockLogMonthSelect) {
+            stockLogMonthSelect.value = currentMonth;
         }
     },
 
@@ -95,6 +106,10 @@ export const Reports = {
             DOM.setValue(DOM.get('reportMonth'), value);
             this.loadMonthly();
         }
+    },
+
+    updateStockLogMonth() {
+        this.loadStockLog();
     },
 
     loadDaily() {
@@ -110,13 +125,16 @@ export const Reports = {
             }
 
             const daySales = (State.sales || []).filter(s => s && s.date === date);
-            let total = 0, profit = 0, items = 0;
+            let total = 0, profit = 0, items = 0, cashTotal = 0, upiTotal = 0;
 
             daySales.forEach(s => {
                 total += s.total || 0;
                 profit += s.profit || 0;
                 const saleItems = s.items || [];
                 items += saleItems.reduce((sum, i) => sum + (i?.qty || 0), 0);
+                const p = this._getSalePayments(s);
+                cashTotal += p.cash;
+                upiTotal += p.upi;
             });
 
             // Get booking revenue for this date
@@ -134,6 +152,18 @@ export const Reports = {
                 statsHtml += `<div class="stat-card"><div class="stat-label">Total Profit</div><div class="stat-value" style="color: ${profitColor}">${Format.currency(totalProfit)}</div></div>`;
             }
             statsHtml += `<div class="stat-card"><div class="stat-label">Transactions</div><div class="stat-value">${daySales.length}</div></div>`;
+            statsHtml += '</div>';
+
+            // Payment collection card
+            statsHtml += '<div class="card"><div class="card-title">Payment Collection</div>';
+            statsHtml += `<div class="list-item" style="border-bottom: 1px solid var(--border);">
+                <span>💵 Cash</span>
+                <strong style="color: var(--success);">${Format.currency(cashTotal)}</strong>
+            </div>`;
+            statsHtml += `<div class="list-item">
+                <span>📱 UPI</span>
+                <strong style="color: var(--primary);">${Format.currency(upiTotal)}</strong>
+            </div>`;
             statsHtml += '</div>';
 
             // Revenue breakdown card
@@ -481,26 +511,23 @@ export const Reports = {
     loadStockLog() {
         const container = DOM.get('stockLogContent');
         try {
-            const date = DOM.getValue(DOM.get('stockLogDate'));
-
-            // Update date display
-            const dateDisplay = DOM.get('selectedStockLogDateDisplay');
-            if (dateDisplay) {
-                DOM.setText(dateDisplay, date ? DateUtil.formatDateReadable(date) : 'All Dates');
-            }
+            const monthSelect = DOM.get('stockLogMonthSelect');
+            const yearSelect = DOM.get('stockLogYearSelect');
+            const month = monthSelect ? monthSelect.value : '';
+            const year = yearSelect ? yearSelect.value : '';
+            const monthPrefix = month && year ? `${year}-${month}` : null;
 
             let logs = State.stockLogs || [];
 
-            // Filter by date if selected
-            if (date) {
-                logs = logs.filter(log => log && log.date === date);
+            if (monthPrefix) {
+                logs = logs.filter(log => log && log.date && log.date.startsWith(monthPrefix));
             }
 
             if (logs.length === 0) {
                 DOM.setHtml(container, `
                     <div class="card">
                         <p style="color: var(--gray); text-align: center;">
-                            ${date ? 'No stock entries on this date' : 'No stock entries yet'}
+                            ${monthPrefix ? `No stock entries in ${DateUtil.monthName(month)} ${year}` : 'No stock entries yet'}
                         </p>
                     </div>
                 `);
@@ -730,5 +757,15 @@ export const Reports = {
     closePhotoModal() {
         const modal = DOM.get('photoViewModal');
         if (modal) modal.classList.remove('show');
+    },
+
+    // Backward-compat helper: extracts cash/upi from both old and new sale formats
+    _getSalePayments(sale) {
+        if (sale.payments) {
+            return { cash: sale.payments.cash || 0, upi: sale.payments.upi || 0 };
+        }
+        const total = sale.total || 0;
+        if (sale.paymentMethod === 'UPI') return { cash: 0, upi: total };
+        return { cash: total, upi: 0 };
     }
 };

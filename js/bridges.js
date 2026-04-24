@@ -58,6 +58,9 @@ window.showSaleStep = (step) => Sales.showStep(step);
 window.filterProducts = () => Sales.filterProducts();
 window.searchCustomers = () => Sales.searchCustomers();
 window.selectPayment = (method) => Sales.selectPayment(method);
+window.toggleSplitPayment = () => Sales.toggleSplitPayment();
+window.onCashInput = () => Sales.onCashInput();
+window.onUPIInput = () => Sales.onUPIInput();
 window.completeSale = () => Sales.completeSale();
 window.changeCartQty = (delta) => Sales.changeCartModalQty(delta);
 window.addToCart = () => Sales.addToCart();
@@ -132,6 +135,7 @@ window.closeStockLogModal = () => Reports.closeStockLogModal();
 window.viewStockLogPhoto = (logId) => Reports.viewStockLogPhoto(logId);
 window.closePhotoModal = () => Reports.closePhotoModal();
 window.updateMonthValue = () => Reports.updateMonthValue();
+window.updateStockLogMonth = () => Reports.updateStockLogMonth();
 
 // ==================== BACKUP ====================
 window.downloadBackup = () => Backup.download();

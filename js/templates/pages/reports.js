@@ -13,7 +13,7 @@ export const ReportsTemplate = `
     <div id="report-daily">
         <div class="form-group">
             <label class="form-label" data-i18n="reports.selectDate">Select Date</label>
-            <div style="position: relative;">
+            <div style="position: relative; cursor: pointer;" onclick="var inp=document.getElementById('reportDate'); try{inp.showPicker()}catch(e){inp.click()}">
                 <div id="selectedDateDisplay" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 12px 16px; border-radius: 10px; font-size: 18px; font-weight: 600; text-align: center; pointer-events: none;"></div>
                 <input class="form-input" id="reportDate" onchange="loadDailyReport()" type="date" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 10;">
             </div>
@@ -68,10 +68,25 @@ export const ReportsTemplate = `
     <!-- Stock Log (Admin Only) -->
     <div id="report-stocklog" style="display: none;">
         <div class="form-group">
-            <label class="form-label" data-i18n="reports.filterByDate">Filter by Date</label>
-            <div style="position: relative;">
-                <div id="selectedStockLogDateDisplay" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 12px 16px; border-radius: 10px; font-size: 18px; font-weight: 600; text-align: center; pointer-events: none;" data-i18n="reports.allDates">All Dates</div>
-                <input class="form-input" id="stockLogDate" onchange="loadStockLog()" type="date" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 10;">
+            <label class="form-label">Filter by Month</label>
+            <div style="display: flex; gap: 8px;">
+                <select id="stockLogMonthSelect" onchange="updateStockLogMonth()" class="form-input" style="flex: 2; background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 12px 16px; border-radius: 10px; font-size: 16px; font-weight: 600; border: none; cursor: pointer; appearance: none; -webkit-appearance: none;">
+                    <option value="">All Months</option>
+                    <option value="01">January</option>
+                    <option value="02">February</option>
+                    <option value="03">March</option>
+                    <option value="04">April</option>
+                    <option value="05">May</option>
+                    <option value="06">June</option>
+                    <option value="07">July</option>
+                    <option value="08">August</option>
+                    <option value="09">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+                <select id="stockLogYearSelect" onchange="updateStockLogMonth()" class="form-input" style="flex: 1; background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 12px 16px; border-radius: 10px; font-size: 16px; font-weight: 600; border: none; cursor: pointer; appearance: none; -webkit-appearance: none;">
+                </select>
             </div>
         </div>
         <div id="stockLogContent"></div>

@@ -174,28 +174,135 @@ export const Storage = {
 
     // Sync products with inventory - extract missing categories/variants from inventory
     syncProductsWithInventory() {
-        let updated = false;
-        for (const key of Object.keys(State.inventory)) {
-            const [category, variant] = key.split('|');
+        const renames = this.getLocal(STORAGE_KEYS.categoryRenames) || {};
+        let productUpdated = false;
+        let inventoryChanged = false;
+
+        // Snapshot keys — we mutate State.inventory inside the loop
+        const inventoryKeys = [...Object.keys(State.inventory)];
+
+        for (const key of inventoryKeys) {
+            const pipeIdx = key.indexOf('|');
+            if (pipeIdx === -1) continue;
+            const category = key.substring(0, pipeIdx);
+            const variant = key.substring(pipeIdx + 1);
             if (!category || !variant) continue;
 
-            // Add category if missing
-            if (!State.products[category]) {
-                State.products[category] = [];
-                updated = true;
+            // Category still exists in products — just ensure variant is listed
+            if (State.products[category]) {
+                if (!State.products[category].includes(variant)) {
+                    State.products[category].push(variant);
+                    productUpdated = true;
+                }
+                continue;
             }
 
-            // Add variant if missing
-            if (!State.products[category].includes(variant)) {
+            // Category missing from products — determine what to do
+            let targetCategory;
+            if (Object.prototype.hasOwnProperty.call(renames, category)) {
+                // Explicitly recorded rename/delete
+                targetCategory = renames[category]; // string = renamed to, null = deleted
+            } else {
+                // No rename record — check if this variant exists in exactly one other category
+                const candidates = Object.keys(State.products).filter(cat =>
+                    State.products[cat].includes(variant)
+                );
+                targetCategory = candidates.length === 1 ? candidates[0] : undefined;
+            }
+
+            if (typeof targetCategory === 'string' && State.products[targetCategory]) {
+                // Stale key from rename — migrate to the new category name
+                this._migrateInventoryKey(key, `${targetCategory}|${variant}`);
+                inventoryChanged = true;
+            } else if (targetCategory === null) {
+                // Explicitly deleted category — clean up stale key
+                delete State.inventory[key];
+                this.deleteInventoryItem(key);
+                inventoryChanged = true;
+            } else {
+                // Genuinely missing category — restore it (original safety-net behaviour)
+                State.products[category] = [];
                 State.products[category].push(variant);
-                updated = true;
+                productUpdated = true;
             }
         }
 
-        if (updated) {
+        // One-time cleanup: detect ghost categories that are duplicates of a renamed category
+        // (handles data that was already corrupted before the rename map existed)
+        if (this._cleanupDuplicateCategories()) {
+            productUpdated = true;
+            inventoryChanged = true;
+        }
+
+        if (productUpdated) {
             this.setLocal(STORAGE_KEYS.products, State.products);
             this.saveProductsToFirebase();
         }
+        if (inventoryChanged) {
+            this.setLocal(STORAGE_KEYS.inventory, State.inventory);
+        }
+    },
+
+    // Migrate an inventory key to a new key, preserving stock data
+    _migrateInventoryKey(oldKey, newKey) {
+        const data = State.inventory[oldKey];
+        // Only overwrite if the destination has no stock (don't destroy real data)
+        if (!State.inventory[newKey] || State.inventory[newKey].qty === 0) {
+            State.inventory[newKey] = data;
+            this.saveInventoryItem(newKey, data);
+        }
+        delete State.inventory[oldKey];
+        this.deleteInventoryItem(oldKey);
+    },
+
+    // Detect and clean up ghost categories: two categories with identical variant lists
+    // where one has inventory and the other has none at all (classic rename-gone-wrong pattern).
+    // Returns true if any cleanup was performed.
+    _cleanupDuplicateCategories() {
+        const categories = Object.keys(State.products);
+        let changed = false;
+
+        for (let i = 0; i < categories.length; i++) {
+            for (let j = i + 1; j < categories.length; j++) {
+                const catA = categories[i];
+                const catB = categories[j];
+                if (!State.products[catA] || !State.products[catB]) continue;
+
+                const variantsA = [...State.products[catA]].sort();
+                const variantsB = [...State.products[catB]].sort();
+
+                if (variantsA.length === 0 || variantsA.length !== variantsB.length) continue;
+                if (!variantsA.every((v, idx) => v === variantsB[idx])) continue;
+
+                // Same variant list — check inventory presence
+                const keysA = Object.keys(State.inventory).filter(k => k.startsWith(catA + '|'));
+                const keysB = Object.keys(State.inventory).filter(k => k.startsWith(catB + '|'));
+
+                let ghost, target;
+                if (keysA.length > 0 && keysB.length === 0) {
+                    // catA has inventory keys, catB has none — catA is the stale ghost name
+                    ghost = catA; target = catB;
+                } else if (keysB.length > 0 && keysA.length === 0) {
+                    ghost = catB; target = catA;
+                } else {
+                    continue; // Both have inventory or neither does — ambiguous, leave alone
+                }
+
+                // Migrate all inventory from ghost to target
+                keysA.concat(keysB).filter(k => k.startsWith(ghost + '|')).forEach(oldKey => {
+                    const variant = oldKey.substring(ghost.length + 1);
+                    this._migrateInventoryKey(oldKey, `${target}|${variant}`);
+                });
+
+                // Remove ghost from products and Firebase
+                delete State.products[ghost];
+                this.deleteProductCategory(ghost);
+                changed = true;
+
+                console.log(`Ghost category cleaned up: "${ghost}" → "${target}"`);
+            }
+        }
+        return changed;
     },
 
     // Load inventory from Firebase with localStorage fallback

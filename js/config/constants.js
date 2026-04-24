@@ -14,7 +14,8 @@ export const STORAGE_KEYS = {
     stockLogs: 'sm_stock_logs',
     bookings: 'sm_bookings',
     adminPin: 'sm_admin_pin',
-    lastBackup: 'sm_last_backup'
+    lastBackup: 'sm_last_backup',
+    categoryRenames: 'sm_category_renames'  // { oldName: newName | null(deleted) }
 };
 
 // Default Products Catalog

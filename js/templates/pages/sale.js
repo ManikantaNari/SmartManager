@@ -91,9 +91,40 @@ export const SaleTemplate = `
         </div>
         <div class="card">
             <div class="card-title" data-i18n="sale.paymentMethod">Payment Method</div>
-            <div style="display: flex; gap: 12px;">
-                <button class="btn btn-outline" id="btnCash" onclick="selectPayment('Cash')" style="flex: 1;" data-i18n="sale.cash">Cash</button>
-                <button class="btn btn-outline" id="btnUPI" onclick="selectPayment('UPI')" style="flex: 1;">UPI</button>
+            <!-- Simple: Cash or UPI (default) -->
+            <div id="paymentMethodSimple">
+                <div style="display: flex; gap: 12px;">
+                    <button class="btn btn-outline" id="btnCash" onclick="selectPayment('Cash')" style="flex: 1;" data-i18n="sale.cash">Cash</button>
+                    <button class="btn btn-outline" id="btnUPI" onclick="selectPayment('UPI')" style="flex: 1;">UPI</button>
+                </div>
+            </div>
+            <!-- Split: Cash + UPI amounts (shown when toggle is on) -->
+            <div id="paymentMethodSplit" style="display: none; margin-top: 4px;">
+                <div class="payment-split">
+                    <div class="payment-split-row">
+                        <span class="payment-method-label">💵 Cash</span>
+                        <div class="price-input-group" style="flex: 1;">
+                            <span class="currency">₹</span>
+                            <input id="paymentCash" type="number" placeholder="0" min="0" oninput="onCashInput()">
+                        </div>
+                    </div>
+                    <div class="payment-split-row">
+                        <span class="payment-method-label">📱 UPI</span>
+                        <div class="price-input-group" style="flex: 1;">
+                            <span class="currency">₹</span>
+                            <input id="paymentUPI" type="number" placeholder="0" min="0" oninput="onUPIInput()">
+                        </div>
+                    </div>
+                    <div id="paymentBalance" class="payment-balance"></div>
+                </div>
+            </div>
+            <!-- Split toggle -->
+            <div style="display: flex; align-items: center; gap: 10px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border);">
+                <label class="toggle-switch" style="margin: 0;">
+                    <input type="checkbox" id="splitPaymentToggle" onchange="toggleSplitPayment()">
+                    <span class="toggle-slider"></span>
+                </label>
+                <span style="font-size: 14px; color: var(--gray);">Split Payment (Cash + UPI)</span>
             </div>
         </div>
         <div style="margin-top: 16px;">

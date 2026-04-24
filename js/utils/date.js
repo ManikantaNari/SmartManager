@@ -25,15 +25,15 @@ export const DateUtil = {
     },
 
     /**
-     * Get current time in 12-hour format with AM/PM (no seconds)
-     * @returns {string} Time string in h:MM AM/PM format
+     * Get current time in HH:MM:SS format (24-hour, for consistent storage)
+     * @returns {string} Time string in HH:MM:SS format
      */
     time() {
-        return new Date().toLocaleTimeString('en-US', {
-            hour: 'numeric',
-            minute: '2-digit',
-            hour12: true
-        });
+        const d = new Date();
+        const h = String(d.getHours()).padStart(2, '0');
+        const m = String(d.getMinutes()).padStart(2, '0');
+        const s = String(d.getSeconds()).padStart(2, '0');
+        return `${h}:${m}:${s}`;
     },
 
     /**
@@ -99,14 +99,14 @@ export const DateUtil = {
 
     /**
      * Format time from ISO datetime or time string to 12-hour format with AM/PM (no seconds)
-     * @param {string} timeOrDatetime - Time string or ISO datetime
+     * @param {string} timeOrDatetime - Time string (HH:MM:SS, h:MM AM/PM) or ISO datetime
      * @returns {string} Formatted time string in h:MM AM/PM format
      */
     formatTime(timeOrDatetime) {
         if (!timeOrDatetime) return '';
 
-        // If it's a time string (HH:MM:SS), parse it
-        if (timeOrDatetime.match(/^\d{2}:\d{2}:\d{2}$/)) {
+        // If it's a 24-hour time string (HH:MM:SS or HH:MM), parse directly
+        if (/^\d{1,2}:\d{2}(:\d{2})?$/.test(timeOrDatetime)) {
             const [hours, minutes] = timeOrDatetime.split(':');
             const d = new Date();
             d.setHours(parseInt(hours), parseInt(minutes), 0);
@@ -117,8 +117,26 @@ export const DateUtil = {
             });
         }
 
-        // Otherwise parse as datetime
+        // If it's already in h:MM AM/PM format (legacy stored records), re-parse it
+        const ampmMatch = timeOrDatetime.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+        if (ampmMatch) {
+            let h = parseInt(ampmMatch[1]);
+            const min = parseInt(ampmMatch[2]);
+            const period = ampmMatch[3].toUpperCase();
+            if (period === 'PM' && h !== 12) h += 12;
+            if (period === 'AM' && h === 12) h = 0;
+            const d = new Date();
+            d.setHours(h, min, 0);
+            return d.toLocaleTimeString('en-US', {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            });
+        }
+
+        // Otherwise parse as ISO datetime
         const d = new Date(timeOrDatetime);
+        if (isNaN(d.getTime())) return timeOrDatetime;
         return d.toLocaleTimeString('en-US', {
             hour: 'numeric',
             minute: '2-digit',

@@ -78,10 +78,20 @@ export const Sales = {
         DOM.setValue(DOM.get('customerPhone'), '');
         this.renderCart();
         DOM.hide(DOM.get('variantCard'));
+        State.selectedPayment = null;
         DOM.removeClass(DOM.get('btnCash'), 'btn-primary');
         DOM.addClass(DOM.get('btnCash'), 'btn-outline');
         DOM.removeClass(DOM.get('btnUPI'), 'btn-primary');
         DOM.addClass(DOM.get('btnUPI'), 'btn-outline');
+        const toggle = DOM.get('splitPaymentToggle');
+        if (toggle) toggle.checked = false;
+        DOM.show(DOM.get('paymentMethodSimple'));
+        DOM.hide(DOM.get('paymentMethodSplit'));
+        DOM.setValue(DOM.get('paymentCash'), '');
+        DOM.setValue(DOM.get('paymentUPI'), '');
+        State._paymentTotal = 0;
+        const balanceEl = DOM.get('paymentBalance');
+        if (balanceEl) balanceEl.innerHTML = '';
     },
 
     showStep(step) {
@@ -131,6 +141,7 @@ export const Sales = {
         }
 
         DOM.show(card);
+        setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
         DOM.setText(title, State.selectedCategory + ' - Select Variant');
 
         const variants = State.products[State.selectedCategory] || [];
@@ -187,6 +198,7 @@ export const Sales = {
 
         Modal.hide('addCartModal');
         this.renderCart();
+        setTimeout(() => DOM.get('cartCard')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
 
         // Animate the newly added item
         setTimeout(() => {
@@ -302,6 +314,51 @@ export const Sales = {
         DOM.toggleClass(DOM.get('btnUPI'), 'btn-outline', method !== 'UPI');
     },
 
+    toggleSplitPayment() {
+        const isSplit = DOM.get('splitPaymentToggle')?.checked;
+        DOM.toggle(DOM.get('paymentMethodSimple'), !isSplit);
+        DOM.toggle(DOM.get('paymentMethodSplit'), isSplit);
+        if (isSplit) {
+            this.initPaymentSplit(State._paymentTotal || 0);
+        }
+    },
+
+    initPaymentSplit(total) {
+        State._paymentTotal = total;
+        DOM.setValue(DOM.get('paymentCash'), total > 0 ? total : '');
+        DOM.setValue(DOM.get('paymentUPI'), '');
+        this._updatePaymentBalance(total, 0, total);
+    },
+
+    onCashInput() {
+        const total = State._paymentTotal || 0;
+        const cash = parseFloat(DOM.getValue(DOM.get('paymentCash'))) || 0;
+        const upi = Math.max(0, total - cash);
+        DOM.setValue(DOM.get('paymentUPI'), upi > 0 ? upi : '');
+        this._updatePaymentBalance(cash, upi, total);
+    },
+
+    onUPIInput() {
+        const total = State._paymentTotal || 0;
+        const upi = parseFloat(DOM.getValue(DOM.get('paymentUPI'))) || 0;
+        const cash = Math.max(0, total - upi);
+        DOM.setValue(DOM.get('paymentCash'), cash > 0 ? cash : '');
+        this._updatePaymentBalance(cash, upi, total);
+    },
+
+    _updatePaymentBalance(cash, upi, total) {
+        const el = DOM.get('paymentBalance');
+        if (!el) return;
+        const diff = total - (cash + upi);
+        if (Math.abs(diff) < 0.01) {
+            el.innerHTML = `<span style="color: var(--success);">✓ Fully allocated</span>`;
+        } else if (diff > 0) {
+            el.innerHTML = `<span style="color: var(--danger);">Remaining: ${Format.currency(diff)}</span>`;
+        } else {
+            el.innerHTML = `<span style="color: var(--danger);">Over by: ${Format.currency(Math.abs(diff))}</span>`;
+        }
+    },
+
     renderPaymentSummary() {
         let total = 0;
         Template.renderListTo('paymentSummary', 'tpl-payment-item', State.cart,
@@ -318,6 +375,7 @@ export const Sales = {
             }
         );
         DOM.setText(DOM.get('paymentTotal'), Format.currency(total));
+        this.initPaymentSplit(total);
     },
 
     completeSale() {
@@ -325,9 +383,25 @@ export const Sales = {
             Toast.show('Cart is empty. Add items first.');
             return;
         }
-        if (!State.selectedPayment) {
-            Toast.show('Please select a payment method (Cash or UPI)');
-            return;
+        const isSplit = DOM.get('splitPaymentToggle')?.checked;
+        let cashAmount, upiAmount;
+        if (isSplit) {
+            cashAmount = parseFloat(DOM.getValue(DOM.get('paymentCash'))) || 0;
+            upiAmount = parseFloat(DOM.getValue(DOM.get('paymentUPI'))) || 0;
+            if (cashAmount <= 0 && upiAmount <= 0) {
+                Toast.show('Enter payment amount');
+                return;
+            }
+            const expectedTotal = State._paymentTotal || 0;
+            if (expectedTotal > 0 && Math.abs(cashAmount + upiAmount - expectedTotal) > 1) {
+                Toast.show(`Payment ${Format.currency(cashAmount + upiAmount)} must equal total ${Format.currency(expectedTotal)}`);
+                return;
+            }
+        } else {
+            if (!State.selectedPayment) {
+                Toast.show('Please select a payment method (Cash or UPI)');
+                return;
+            }
         }
 
         const customerName = DOM.getValue(DOM.get('customerName')).trim();
@@ -344,6 +418,19 @@ export const Sales = {
             }
         });
 
+        // Resolve final payment amounts
+        let finalCash, finalUpi, paymentMethod;
+        if (isSplit) {
+            finalCash = cashAmount;
+            finalUpi = upiAmount;
+            paymentMethod = finalCash > 0 && finalUpi > 0 ? 'Mixed'
+                : finalUpi > 0 ? 'UPI' : 'Cash';
+        } else {
+            paymentMethod = State.selectedPayment;
+            finalCash = paymentMethod === 'Cash' ? total : 0;
+            finalUpi = paymentMethod === 'UPI' ? total : 0;
+        }
+
         const sale = {
             id: Date.now().toString(),
             date: Format.today(),
@@ -351,7 +438,8 @@ export const Sales = {
             items: State.cart.map(c => ({ ...c })),
             total,
             profit,
-            paymentMethod: State.selectedPayment,
+            paymentMethod,
+            payments: { cash: finalCash, upi: finalUpi },
             customer: customerName ? { name: customerName, phone: customerPhone } : null
         };
 

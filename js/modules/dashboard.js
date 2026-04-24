@@ -11,10 +11,18 @@ export const Dashboard = {
     init(transactionHandler) {
         showTransactionDetails = transactionHandler;
 
-        // Click handler for recent sales
+        // Click handler for recent transactions (sales + bookings)
         DOM.on(DOM.get('recentSales'), 'click', '.transaction-row', (e, el) => {
-            if (showTransactionDetails) {
-                showTransactionDetails(el.dataset.saleId);
+            const type = el.dataset.type;
+            if (type === 'sale') {
+                if (showTransactionDetails) showTransactionDetails(el.dataset.id);
+            } else {
+                // booking_advance, booking_pickup, booking_refund
+                Bookings.showPaymentReceipt(
+                    el.dataset.id,
+                    el.dataset.paymentType,
+                    parseInt(el.dataset.paymentIndex) || 0
+                );
             }
         });
     },
@@ -121,21 +129,68 @@ export const Dashboard = {
 
     renderRecentSales() {
         const today = Format.today();
+
         const todaySales = State.sales
             .filter(s => s.date === today)
-            .slice(-5)
-            .reverse();
+            .map(s => ({
+                type: 'sale',
+                id: s.id,
+                time: s.time || '',
+                customer: s.customer?.name || 'Walk-in Customer',
+                details: `${s.items.length} item${s.items.length !== 1 ? 's' : ''} | ${s.paymentMethod} | ${DateUtil.formatTime(s.time)}`,
+                badge: '',
+                total: s.total
+            }));
 
-        Template.renderListTo('recentSales', 'tpl-transaction-row', todaySales,
-            (sale) => ({
-                data: {
-                    customer: sale.customer?.name || 'Walk-in Customer',
-                    details: `${sale.items.length} items | ${sale.paymentMethod} | ${DateUtil.formatTime(sale.time)}`,
-                    total: Format.currency(sale.total)
-                },
-                options: { dataAttrs: { saleId: sale.id } }
-            }),
-            'No sales today'
-        );
+        const bookingLabelMap = {
+            booking_advance_first: { label: 'Booking Advance', color: 'var(--primary)' },
+            booking_advance_additional: { label: 'Additional Advance', color: 'var(--primary)' },
+            booking_pickup: { label: 'Pickup Payment', color: 'var(--success)' },
+            booking_refund: { label: 'Refund', color: 'var(--danger)' }
+        };
+
+        const todayBookings = Bookings.getDateTransactions(today).map(txn => {
+            let labelKey;
+            if (txn.type === 'booking_advance') {
+                labelKey = txn.isFirstAdvance ? 'booking_advance_first' : 'booking_advance_additional';
+            } else {
+                labelKey = txn.type;
+            }
+            const { label, color } = bookingLabelMap[labelKey] || { label: 'Booking', color: 'var(--primary)' };
+            return {
+                type: txn.type,
+                id: txn.bookingId,
+                paymentType: txn.type === 'booking_advance' ? 'advance' : txn.type === 'booking_pickup' ? 'pickup' : 'refund',
+                paymentIndex: txn.paymentIndex || 0,
+                time: txn.time || '',
+                customer: txn.customer?.name || 'Walk-in Customer',
+                details: `${txn.itemCount} item${txn.itemCount !== 1 ? 's' : ''} | ${txn.method || 'Cash'} | ${DateUtil.formatTime(txn.time)}`,
+                badge: `<span class="badge" style="background: ${color}; color: white; font-size: 10px; padding: 2px 6px; margin-left: 4px;">${label}</span>`,
+                total: txn.amount
+            };
+        });
+
+        const combined = [...todaySales, ...todayBookings]
+            .sort((a, b) => (b.time || '').localeCompare(a.time || ''))
+            .slice(0, 5);
+
+        const container = DOM.get('recentSales');
+        if (combined.length === 0) {
+            DOM.setHtml(container, '<div class="empty-state"><p>No transactions today</p></div>');
+            return;
+        }
+
+        DOM.setHtml(container, combined.map(txn => `
+            <div class="list-item transaction-row" data-type="${txn.type}" data-id="${txn.id}" data-payment-type="${txn.paymentType || ''}" data-payment-index="${txn.paymentIndex || 0}" style="cursor: pointer;">
+                <div class="list-item-info">
+                    <h4>${txn.customer}${txn.badge}</h4>
+                    <p>${txn.details}</p>
+                </div>
+                <div style="text-align: right;">
+                    <strong>${Format.currency(txn.total)}</strong>
+                    <p style="font-size: 11px; color: var(--primary);">Tap to view</p>
+                </div>
+            </div>
+        `).join(''));
     }
 };

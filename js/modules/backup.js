@@ -9,12 +9,15 @@ export const Backup = {
 
     download() {
         const backup = {
-            version: 1,
+            version: 2,
             date: DateUtil.now(),
             products: State.products,
+            categoryEmojis: State.categoryEmojis,
             inventory: State.inventory,
             customers: State.customers,
             sales: State.sales,
+            stockLogs: State.stockLogs,
+            bookings: State.bookings,
             adminPin: State.adminPin
         };
 
@@ -44,15 +47,21 @@ export const Backup = {
                 }
 
                 State.products = backup.products || State.products;
+                State.categoryEmojis = backup.categoryEmojis || {};
                 State.inventory = backup.inventory || {};
                 State.customers = backup.customers || [];
                 State.sales = backup.sales || [];
+                State.stockLogs = backup.stockLogs || [];
+                State.bookings = backup.bookings || [];
                 State.adminPin = backup.adminPin || '11111';
 
                 Storage.saveProducts();
+                Storage.setLocal('sm_category_emojis', State.categoryEmojis);
                 Storage.setLocal(STORAGE_KEYS.inventory, State.inventory);
                 Storage.setLocal(STORAGE_KEYS.customers, State.customers);
                 Storage.setLocal(STORAGE_KEYS.sales, State.sales);
+                Storage.setLocal(STORAGE_KEYS.stockLogs, State.stockLogs);
+                Storage.setLocal(STORAGE_KEYS.bookings, State.bookings);
                 Storage.savePin(State.adminPin);
 
                 // Sync to Firebase
@@ -66,6 +75,18 @@ export const Backup = {
                     }
                     for (const sale of State.sales) {
                         await db.collection('sales').doc(sale.id).set(sale);
+                    }
+                    for (const log of State.stockLogs) {
+                        await db.collection('stockLogs').doc(log.id).set(log);
+                    }
+                    for (const booking of State.bookings) {
+                        await db.collection('bookings').doc(booking.id).set(booking);
+                    }
+                    for (const [category, variants] of Object.entries(State.products)) {
+                        const emoji = State.categoryEmojis[category];
+                        const docData = { variants, updatedAt: new Date().toISOString() };
+                        if (emoji) docData.emoji = emoji;
+                        await db.collection('products').doc(category).set(docData);
                     }
                 }
 

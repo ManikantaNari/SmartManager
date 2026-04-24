@@ -228,8 +228,29 @@
 }
 
 .edit-btn svg {
-    width: 14px;
-    height: 14px;
+    width: 20px;
+    height: 20px;
+}
+
+@media (max-width: 599px) {
+    .edit-btn {
+        transform: scale(0.5);
+        transform-origin: top right;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 767px) {
+    .edit-btn {
+        transform: scale(0.58);
+        transform-origin: top right;
+    }
+}
+
+@media (min-width: 768px) {
+    .edit-btn {
+        transform: scale(0.7);
+        transform-origin: top right;
+    }
 }
 
 /* Edit modal styles */

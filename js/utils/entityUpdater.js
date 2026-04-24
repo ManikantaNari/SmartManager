@@ -80,6 +80,15 @@ export const EntityUpdater = {
         return updates;
     },
 
+    // Record a rename or deletion so syncProductsWithInventory can clean up stale keys
+    _recordCategoryRename(oldName, newName) {
+        try {
+            const map = JSON.parse(localStorage.getItem('sm_category_renames') || '{}');
+            map[oldName] = newName; // null = deleted, string = renamed to
+            localStorage.setItem('sm_category_renames', JSON.stringify(map));
+        } catch (e) { /* ignore */ }
+    },
+
     /**
      * Apply category rename to all entities
      * @param {string} oldName - Old category name
@@ -87,6 +96,8 @@ export const EntityUpdater = {
      * @param {Object} updates - Updates object from planCategoryRename()
      */
     applyCategoryRename(oldName, newName, updates) {
+        // Persist the rename so stale Firebase inventory keys can be migrated on next load
+        this._recordCategoryRename(oldName, newName);
         // 1. Update inventory keys
         updates.inventory.forEach(({ oldKey, newKey, data }) => {
             delete State.inventory[oldKey];
@@ -300,6 +311,9 @@ export const EntityUpdater = {
      * @returns {Object} Deletion summary
      */
     deleteCategory(category) {
+        // Record deletion so stale inventory keys are cleaned up on next load
+        this._recordCategoryRename(category, null);
+
         const summary = {
             inventoryDeleted: 0,
             variantsRemoved: 0

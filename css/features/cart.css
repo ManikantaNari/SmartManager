@@ -109,3 +109,30 @@
     margin-top: 12px;
     margin-bottom: 0;
 }
+
+/* Payment Split */
+.payment-split {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.payment-split-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.payment-method-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--dark);
+    min-width: 72px;
+}
+
+.payment-balance {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 4px 0;
+}

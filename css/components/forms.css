@@ -99,3 +99,13 @@
 .price-input-group input:focus {
     outline: none;
 }
+
+.price-input-group input::-webkit-outer-spin-button,
+.price-input-group input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.price-input-group input[type="number"] {
+    -moz-appearance: textfield;
+}
