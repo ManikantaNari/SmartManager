@@ -107,9 +107,11 @@ export const Storage = {
             const snapshot = await db.collection('products').get();
             if (!snapshot.empty) {
                 State.products = {};
+                State.productTimestamps = {};
                 snapshot.forEach(doc => {
                     const data = doc.data();
                     State.products[doc.id] = data.variants || [];
+                    State.productTimestamps[doc.id] = data.updatedAt || null;
                 });
                 this.setLocal(STORAGE_KEYS.products, State.products);
             } else {

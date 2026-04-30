@@ -14,7 +14,23 @@
     "Almara Leg": [
       "Leg"
     ],
-    "Chair": [],
+    "Chair": [
+      "Resto",
+      "Resto Fiber",
+      "AVRo Fiber",
+      "Aram Resto",
+      "Cello Aaram",
+      "Cello Stull",
+      "Cello Step Stull",
+      "Resto Stull",
+      "Tub Chair",
+      "T-pai",
+      "I rest",
+      "Heppo Stool",
+      "Office chair",
+      "Resto stool",
+      "Resto Normal"
+    ],
     "Cooler": [
       "Ikia Bustar",
       "Resto Turbo",
@@ -659,6 +675,96 @@
       "qty": 7,
       "costPrice": 700,
       "price": 1200
+    },
+    "Chair|AVRo Fiber": {
+      "qty": 28,
+      "costPrice": 470,
+      "price": 750,
+      "alertQty": 0
+    },
+    "Chair|Aram Resto": {
+      "qty": 10,
+      "costPrice": 350,
+      "price": 650,
+      "alertQty": 0
+    },
+    "Chair|Cello Aaram": {
+      "qty": 9,
+      "costPrice": 950,
+      "price": 1200,
+      "alertQty": 0
+    },
+    "Chair|Cello Step Stull": {
+      "qty": 1,
+      "costPrice": 750,
+      "price": 1000,
+      "alertQty": 0
+    },
+    "Chair|Cello Stull": {
+      "qty": 4,
+      "costPrice": 360,
+      "price": 500,
+      "alertQty": 0
+    },
+    "Chair|Resto": {
+      "qty": 56,
+      "costPrice": 230,
+      "price": 350,
+      "alertQty": 0
+    },
+    "Chair|Resto Fiber": {
+      "qty": 29,
+      "costPrice": 380,
+      "price": 650,
+      "alertQty": 0
+    },
+    "Chair|Resto Stull": {
+      "qty": 7,
+      "costPrice": 250,
+      "price": 350,
+      "alertQty": 0
+    },
+    "Chair|T-pai": {
+      "qty": 7,
+      "costPrice": 480,
+      "price": 1000,
+      "alertQty": 0
+    },
+    "Chair|Tub Chair": {
+      "qty": 30,
+      "costPrice": 580,
+      "price": 950,
+      "alertQty": 0
+    },
+    "Chair|Office chair": {
+      "qty": 4,
+      "costPrice": 4000,
+      "price": 6000,
+      "alertQty": 0
+    },
+    "Chair|Resto stool": {
+      "qty": 0,
+      "costPrice": 0,
+      "price": 0,
+      "alertQty": 0
+    },
+    "Chair|I rest": {
+      "qty": 20,
+      "costPrice": 360,
+      "price": 650,
+      "alertQty": 0
+    },
+    "Chair|Heppo Stool": {
+      "qty": 20,
+      "costPrice": 160,
+      "price": 300,
+      "alertQty": 0
+    },
+    "Chair|Resto Normal": {
+      "qty": 0,
+      "costPrice": 0,
+      "price": 0,
+      "alertQty": 0
     }
   },
   "customers": [

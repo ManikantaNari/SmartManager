@@ -371,18 +371,22 @@ const App = {
 
                 if (change.type === 'added' || change.type === 'modified') {
                     const remoteVariants = data.variants || [];
-                    const localVariants = State.products[category] || [];
+                    const remoteUpdatedAt = data.updatedAt || null;
+                    const localUpdatedAt = State.productTimestamps[category] || null;
 
-                    // Check if remote is newer or category doesn't exist locally
+                    // Only overwrite local if remote is actually newer — prevents stale
+                    // empty-variant documents from wiping locally-correct data
                     if (!State.products[category] ||
-                        JSON.stringify(remoteVariants) !== JSON.stringify(localVariants)) {
+                        Storage.isNewer(remoteUpdatedAt, localUpdatedAt)) {
                         State.products[category] = remoteVariants;
+                        State.productTimestamps[category] = remoteUpdatedAt;
                         hasChanges = true;
                     }
 
                 } else if (change.type === 'removed') {
                     if (State.products[category]) {
                         delete State.products[category];
+                        delete State.productTimestamps[category];
                         hasChanges = true;
                     }
                 }

@@ -5,6 +5,7 @@ import { DEFAULT_PRODUCTS, DEFAULT_ADMIN_PIN } from '../config/index.js';
 export const State = {
     // Data
     products: { ...DEFAULT_PRODUCTS },
+    productTimestamps: {}, // tracks updatedAt per category for sync conflict resolution
     inventory: {},
     customers: [],
     sales: [],
