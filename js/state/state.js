@@ -5,7 +5,6 @@ import { DEFAULT_PRODUCTS, DEFAULT_ADMIN_PIN } from '../config/index.js';
 export const State = {
     // Data
     products: { ...DEFAULT_PRODUCTS },
-    categoryEmojis: {},  // { categoryName: emoji }
     inventory: {},
     customers: [],
     sales: [],

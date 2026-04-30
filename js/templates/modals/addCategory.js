@@ -9,13 +9,6 @@ export const AddCategoryModalTemplate = `
         </div>
         <div style="padding: 0 24px 24px;">
             <div class="form-group">
-                <label class="form-label" data-i18n="products.selectIcon">Select Icon</label>
-                <div class="emoji-picker" id="newCategoryEmojiPicker">
-                    <!-- Emoji options will be rendered by JS -->
-                </div>
-                <input type="hidden" id="newCategoryEmoji" value="📦">
-            </div>
-            <div class="form-group">
                 <label class="form-label"><span data-i18n="products.categoryName">Category Name</span> <span class="required">*</span></label>
                 <input class="form-input" id="newCategoryName" data-i18n-placeholder="products.categoryNamePlaceholder" placeholder="e.g., Almara" type="text">
             </div>
@@ -40,13 +33,6 @@ export const EditCategoryModalTemplate = `
             <button class="modal-close" onclick="closeEditCategoryModal()">&times;</button>
         </div>
         <div style="padding: 0 24px 24px;">
-            <div class="form-group">
-                <label class="form-label" data-i18n="products.categoryIcon">Category Icon</label>
-                <div class="emoji-picker" id="editCategoryEmojiPicker">
-                    <!-- Emoji options will be rendered by JS -->
-                </div>
-                <input type="hidden" id="editCategoryEmoji" value="📦">
-            </div>
             <div class="form-group">
                 <label class="form-label" data-i18n="products.currentName">Current Name</label>
                 <div id="editCategoryOldName" class="current-value"></div>

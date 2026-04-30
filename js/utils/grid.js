@@ -95,10 +95,12 @@ export const GridUtil = {
         btn.setAttribute('tabindex', '0');
         btn.setAttribute('aria-label', `Select ${category} category`);
 
-        // Icon and name
+        // Icon visual and label
         btn.innerHTML = `
-            <div class="category-icon">${Format.categoryIcon(category)}</div>
-            <div class="category-name">${category}</div>
+            <div class="category-visual" aria-hidden="true">
+                <div class="category-icon">${Format.categoryIcon(category)}</div>
+                <div class="category-label">${category}</div>
+            </div>
         `;
 
         // Add edit button if needed

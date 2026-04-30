@@ -1,7 +1,6 @@
 // Application Constants
 
 export const CURRENCY_SYMBOL = '₹';
-export const DEFAULT_ICON = '📦';
 export const MASTER_PIN = '181866';
 export const DEFAULT_ADMIN_PIN = '11111';
 

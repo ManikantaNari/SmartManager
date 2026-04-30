@@ -1,32 +1,5 @@
 /* Bookings Page Styles */
 
-/* Booking tabs */
-.booking-tabs {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 16px;
-    overflow-x: auto;
-    padding-bottom: 4px;
-}
-
-.booking-tab {
-    flex: 1;
-    min-width: 70px;
-    padding: 8px 12px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    background: var(--light);
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.booking-tab.active {
-    background: var(--primary);
-    color: white;
-    border-color: var(--primary);
-}
-
 /* Booking list items */
 .booking-item {
     display: flex;

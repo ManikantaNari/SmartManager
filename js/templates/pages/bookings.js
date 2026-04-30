@@ -2,10 +2,6 @@
 
 export const BookingsTemplate = `
 <div class="page" id="page-bookings">
-    <div class="page-header">
-        <h2 data-i18n="nav.bookings">Bookings</h2>
-    </div>
-
     <div class="tabs booking-tabs">
         <button class="tab booking-tab active" data-tab="today" onclick="showBookingTab('today')" data-i18n="bookings.today">
             Today

@@ -101,25 +101,17 @@ export const Storage = {
         if (!db) {
             const saved = this.getLocal(STORAGE_KEYS.products);
             if (saved) State.products = saved;
-            const savedEmojis = this.getLocal('sm_category_emojis');
-            if (savedEmojis) State.categoryEmojis = savedEmojis;
             return;
         }
         try {
             const snapshot = await db.collection('products').get();
             if (!snapshot.empty) {
                 State.products = {};
-                State.categoryEmojis = {};
                 snapshot.forEach(doc => {
                     const data = doc.data();
                     State.products[doc.id] = data.variants || [];
-                    // Load emoji if exists
-                    if (data.emoji) {
-                        State.categoryEmojis[doc.id] = data.emoji;
-                    }
                 });
                 this.setLocal(STORAGE_KEYS.products, State.products);
-                this.setLocal('sm_category_emojis', State.categoryEmojis);
             } else {
                 // Try migrating from old settings/products format
                 const oldDoc = await db.collection('settings').doc('products').get();
@@ -131,16 +123,12 @@ export const Storage = {
                     // Fallback to localStorage
                     const saved = this.getLocal(STORAGE_KEYS.products);
                     if (saved) State.products = saved;
-                    const savedEmojis = this.getLocal('sm_category_emojis');
-                    if (savedEmojis) State.categoryEmojis = savedEmojis;
                 }
             }
         } catch (e) {
             console.log('Error loading products:', e);
             const saved = this.getLocal(STORAGE_KEYS.products);
             if (saved) State.products = saved;
-            const savedEmojis = this.getLocal('sm_category_emojis');
-            if (savedEmojis) State.categoryEmojis = savedEmojis;
         }
         // Note: Missing categories are recovered from inventory via syncProductsWithInventory()
     },
@@ -601,14 +589,8 @@ export const Storage = {
         this.saveProductsToFirebase();
     },
 
-    // Save a single category to Firebase (with optional emoji)
-    async saveProductCategory(category, variants, emoji = null) {
-        // Save emoji to local state
-        if (emoji) {
-            State.categoryEmojis[category] = emoji;
-            this.setLocal('sm_category_emojis', State.categoryEmojis);
-        }
-
+    // Save a single category to Firebase
+    async saveProductCategory(category, variants) {
         const db = getDb();
         if (!db) return;
 
@@ -617,11 +599,6 @@ export const Storage = {
             variants: variants,
             updatedAt: timestamp
         };
-        // Include emoji if provided or exists
-        const categoryEmoji = emoji || State.categoryEmojis[category];
-        if (categoryEmoji) {
-            docData.emoji = categoryEmoji;
-        }
 
         try {
             await db.collection('products').doc(category).set(docData);
@@ -633,12 +610,6 @@ export const Storage = {
 
     // Delete a category from Firebase
     async deleteProductCategory(category) {
-        // Remove emoji from local state
-        if (State.categoryEmojis[category]) {
-            delete State.categoryEmojis[category];
-            this.setLocal('sm_category_emojis', State.categoryEmojis);
-        }
-
         const db = getDb();
         if (!db) return;
 
@@ -656,16 +627,12 @@ export const Storage = {
 
         const timestamp = this.now();
 
-        // Save each category as a separate document (with emoji if exists)
+        // Save each category as a separate document
         Object.entries(State.products).forEach(([category, variants]) => {
             const docData = {
                 variants: variants,
                 updatedAt: timestamp
             };
-            // Include emoji if exists
-            if (State.categoryEmojis[category]) {
-                docData.emoji = State.categoryEmojis[category];
-            }
             db.collection('products').doc(category).set(docData)
                 .catch(e => this.logSyncError('products', e));
         });

@@ -361,7 +361,7 @@ const App = {
             console.log('Stock logs listener error:', error);
         });
 
-        // Listen for products collection changes - per-category sync (including emojis)
+        // Listen for products collection changes - per-category sync
         db.collection('products').onSnapshot((snapshot) => {
             let hasChanges = false;
 
@@ -380,25 +380,16 @@ const App = {
                         hasChanges = true;
                     }
 
-                    // Sync emoji
-                    if (data.emoji && State.categoryEmojis[category] !== data.emoji) {
-                        State.categoryEmojis[category] = data.emoji;
-                        hasChanges = true;
-                    }
                 } else if (change.type === 'removed') {
                     if (State.products[category]) {
                         delete State.products[category];
                         hasChanges = true;
-                    }
-                    if (State.categoryEmojis[category]) {
-                        delete State.categoryEmojis[category];
                     }
                 }
             });
 
             if (hasChanges) {
                 Storage.setLocal(STORAGE_KEYS.products, State.products);
-                Storage.setLocal('sm_category_emojis', State.categoryEmojis);
                 // Update UI
                 Sales.renderCategories();
                 Sales.renderVariants();

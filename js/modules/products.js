@@ -3,7 +3,7 @@
 import { DOM, Format, DateUtil, EntityUpdater, Template, Toast, Loader } from '../utils/index.js';
 import { Modal } from '../components/index.js';
 import { State, Storage } from '../state/index.js';
-import { STORAGE_KEYS, EMOJI_OPTIONS, DEFAULT_ICON } from '../config/index.js';
+import { STORAGE_KEYS } from '../config/index.js';
 
 // External dependencies
 let onProductsUpdated = null;
@@ -18,44 +18,6 @@ export const Products = {
         Modal.initCloseOnOverlay('editVariantModal');
         Modal.initCloseOnOverlay('deleteCategoryModal');
         Modal.initCloseOnOverlay('deleteVariantModal');
-    },
-
-    // Render emoji picker options
-    renderEmojiPicker(containerId, hiddenInputId, selectedEmoji = DEFAULT_ICON) {
-        const container = DOM.get(containerId);
-        const hiddenInput = DOM.get(hiddenInputId);
-        if (!container) return;
-
-        container.innerHTML = EMOJI_OPTIONS.map(emoji => `
-            <div class="emoji-option${emoji === selectedEmoji ? ' selected' : ''}"
-                 onclick="selectEmoji('${containerId}', '${hiddenInputId}', '${emoji}')">
-                ${emoji}
-            </div>
-        `).join('');
-
-        if (hiddenInput) {
-            hiddenInput.value = selectedEmoji;
-        }
-    },
-
-    // Select emoji in picker
-    selectEmoji(containerId, hiddenInputId, emoji) {
-        const container = DOM.get(containerId);
-        const hiddenInput = DOM.get(hiddenInputId);
-
-        if (container) {
-            // Remove selected class from all options
-            container.querySelectorAll('.emoji-option').forEach(el => {
-                el.classList.remove('selected');
-                if (el.textContent.trim() === emoji) {
-                    el.classList.add('selected');
-                }
-            });
-        }
-
-        if (hiddenInput) {
-            hiddenInput.value = emoji;
-        }
     },
 
     renderList() {
@@ -115,8 +77,6 @@ export const Products = {
 
     showAddCategoryModal() {
         DOM.setValue(DOM.get('newCategoryName'), '');
-        // Render emoji picker with default emoji selected
-        this.renderEmojiPicker('newCategoryEmojiPicker', 'newCategoryEmoji', DEFAULT_ICON);
         Modal.show('addCategoryModal');
     },
 
@@ -126,7 +86,6 @@ export const Products = {
 
     saveNewCategory() {
         const name = DOM.getValue(DOM.get('newCategoryName')).trim();
-        const emoji = DOM.getValue(DOM.get('newCategoryEmoji')) || DEFAULT_ICON;
 
         if (!name) {
             Toast.show('Category name required');
@@ -139,7 +98,7 @@ export const Products = {
 
         State.products[name] = [];
         Storage.setLocal(STORAGE_KEYS.products, State.products);
-        Storage.saveProductCategory(name, [], emoji);
+        Storage.saveProductCategory(name, []);
 
         this.closeAddCategoryModal();
         this.renderList();
@@ -288,9 +247,6 @@ export const Products = {
         State.editingCategory = category;
         DOM.setText(DOM.get('editCategoryOldName'), category);
         DOM.setValue(DOM.get('editCategoryNewName'), category);
-        // Render emoji picker with current emoji selected
-        const currentEmoji = State.categoryEmojis[category] || DEFAULT_ICON;
-        this.renderEmojiPicker('editCategoryEmojiPicker', 'editCategoryEmoji', currentEmoji);
 
         // Calculate total inventory for this category
         const categoryStock = EntityUpdater.getCategoryStock(category);
@@ -332,29 +288,16 @@ export const Products = {
     saveEditCategory() {
         const oldName = State.editingCategory;
         const newName = DOM.getValue(DOM.get('editCategoryNewName')).trim();
-        const emoji = DOM.getValue(DOM.get('editCategoryEmoji')) || DEFAULT_ICON;
 
         if (!newName) {
             Toast.show('Category name required');
             return;
         }
 
-        // Check if only emoji changed (name is the same)
         const nameChanged = newName !== oldName;
-        const oldEmoji = State.categoryEmojis[oldName] || DEFAULT_ICON;
-        const emojiChanged = emoji !== oldEmoji;
 
-        if (!nameChanged && !emojiChanged) {
+        if (!nameChanged) {
             this.closeEditCategoryModal();
-            return;
-        }
-
-        // If only emoji changed, just update the emoji
-        if (!nameChanged && emojiChanged) {
-            Storage.saveProductCategory(oldName, State.products[oldName] || [], emoji);
-            this.closeEditCategoryModal();
-            if (onProductsUpdated) onProductsUpdated();
-            Toast.show('Category updated');
             return;
         }
 
@@ -377,7 +320,7 @@ export const Products = {
         State.products[newName] = variants;
         Storage.setLocal(STORAGE_KEYS.products, State.products);
         Storage.deleteProductCategory(oldName);
-        Storage.saveProductCategory(newName, variants, emoji);
+        Storage.saveProductCategory(newName, variants);
 
         // 2. Apply all related updates (inventory, sales, bookings, stock logs)
         EntityUpdater.applyCategoryRename(oldName, newName, updates);

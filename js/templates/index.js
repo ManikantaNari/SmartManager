@@ -47,6 +47,14 @@ export function loadTemplates() {
 
     // Build the HTML structure
     app.innerHTML = [
+        `<svg class="svg-defs" aria-hidden="true">
+            <defs>
+                <linearGradient id="category-icon-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="var(--primary)"/>
+                    <stop offset="100%" stop-color="var(--secondary)"/>
+                </linearGradient>
+            </defs>
+        </svg>`,
         LoginTemplate,
         HeaderTemplate,
         DashboardTemplate,

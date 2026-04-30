@@ -122,8 +122,6 @@ window.confirmDeleteCategory = () => Products.deleteCategory();
 window.showDeleteVariantConfirm = () => Products.showDeleteVariantConfirm();
 window.closeDeleteVariantModal = () => Products.closeDeleteVariantModal();
 window.confirmDeleteVariant = () => Products.deleteVariant();
-// Emoji picker
-window.selectEmoji = (containerId, hiddenInputId, emoji) => Products.selectEmoji(containerId, hiddenInputId, emoji);
 
 // ==================== REPORTS ====================
 window.showReportTab = (tab) => Reports.showTab(tab);

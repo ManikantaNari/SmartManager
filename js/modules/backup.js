@@ -9,10 +9,9 @@ export const Backup = {
 
     download() {
         const backup = {
-            version: 2,
+            version: 3,
             date: DateUtil.now(),
             products: State.products,
-            categoryEmojis: State.categoryEmojis,
             inventory: State.inventory,
             customers: State.customers,
             sales: State.sales,
@@ -47,7 +46,6 @@ export const Backup = {
                 }
 
                 State.products = backup.products || State.products;
-                State.categoryEmojis = backup.categoryEmojis || {};
                 State.inventory = backup.inventory || {};
                 State.customers = backup.customers || [];
                 State.sales = backup.sales || [];
@@ -56,7 +54,6 @@ export const Backup = {
                 State.adminPin = backup.adminPin || '11111';
 
                 Storage.saveProducts();
-                Storage.setLocal('sm_category_emojis', State.categoryEmojis);
                 Storage.setLocal(STORAGE_KEYS.inventory, State.inventory);
                 Storage.setLocal(STORAGE_KEYS.customers, State.customers);
                 Storage.setLocal(STORAGE_KEYS.sales, State.sales);
@@ -83,9 +80,7 @@ export const Backup = {
                         await db.collection('bookings').doc(booking.id).set(booking);
                     }
                     for (const [category, variants] of Object.entries(State.products)) {
-                        const emoji = State.categoryEmojis[category];
                         const docData = { variants, updatedAt: new Date().toISOString() };
-                        if (emoji) docData.emoji = emoji;
                         await db.collection('products').doc(category).set(docData);
                     }
                 }
